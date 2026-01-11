@@ -1,0 +1,112 @@
+[gd_scene load_steps=12 format=3 uid="uid://cj0gekg8nwklm"]
+
+[ext_resource type="PackedScene" uid="uid://dfmb7mlg24cuv" path="res://scences/player_1.tscn" id="2_1a35a"]
+[ext_resource type="ArrayMesh" uid="uid://dwoxi5iob5ucw" path="res://3d model/CT Sim Room.obj" id="2_33iu2"]
+[ext_resource type="PackedScene" uid="uid://bv6mtj804qju6" path="res://scences/3d_model/box.tscn" id="3_rl45i"]
+[ext_resource type="Script" uid="uid://f15ch657p1ff" path="res://scripts/DropPoint_area_3d.gd" id="4_tkmep"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1a35a"]
+sky_top_color = Color(0.78431594, 0.9182348, 0.99960345, 1)
+sky_horizon_color = Color(0.4280613, 0.68438137, 0.5310835, 1)
+ground_bottom_color = Color(0.47411883, 0.54269433, 0.5305382, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_xnh8i"]
+sky_material = SubResource("ProceduralSkyMaterial_1a35a")
+
+[sub_resource type="Environment" id="Environment_33iu2"]
+background_mode = 2
+background_color = Color(0.5402502, 0.4545924, 0.348666, 1)
+sky = SubResource("Sky_xnh8i")
+ambient_light_color = Color(0.45260113, 0.64722896, 0.5152213, 1)
+tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pqko8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yywqv"]
+size = Vector3(1, 13.974609, 4.621521)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yywqv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tjhx4"]
+size = Vector3(1, 0.8360596, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Light" type="Node3D" parent="."]
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="Light"]
+environment = SubResource("Environment_33iu2")
+
+[node name="GridMap" type="GridMap" parent="Light"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Light"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 47.03301, 0)
+visible = false
+directional_shadow_split_2 = 0.086
+directional_shadow_split_3 = 0.211
+directional_shadow_fade_start = 0.499
+directional_shadow_max_distance = 79.5
+directional_shadow_pancake_size = 6.8
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.720922, 0)
+omni_range = 175.394
+omni_attenuation = 0.7
+
+[node name="CTSimRoom" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3427811, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CTSimRoom"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.895834, -0.22553253, 1.9629002)
+mesh = ExtResource("2_33iu2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CTSimRoom"]
+transform = Transform3D(71.04643, 0, 0, 0, 1.4280479, 0, 0, 0, 86.99451, 0, -0.68029976, 0)
+shape = SubResource("BoxShape3D_pqko8")
+
+[node name="Block" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12207794, 0, 1.3427744)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(0.7782489, 0, 0, 0, 2.903488, 0, 0, 0, 20.808882, -29.972475, 14.753491, -4.3434696)
+shape = SubResource("BoxShape3D_yywqv")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(0.7782489, 0, 0, 0, 2.903488, 0, 0, 0, 20.808882, 30.607727, 14.753491, -4.3434696)
+shape = SubResource("BoxShape3D_yywqv")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.9034877, 0, -0.7782489, 0, -9.095851e-07, 0.48574096, 14.753491, -37.45813)
+shape = SubResource("BoxShape3D_yywqv")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.9034877, 0, -0.7782489, 0, -9.095851e-07, 0.14951105, 14.753491, 38.711098)
+shape = SubResource("BoxShape3D_yywqv")
+
+[node name="Player" parent="." instance=ExtResource("2_1a35a")]
+transform = Transform3D(5, 0, 0, 0, 12, 0, 0, 0, 5, 0, 12.034, 15)
+
+[node name="box" parent="." instance=ExtResource("3_rl45i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.4307942, 0)
+
+[node name="DropPoint" type="Node3D" parent="."]
+transform = Transform3D(1.3950458, 0, 0, 0, 0.6596158, 0, 0, 0, 2.4255366, -4.035494, 8.704105, -15.884337)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DropPoint"]
+transform = Transform3D(5.519445, 0, 0, 0, 0.97862536, 0, 0, 0, 3.1281476, 0, 0, 0)
+layers = 3
+mesh = SubResource("BoxMesh_yywqv")
+
+[node name="Area3D" type="Area3D" parent="DropPoint"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 6
+collision_mask = 2
+script = ExtResource("4_tkmep")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DropPoint/Area3D"]
+transform = Transform3D(2.294063, 0, 0, 0, 1.0000012, 0, 0, 0, 3.1659753, 0, 0, 0)
+shape = SubResource("BoxShape3D_tjhx4")
+
+[node name="SnapPosition" type="Marker3D" parent="DropPoint"]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000002, 0, 2.0677834, 0)

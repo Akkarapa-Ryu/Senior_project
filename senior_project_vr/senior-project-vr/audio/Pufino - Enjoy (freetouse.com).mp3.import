@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bggo2ocguam3u"
+path="res://.godot/imported/Pufino - Enjoy (freetouse.com).mp3-a4122a4525ad47c191165a399a5a08bf.mp3str"
+
+[deps]
+
+source_file="res://audio/Pufino - Enjoy (freetouse.com).mp3"
+dest_files=["res://.godot/imported/Pufino - Enjoy (freetouse.com).mp3-a4122a4525ad47c191165a399a5a08bf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

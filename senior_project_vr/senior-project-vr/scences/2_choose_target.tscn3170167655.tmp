@@ -1,0 +1,150 @@
+[gd_scene load_steps=21 format=3 uid="uid://2q6y77yj7fc3"]
+
+[ext_resource type="Script" uid="uid://k6aq42ihv6wu" path="res://scripts/gui.gd" id="1_7xp24"]
+[ext_resource type="Script" uid="uid://oyq71icew8ce" path="res://scripts/2_choose_target.gd" id="1_jy34h"]
+[ext_resource type="PackedScene" uid="uid://b7agh6ammsqqe" path="res://scences/UI/gui_interface.tscn" id="1_xnh8i"]
+[ext_resource type="PackedScene" uid="uid://dfmb7mlg24cuv" path="res://scences/player_1.tscn" id="4_xnh8i"]
+[ext_resource type="PackedScene" uid="uid://db2ebm6fjb7r1" path="res://scences/UI/3d_button.tscn" id="5_7xp24"]
+[ext_resource type="ArrayMesh" uid="uid://bcaqkqcbvmgb1" path="res://3d model/CT Sim Room_Door_1.obj" id="6_jy34h"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6cwam"]
+sky_top_color = Color(0.78431594, 0.9182348, 0.99960345, 1)
+sky_horizon_color = Color(0.4280613, 0.68438137, 0.5310835, 1)
+ground_bottom_color = Color(0.47411883, 0.54269433, 0.5305382, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_xnh8i"]
+sky_material = SubResource("ProceduralSkyMaterial_6cwam")
+
+[sub_resource type="Environment" id="Environment_7xp24"]
+background_mode = 2
+background_color = Color(0.5402502, 0.4545924, 0.348666, 1)
+sky = SubResource("Sky_xnh8i")
+ambient_light_color = Color(0.45260113, 0.64722896, 0.5152213, 1)
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_xnh8i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7xp24"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6cwam"]
+size = Vector3(1, 13.974609, 4.8851013)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6cwam"]
+viewport_path = NodePath("GUI/viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnh8i"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_6cwam")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7xp24"]
+size = Vector2(1, 1)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xnh8i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jy34h"]
+albedo_color = Color(0.22745098, 1, 1, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jy34h"]
+data = PackedVector3Array(-29.5, 0, -18, -30.5, 0, -18, -29.5, 21, -18, -29.5, 21, -18, -30.5, 0, -18, -30.5, 21, -18, -29.5, 21, -18, -30.5, 21, -18, -29.5, 21, -36, -29.5, 21, -36, -30.5, 21, -18, -30.5, 21, -36, -29.5, 21, -36, -30.5, 21, -36, -29.5, 0, -36, -29.5, 0, -36, -30.5, 21, -36, -30.5, 0, -36, -29.5, 0, -36, -30.5, 0, -36, -29.5, 0, -18, -29.5, 0, -18, -30.5, 0, -36, -30.5, 0, -18, -29.5, 0, -36, -29.5, 0, -18, -29.5, 21, -36, -29.5, 21, -36, -29.5, 0, -18, -29.5, 21, -18, -30.5, 0, -18, -30.5, 0, -36, -30.5, 21, -18, -30.5, 21, -18, -30.5, 0, -36, -30.5, 21, -36)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iw0c2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jqhpv"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_jy34h")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7xp24")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 94, 0)
+light_color = Color(0.9372549, 1, 1, 1)
+light_energy = 4.797
+light_size = 0.433
+shadow_enabled = true
+omni_range = 153.79
+omni_attenuation = 0.759
+
+[node name="Background" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(100, 0, 0, 0, 2, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_xnh8i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Background"]
+transform = Transform3D(100, 0, 0, 0, 2, 0, 0, 0, 100, 0, 0, 0)
+shape = SubResource("BoxShape3D_7xp24")
+
+[node name="Block" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12207794, 0, 1.3427744)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(0.7782489, 0, 0, 0, 2.903488, 0, 0, 0, 20.808882, -49.887268, 14.753491, -1.6010637)
+shape = SubResource("BoxShape3D_6cwam")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(0.7782489, 0, 0, 0, 2.903488, 0, 0, 0, 20.808882, 50.603844, 14.753491, -1.6010637)
+shape = SubResource("BoxShape3D_6cwam")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.903488, 0, -0.7782489, 0, -9.095851e-07, 0.084854126, 14.753491, -51.573185)
+shape = SubResource("BoxShape3D_6cwam")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.903488, 0, -0.7782489, 0, -9.095851e-07, 0.32608795, 14.753491, 49.13516)
+shape = SubResource("BoxShape3D_6cwam")
+
+[node name="Player" parent="." instance=ExtResource("4_xnh8i")]
+transform = Transform3D(5, 0, 0, 0, 12, 0, 0, 0, 5, 0, 13, 0)
+
+[node name="GUI" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, -50)
+visible = false
+script = ExtResource("1_7xp24")
+
+[node name="display" type="MeshInstance3D" parent="GUI"]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, -12.041386, -2)
+material_override = SubResource("StandardMaterial3D_xnh8i")
+mesh = SubResource("PlaneMesh_7xp24")
+
+[node name="area" type="Area3D" parent="GUI"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GUI/area"]
+transform = Transform3D(100, 0, 0, 0, 2, 0, 0, 0, 60.01, 0, 0, 0)
+shape = SubResource("BoxShape3D_xnh8i")
+
+[node name="viewport" type="SubViewport" parent="GUI"]
+
+[node name="Control" parent="GUI/viewport" instance=ExtResource("1_xnh8i")]
+
+[node name="MyButton_test" parent="." instance=ExtResource("5_7xp24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.631935, 3.4609156, 0.8896551)
+visible = false
+target_scene_path = "uid://cj0gekg8nwklm"
+custom_mesh = ExtResource("6_jy34h")
+custom_scale = Vector3(1, 2, 1)
+
+[node name="MeshInstance3D" parent="MyButton_test" index="0"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_jy34h")
+mesh = ExtResource("6_jy34h")
+
+[node name="CollisionShape3D" parent="MyButton_test" index="1"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_jy34h")
+
+[node name="Information_1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.389622, -32.604065)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Information_1"]
+transform = Transform3D(20, 0, 0, 0, -4.371139e-08, -10, 0, 1, -4.371139e-07, 0, 0, 0)
+mesh = SubResource("PlaneMesh_iw0c2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Information_1"]
+shape = SubResource("BoxShape3D_jqhpv")
+
+[editable path="MyButton_test"]

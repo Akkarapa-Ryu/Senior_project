@@ -1,0 +1,211 @@
+[gd_scene load_steps=16 format=3 uid="uid://cj0gekg8nwklm"]
+
+[ext_resource type="Script" uid="uid://p0uve3ls3w8h" path="res://scripts/ui.gd" id="1_4wy0s"]
+[ext_resource type="ArrayMesh" uid="uid://dwoxi5iob5ucw" path="res://3d model/CT Sim Room.obj" id="2_4clm5"]
+[ext_resource type="Script" uid="uid://d4im1mgxfw4ws" path="res://scripts/player.gd" id="3_t4wpt"]
+[ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="4_yywqv"]
+[ext_resource type="Script" uid="uid://f15ch657p1ff" path="res://scripts/area_3d.gd" id="5_tjhx4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yywqv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tjhx4"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_t4wpt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjhx4"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pqko8"]
+bg_color = Color(0.92535293, 0.9253528, 0.9253529, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h42k2"]
+bg_color = Color(0.65012825, 0.6501283, 0.65012825, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d2dor"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yywqv"]
+size = Vector3(1, 13.974609, 4.621521)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yywqv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tjhx4"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D"]
+
+[node name="GridMap" type="GridMap" parent="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.546074, 0)
+sky_mode = 1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.121998, 24.609858)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.121998, 8.4608345)
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5447, 22.121998, 24.609858)
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5447, 22.121998, 8.4608345)
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.193352, 22.121998, 24.609858)
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.193352, 22.121998, 8.4608345)
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.121998, -7.947317)
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.121998, -24.09634)
+
+[node name="OmniLight3D9" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5447, 22.121998, -7.947317)
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5447, 22.121998, -24.09634)
+
+[node name="OmniLight3D11" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.193352, 22.121998, -7.947317)
+
+[node name="OmniLight3D12" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.193352, 22.121998, -24.09634)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 12, 0, 0, 0, 5, 0, 10.59029, 20.903406)
+script = ExtResource("3_t4wpt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_yywqv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_tjhx4")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(0.2, 0, 0, 0, 0.083333336, 0, 0, 0, 0.2, 0, 0.5749175, -0.37404275)
+
+[node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D"]
+collision_mask = 2
+
+[node name="HoldPosition" type="Marker3D" parent="Player/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7692547, -4.0770397)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3427811, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.895834, -0.22553253, 1.9629002)
+mesh = ExtResource("2_4clm5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(3.9273427, 0, 0, 0, 1, 0, 0, 0, 4.3231463, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_t4wpt")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("1_4wy0s")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1080, 720)
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="UI/SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="btn_back" type="Button" parent="UI/SubViewportContainer/SubViewport/Control"]
+layout_mode = 1
+offset_right = 121.0
+offset_bottom = 56.5
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_yywqv")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_tjhx4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pqko8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h42k2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d2dor")
+text = "Back"
+
+[node name="CTSimRoom" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12207794, 0, 1.3427744)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CTSimRoom"]
+transform = Transform3D(0.7782489, 0, 0, 0, 2.903488, 0, 0, 0, 20.808882, -29.972475, 14.753491, -4.3434696)
+shape = SubResource("BoxShape3D_yywqv")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CTSimRoom"]
+transform = Transform3D(0.7782489, 0, 0, 0, 2.903488, 0, 0, 0, 20.808882, 30.607727, 14.753491, -4.3434696)
+shape = SubResource("BoxShape3D_yywqv")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="CTSimRoom"]
+transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.9034877, 0, -0.7782489, 0, -9.095851e-07, 0.48574096, 14.753491, -37.45813)
+shape = SubResource("BoxShape3D_yywqv")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="CTSimRoom"]
+transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.9034877, 0, -0.7782489, 0, -9.095851e-07, 0.14951105, 14.753491, 38.711098)
+shape = SubResource("BoxShape3D_yywqv")
+
+[node name="DropPoint" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DropPoint"]
+transform = Transform3D(5.519445, 0, 0, 0, 0.41907883, 0, 0, 0, 7.7644725, -25.646921, 8.812053, -14.741782)
+mesh = SubResource("BoxMesh_yywqv")
+
+[node name="Area3D" type="Area3D" parent="DropPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.40696, 9.009431, -14.1907015)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("5_tjhx4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DropPoint/Area3D"]
+transform = Transform3D(5.7622247, 0, 0, 0, 0.4121499, 0, 0, 0, 6.3074636, -0.31213188, -0.16220379, 0)
+shape = SubResource("BoxShape3D_tjhx4")
+
+[node name="SnapPosition" type="Marker3D" parent="DropPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.106533, 0.9181385, -22.695457)
+
+[connection signal="pressed" from="UI/SubViewportContainer/SubViewport/Control/btn_back" to="UI" method="_on_button_pressed"]

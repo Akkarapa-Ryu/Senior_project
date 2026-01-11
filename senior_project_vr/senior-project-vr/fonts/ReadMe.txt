@@ -1,0 +1,1 @@
+https://www.f0nt.com/release/13-free-fonts-from-sipa/#google_vignette
