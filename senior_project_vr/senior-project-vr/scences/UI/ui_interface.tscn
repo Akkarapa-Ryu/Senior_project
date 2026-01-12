@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://crqewoak40sdv"]
+
+[ext_resource type="Script" uid="uid://p0uve3ls3w8h" path="res://scripts/ui.gd" id="1_sd85t"]
+[ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="2_d1pda"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjhx4"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pqko8"]
+bg_color = Color(0.92535293, 0.9253528, 0.9253529, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h42k2"]
+bg_color = Color(0.65012825, 0.6501283, 0.65012825, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d2dor"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_sd85t")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1080, 720)
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="btn_back" type="Button" parent="SubViewportContainer/SubViewport/Control"]
+layout_mode = 1
+offset_right = 121.0
+offset_bottom = 56.5
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_d1pda")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_tjhx4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pqko8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h42k2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d2dor")
+text = "Back"
+
+[connection signal="pressed" from="SubViewportContainer/SubViewport/Control/btn_back" to="." method="_on_back_choose_target_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/Control/btn_back" to="SubViewportContainer/SubViewport/Control" method="_on_pressed"]
