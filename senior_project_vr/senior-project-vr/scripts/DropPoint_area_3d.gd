@@ -11,7 +11,9 @@ func _on_body_entered(body):
 	if body is RigidBody3D:
 		# ถ้าผู้เล่น "ไม่ได้ถือของชิ้นนี้อยู่" (คือปล่อยมือแล้วในเขตนี้)
 		# หรือคุณอาจจะเช็คผ่าน Global Signal หรือตัวแปรกลางก็ได้
-		call_deferred("snap_object", body) # รอให้ฟิสิกส์คำนวณเสร็จเรียบร้อยก่อน แล้วค่อยมารันฟังก์ชัน "snap_object" ทั้งก้อนในเฟรมถัดไป
+		var being_held = body.get_meta("is_being_held", false)
+		if not being_held:
+			call_deferred("snap_object", body) # รอให้ฟิสิกส์คำนวณเสร็จเรียบร้อยก่อน แล้วค่อยมารันฟังก์ชัน "snap_object" ทั้งก้อนในเฟรมถัดไป
 		print("ของเข้ามาในเขตวางแล้ว")
 
 func snap_object(obj):
@@ -23,7 +25,10 @@ func snap_object(obj):
 	obj.global_rotation = snap_pos.global_rotation
 	
 	# 3. (Optional) ปิดการชนเพื่อไม่ให้ตัวละครเดินชนแล้วกล่องดีด
-	obj.get_node("CollisionShape3D").disabled = true
+	#obj.get_node("CollisionShape3D").disabled = true
+	
+	if obj.has_method("on_snapped"):
+		obj.on_snapped()
 
 	print("วางวัตถุลงจุดสำเร็จ!")
 

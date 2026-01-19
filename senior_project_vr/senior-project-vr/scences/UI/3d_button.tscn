@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://db2ebm6fjb7r1"]
+[gd_scene load_steps=5 format=3 uid="uid://db2ebm6fjb7r1"]
 
 [ext_resource type="Script" uid="uid://bpwtudiyk5bb2" path="res://scripts/3d_button.gd" id="1_r3swg"]
+[ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="2_aarvx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r3swg"]
 resource_local_to_scene = true
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r3swg"]
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_aarvx"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="MyButton" type="StaticBody3D"]
 collision_layer = 2
@@ -15,6 +17,10 @@ script = ExtResource("1_r3swg")
 mesh = SubResource("BoxMesh_r3swg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_r3swg")
+shape = SubResource("ConcavePolygonShape3D_aarvx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5002691)
+font = ExtResource("2_aarvx")
