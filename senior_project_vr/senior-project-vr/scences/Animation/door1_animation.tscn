@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhrgqvad758so"]
+
+[ext_resource type="PackedScene" uid="uid://coukodsi5cy6m" path="res://scences/3d_model/door_1_L.tscn" id="1_6mxr4"]
+[ext_resource type="Script" uid="uid://erq7mrovjiiy" path="res://scripts/door.gd" id="1_ba7xd"]
+[ext_resource type="PackedScene" uid="uid://cu8cjv6ynbot2" path="res://scences/3d_model/door_1_R.tscn" id="1_ogmp8"]
+
+[sub_resource type="Animation" id="Animation_ba7xd"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Door1_R")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Door1_L")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_y7rbp"]
+resource_name = "close_door"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Door1_L")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.70710677, 0, 0.70710677, 0.033333335, 1, 0, 0.705584, 0, 0.70862633, 0.06666667, 1, 0, 0.70101285, 0, 0.71314865, 0.1, 1, 0, 0.6933864, 0, 0.720566, 0.13333334, 1, 0, 0.68269724, 0, 0.73070145, 0.16666667, 1, 0, 0.6689434, 0, 0.74331325, 0.2, 1, 0, 0.6521365, 0, 0.75810146, 0.23333333, 1, 0, 0.63231003, 0, 0.7747154, 0.26666668, 1, 0, 0.6095288, 0, 0.79276395, 0.3, 1, 0, 0.5838979, 0, 0.8118271, 0.33333334, 1, 0, 0.55557024, 0, 0.8314696, 0.36666667, 1, 0, 0.5247524, 0, 0.85125494, 0.4, 1, 0, 0.49170768, 0, 0.8707604, 0.43333334, 1, 0, 0.4567566, 0, 0.8895917, 0.46666667, 1, 0, 0.42027408, 0, 0.9073972, 0.5, 1, 0, 0.38268343, 0, 0.9238795, 0.53333336, 1, 0, 0.3444481, 0, 0.93880534, 0.56666666, 1, 0, 0.30606064, 0, 0.95201194, 0.6, 1, 0, 0.2680307, 0, 0.9634103, 0.6333333, 1, 0, 0.2308722, 0, 0.97298414, 0.6666667, 1, 0, 0.19509032, 0, 0.98078525, 0.7, 1, 0, 0.16117032, 0, 0.9869266, 0.73333335, 1, 0, 0.1295668, 0, 0.99157065, 0.76666665, 1, 0, 0.10069587, 0, 0.99491715, 0.8, 1, 0, 0.07492854, 0, 0.99718887, 0.8333333, 1, 0, 0.052587464, 0, 0.99861634, 0.8666667, 1, 0, 0.033944085, 0, 0.9994236, 0.9, 1, 0, 0.019218892, 0, 0.9998152, 0.93333334, 1, 0, 0.008581302, 0, 0.9999631, 0.96666664, 1, 0, 0.0021512604, 0, 0.9999977, 1, 1, 0, 0, 0, 1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Door1_R")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.9659258, 0, -0.25881904, 0.033333335, 1, 0, 0.9649916, 0, -0.2622806, 0.06666667, 1, 0, 0.9621254, 0, -0.27260712, 0.1, 1, 0, 0.9571408, 0, -0.28962287, 0.13333334, 1, 0, 0.9497426, 0, -0.31303197, 0.16666667, 1, 0, 0.93954897, 0, -0.3424145, 0.2, 1, 0, 0.92612183, 0, -0.37722442, 0.23333333, 1, 0, 0.90900296, 0, -0.41678965, 0.26666668, 1, 0, 0.8877543, 0, -0.4603176, 0.3, 1, 0, 0.8620005, 0, -0.50690746, 0.33333334, 1, 0, 0.8314696, 0, -0.5555702, 0.36666667, 1, 0, 0.79602975, 0, -0.6052575, 0.4, 1, 0, 0.75571793, 0, -0.6548973, 0.43333334, 1, 0, 0.7107588, 0, -0.7034358, 0.46666667, 1, 0, 0.66157126, 0, -0.7498822, 0.5, 1, 0, 0.6087614, 0, -0.79335326, 0.53333336, 1, 0, 0.5531033, 0, -0.8331126, 0.56666666, 1, 0, 0.49550885, 0, -0.8686028, 0.6, 1, 0, 0.43698797, 0, -0.8994673, 0.6333333, 1, 0, 0.37860623, 0, -0.92555773, 0.6666667, 1, 0, 0.32143947, 0, -0.94693005, 0.7, 1, 0, 0.2665328, 0, -0.9638258, 0.73333335, 1, 0, 0.21486486, 0, -0.9766437, 0.76666665, 1, 0, 0.16732064, 0, -0.9859025, 0.8, 1, 0, 0.12467279, 0, -0.9921979, 0.8333333, 1, 0, 0.08757389, 0, -0.99615794, 0.8666667, 1, 0, 0.056554154, 0, -0.9983995, 0.9, 1, 0, 0.032027982, 0, -0.9994869, 0.93333334, 1, 0, 0.014301858, 0, -0.99989766, 0.96666664, 1, 0, 0.003585429, 0, -0.9999935, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_6mxr4"]
+resource_name = "open_door"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Door1_L")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.033333335, 1, 0, 0.0021512453, 0, 0.99999774, 0.06666667, 1, 0, 0.008581313, 0, 0.9999632, 0.1, 1, 0, 0.01921888, 0, 0.99981534, 0.13333334, 1, 0, 0.0339441, 0, 0.99942374, 0.16666667, 1, 0, 0.052587435, 0, 0.9986164, 0.2, 1, 0, 0.07492857, 0, 0.997189, 0.23333333, 1, 0, 0.10069585, 0, 0.9949173, 0.26666668, 1, 0, 0.12956683, 0, 0.9915707, 0.3, 1, 0, 0.16117032, 0, 0.9869266, 0.33333334, 1, 0, 0.19509032, 0, 0.98078537, 0.36666667, 1, 0, 0.2308722, 0, 0.97298414, 0.4, 1, 0, 0.26803073, 0, 0.9634104, 0.43333334, 1, 0, 0.30606067, 0, 0.95201206, 0.46666667, 1, 0, 0.34444812, 0, 0.93880546, 0.5, 1, 0, 0.3826835, 0, 0.9238796, 0.53333336, 1, 0, 0.42027408, 0, 0.9073973, 0.56666666, 1, 0, 0.4567566, 0, 0.8895917, 0.6, 1, 0, 0.4917077, 0, 0.8707604, 0.6333333, 1, 0, 0.5247524, 0, 0.85125494, 0.6666667, 1, 0, 0.55557024, 0, 0.83146966, 0.7, 1, 0, 0.5838979, 0, 0.8118271, 0.73333335, 1, 0, 0.6095288, 0, 0.7927639, 0.76666665, 1, 0, 0.63231003, 0, 0.7747155, 0.8, 1, 0, 0.65213656, 0, 0.7581015, 0.8333333, 1, 0, 0.66894346, 0, 0.7433134, 0.8666667, 1, 0, 0.68269724, 0, 0.73070145, 0.9, 1, 0, 0.6933864, 0, 0.720566, 0.93333334, 1, 0, 0.70101285, 0, 0.71314865, 0.96666664, 1, 0, 0.705584, 0, 0.70862633, 1, 1, 0, 0.70710677, 0, 0.70710677)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Door1_R")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.033333335, 1, 0, -0.0035854036, 0, 0.99999356, 0.06666667, 1, 0, -0.014301876, 0, 0.9998977, 0.1, 1, 0, -0.032027956, 0, 0.999487, 0.13333334, 1, 0, -0.05655418, 0, 0.99839956, 0.16666667, 1, 0, -0.08757384, 0, 0.996158, 0.2, 1, 0, -0.12467284, 0, 0.9921979, 0.23333333, 1, 0, -0.1673206, 0, 0.98590255, 0.26666668, 1, 0, -0.21486494, 0, 0.9766438, 0.3, 1, 0, -0.26653284, 0, 0.9638259, 0.33333334, 1, 0, -0.32143945, 0, 0.9469301, 0.36666667, 1, 0, -0.37860623, 0, 0.92555785, 0.4, 1, 0, -0.436988, 0, 0.89946735, 0.43333334, 1, 0, -0.4955089, 0, 0.8686029, 0.46666667, 1, 0, -0.5531034, 0, 0.8331126, 0.5, 1, 0, -0.6087614, 0, 0.7933533, 0.53333336, 1, 0, -0.6615713, 0, 0.7498822, 0.56666666, 1, 0, -0.7107588, 0, 0.7034358, 0.6, 1, 0, -0.75571793, 0, 0.6548973, 0.6333333, 1, 0, -0.7960297, 0, 0.6052575, 0.6666667, 1, 0, -0.8314696, 0, 0.55557024, 0.7, 1, 0, -0.8620005, 0, 0.50690746, 0.73333335, 1, 0, -0.8877543, 0, 0.46031752, 0.76666665, 1, 0, -0.90900296, 0, 0.4167897, 0.8, 1, 0, -0.9261219, 0, 0.3772244, 0.8333333, 1, 0, -0.93954897, 0, 0.34241456, 0.8666667, 1, 0, -0.9497426, 0, 0.31303194, 0.9, 1, 0, -0.9571408, 0, 0.2896229, 0.93333334, 1, 0, -0.9621254, 0, 0.2726071, 0.96666664, 1, 0, -0.9649916, 0, 0.26228064, 1, 1, 0, 0.9659258, 0, -0.25881904)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5cdj"]
+_data = {
+&"RESET": SubResource("Animation_ba7xd"),
+&"close_door": SubResource("Animation_y7rbp"),
+&"open_door": SubResource("Animation_6mxr4")
+}
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6mxr4"]
+height = 21.97998
+radius = 15.825195
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_ba7xd")
+open_animation = "open_door"
+close_animation = "close_door"
+
+[node name="Door1_L" parent="." instance=ExtResource("1_6mxr4")]
+
+[node name="Door1_R" parent="." instance=ExtResource("1_ogmp8")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="DoorAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l5cdj")
+}
+
+[node name="DetectionArea_R" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_R"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.98999, 0)
+shape = SubResource("CylinderShape3D_6mxr4")
+
+[node name="DetectionArea_L" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_L"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.98999, 0)
+shape = SubResource("CylinderShape3D_6mxr4")
+
+[node name="OpenSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -9)
+
+[node name="CloseSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -9)
+
+[connection signal="animation_finished" from="DoorAnimation" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="body_entered" from="DetectionArea_R" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="DetectionArea_R" to="." method="_on_Area_body_exited"]
+[connection signal="body_entered" from="DetectionArea_L" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="DetectionArea_L" to="." method="_on_Area_body_exited"]

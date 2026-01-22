@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dq2qjlt6oqmds"
+path="res://.godot/imported/before_CTroom.dialogue-df0691e80a07d87f48e92d62d83c57cf.tres"
+
+[deps]
+
+source_file="res://dialog/before_CTroom.dialogue"
+dest_files=["res://.godot/imported/before_CTroom.dialogue-df0691e80a07d87f48e92d62d83c57cf.tres"]
+
+[params]
+
+defaults=true

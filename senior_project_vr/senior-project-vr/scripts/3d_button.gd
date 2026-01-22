@@ -15,7 +15,7 @@ extends StaticBody3D
 		
 #signal button_clicked # ส่งสัญญาณออกไปเมื่อถูกกด
 # ส่วนนี้มาจาก Gemini ------------------------------
-
+# ----------------------------------------------
 @export var info_node: Node3D
 
 func _ready() -> void:
@@ -23,10 +23,16 @@ func _ready() -> void:
 		info_node.visible = false
 	else:
 		print("Path Null")
-
+# ----------------------------------------------
 
 
 # ส่วนนี้มาจาก Gemini ------------------------------
+func _input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	# ตรวจสอบการคลิกเมาส์ซ้าย
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			interact_button() # เรียกใช้ฟังก์ชันทำงานที่เราเขียนไว้ข้างล่าง
+
 func update_appearance():
 	# ตรวจสอบว่า Node ลูกถูกสร้างขึ้นมาจริงๆ หรือยัง (ป้องกัน Crash ตอนรันเกม)
 	if not is_inside_tree(): 
@@ -45,7 +51,7 @@ func update_appearance():
 			col_node.set_deferred("shape", new_shape)
 			col_node.scale = custom_scale
 
-func interact():
+func interact_button():
 	if Engine.is_editor_hint(): # ป้องกันไม่ให้ปุ่มทำงานตอนเราแก้ใน Editor
 		return
 		
@@ -56,6 +62,11 @@ func interact():
 	
 	# ส่ง Signal ออกไปเพื่อให้ระบบอื่นทำงาน (เช่น เปิดประตู)
 	#emit_signal("button_clicked")
+	
+	# ถ้าเป็นปุ่ม btn_yes ให้สั่งปิดเกม
+	if name == "btn_yes":
+		get_tree().quit()
+		print("Exit!!")
 # ส่วนนี้มาจาก Gemini ------------------------------
 
 	if target_scene_path != "":
@@ -67,7 +78,7 @@ func interact():
 		print("ยังไม่ได้ใส่ไฟล์ฉากใน Inspector นะ!")
 
 
-	print("ปุ่มถูกกด เพื่อเปิด")
+	#print("ปุ่มถูกกด เพื่อเปิด")
 	if info_node:
 		if info_node.visible == false:
 			info_node.visible = true

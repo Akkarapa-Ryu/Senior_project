@@ -38,12 +38,19 @@ func _input(event):
 		camera.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	
-	# แก้ไขบรรทัดนี้: เปลี่ยนจาก event เป็น Input
+	# หยิบสิ่งของ
 	if Input.is_action_just_pressed("rigid_picking_arm"): # rigid_picking_arm เป็ฯการเพิ่มเข้าไปใหม่ที่ Project > Project Settings > Input Map
 		if picked_object == null:
 			pick_up_object()
 		else:
 			drop_object()
+	
+	# คุยยกับ NPC
+	if event.is_action_pressed("talking_interact"):
+		if ray.is_colliding(): # เช็คว่า RayCast ยิงไปโดนอะไรไหม
+			var target = ray.get_collider() # ได้ตัวที่เรายิงโดน (เช่น NPC)
+			if target.has_method("interact_talk"): # เช็คว่าไอ้ตัวที่ยิงโดนเนี่ย มันมีฟังก์ชันชื่อ interact_talk ไหม
+				target.interact_talk() # สั่งให้ NPC ตัวนั้นเริ่มคุย
 
 
 func pick_up_object():
@@ -51,12 +58,16 @@ func pick_up_object():
 	if ray.is_colliding():
 		var collider = ray.get_collider()
 		print("เลเซอร์ชนกับ: ", collider.name) # เช็คว่าเลเซอร์เห็นอะไร
-		# เช็คว่าเป็นวัตถุที่เราต้องการให้หยิบได้ไหม (RigidBody3D)
-		if collider is RigidBody3D:
-			print("เจอ RigidBody แล้ว! กำลังหยิบ...")
+		if collider is RigidBody3D: # เช็คว่าเป็นวัตถุที่เราต้องการให้หยิบได้ไหม (RigidBody3D)
+			print("เจอ ",collider.name," แล้ว! กำลังหยิบ...")
 			picked_object = collider
-			# ปิดฟิสิกส์ชั่วคราวเพื่อไม่ให้มันตกขณะถือ
-			picked_object.freeze = true
+			
+			picked_object.set_meta("is_being_held", true)
+			
+			picked_object.freeze = false
+			picked_object.gravity_scale = 0.0
+			picked_object.linear_damp = 10.0
+			picked_object.angular_damp = 10.0
 		else:
 			print("สิ่งที่ชนไม่ใช่ RigidBody3D")
 	else:
@@ -64,17 +75,19 @@ func pick_up_object():
 
 func drop_object():
 	if picked_object != null:
-		# เช็คก่อนว่าเราส่องโดน DropPoint หรือเปล่า?
-		if ray.is_colliding() and ray.get_collider() is Area3D:
-			# ถ้าส่องโดนพื้นที่วาง ให้เราปล่อยเฉยๆ แล้วปล่อยให้ Area3D จัดการต่อ
-			picked_object.freeze = false
-			picked_object = null
-		else:
-			# ถ้าวางบนพื้นทั่วไป ให้ทำตามเดิม
-			picked_object.get_node("CollisionShape3D").disabled = false
-			picked_object.freeze = false
-			picked_object.linear_velocity = Vector3.ZERO
-			picked_object = null
+		# เช็คก่อนว่าเราส่องโดน DropPoint หรือ Ares3D หรือเปล่า?
+		var collider = ray.get_collider()
+		
+		picked_object.set_meta("is_being_held", false)
+		
+		picked_object.gravity_scale = 1.0
+		picked_object.linear_damp = 0.0
+		picked_object.angular_damp = 0.0
+		
+		if collider is Area3D:
+			if collider.has_method("_on_body_entered"):
+				collider._on_body_entered(picked_object)
+		picked_object = null
 # ส่วนนี้มาจาก Gemini ------------------------------
 
 
@@ -103,5 +116,12 @@ func _physics_process(delta: float):
 	# ส่วนนี้มาจาก Gemini ------------------------------
 	# ถ้าถือของอยู่ ให้ของย้ายตำแหน่งตาม HoldPosition
 	if picked_object:
-		picked_object.global_transform.origin = hold_pos.global_transform.origin
+		#picked_object.global_transform.origin = hold_pos.global_transform.origin
+		var target_pos = hold_pos.global_position
+		var current_pos = picked_object.global_position
+		var direction2 = target_pos - current_pos
+		
+		picked_object.linear_velocity = direction2 * 20.0
+		
+		picked_object.angular_velocity = Vector3.ZERO
 	# ส่วนนี้มาจาก Gemini ------------------------------

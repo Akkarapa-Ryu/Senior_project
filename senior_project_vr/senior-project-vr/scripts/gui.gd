@@ -31,7 +31,7 @@ func _unhandled_input(event:) -> void:
 		viewport.push_input(event)
 
 func  handle_mouse(event):
-	mesh_size = display.mesh.size()
+	mesh_size = display.mesh.size
 	
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
 		mouse_held = event.pressed
