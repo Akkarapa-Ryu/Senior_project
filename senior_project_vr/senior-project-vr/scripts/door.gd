@@ -13,14 +13,14 @@ var is_animating = false
 @onready var close_sound = $CloseSound
 
 func _on_Area_body_entered(body):
-	if body.name == "Player":
+	if body.is_in_group("player"):
 		player_near = true
 
 func _on_Area_body_exited(body):
-	if body.name == "Player":
+	if body.is_in_group("player"):
 		player_near = false
 
-func _unhandled_input(event):
+func _unhandled_input(_event):
 	if player_near and Input.is_action_just_pressed("ui_interact_door") and not is_animating:
 		toggle_door()
 

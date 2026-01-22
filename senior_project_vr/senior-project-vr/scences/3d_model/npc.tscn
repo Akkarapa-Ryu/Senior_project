@@ -1,50 +1,71 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5qeg0e46jl6i"]
+[gd_scene load_steps=9 format=3 uid="uid://b5qeg0e46jl6i"]
 
-[ext_resource type="Script" uid="uid://d16jj88frv10k" path="res://scripts/Dialog/npc.gd" id="1_hrr7t"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_kumfq"]
+[ext_resource type="Script" uid="uid://b5s5kds54tvfg" path="res://scripts/NPC/npc.gd" id="1_hrr7t"]
+[ext_resource type="Script" uid="uid://cklll18j8eov1" path="res://scripts/NPC/npc_movement.gd" id="1_puqyl"]
+[ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="2_dyoqb"]
+[ext_resource type="ArrayMesh" uid="uid://dc6ckdjrtm6n2" path="res://3d model/Person.obj" id="2_puqyl"]
+[ext_resource type="Script" uid="uid://d16jj88frv10k" path="res://scripts/NPC/npc_dialogue.gd" id="4_g1s3y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kumfq"]
 albedo_color = Color(0.49411765, 0.56078434, 0.36078432, 1)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_hrr7t"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_puqyl"]
+points = PackedVector3Array(-1, 0, -0.00019574165, -0.8660924, 0, -0.50019574, -0.8660924, 0, 0.49980426, -1, 17, -0.00019574165, -0.8660924, 17, -0.50019574, -0.50019574, 0, -0.8660924, -0.50019574, 0, 0.8658966, -0.8660924, 17, 0.49980426, -0.50019574, 17, -0.8660924, -0.00019574165, 0, -1, -0.00019574165, 0, 1, -0.50019574, 17, 0.8658966, -0.00019574165, 17, -1, 0.49980426, 0, -0.8660924, 0.49980426, 0, 0.8658966, -0.00019574165, 17, 1, 0.49980426, 17, -0.8660924, 0.8658966, 0, -0.50019574, 0.8658966, 0, 0.49980426, 0.49980426, 17, 0.8658966, 0.8658966, 17, -0.50019574, 1, 0, -0.00019574165, 0.8658966, 17, 0.49980426, 1, 17, -0.00019574165)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_kumfq"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
 [node name="NPC" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
 script = ExtResource("1_hrr7t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 9, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CylinderMesh_kumfq")
+mesh = ExtResource("2_puqyl")
 surface_material_override/0 = SubResource("StandardMaterial3D_kumfq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 9, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("CylinderShape3D_hrr7t")
+shape = SubResource("ConvexPolygonShape3D_puqyl")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3820257, 6.342064, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.337, 14, -2.407)
+visible = false
 billboard = 1
 texture_filter = 1
 texture = SubResource("ViewportTexture_kumfq")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
 size = Vector2i(800, 400)
 render_target_update_mode = 4
 
-[node name="Control" type="Control" parent="Sprite3D/SubViewport"]
-layout_mode = 3
+[node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Sprite3D/SubViewport/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Hello"
+[node name="PanelContainer" type="PanelContainer" parent="Sprite3D/SubViewport/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dyoqb")
+theme_override_font_sizes/font_size = 75
+text = "Hello Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_postprocessing = 1
+debug_enabled = true
+
+[node name="DialogueComponent" type="Node3D" parent="."]
+script = ExtResource("4_g1s3y")
+
+[node name="MovementComponent" type="Node3D" parent="."]
+script = ExtResource("1_puqyl")

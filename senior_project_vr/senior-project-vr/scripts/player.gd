@@ -46,11 +46,11 @@ func _input(event):
 			drop_object()
 	
 	# คุยยกับ NPC
-	if event.is_action_pressed("talking_interacrt"):
+	if event.is_action_pressed("talking_interact"):
 		if ray.is_colliding(): # เช็คว่า RayCast ยิงไปโดนอะไรไหม
 			var target = ray.get_collider() # ได้ตัวที่เรายิงโดน (เช่น NPC)
-			if target.has_method("interact_talking"): # เช็คว่าไอ้ตัวที่ยิงโดนเนี่ย มันมีฟังก์ชันชื่อ interact_talking ไหม
-				target.interact_talking() # สั่งให้ NPC ตัวนั้นเริ่มคุย
+			if target.has_method("interact_talk"): # เช็คว่าไอ้ตัวที่ยิงโดนเนี่ย มันมีฟังก์ชันชื่อ interact_talk ไหม
+				target.interact_talk() # สั่งให้ NPC ตัวนั้นเริ่มคุย
 
 
 func pick_up_object():

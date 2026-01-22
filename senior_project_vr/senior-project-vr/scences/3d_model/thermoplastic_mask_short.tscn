@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ebnvs2j1lkb7"]
+
+[ext_resource type="ArrayMesh" uid="uid://bxal0r0k0k4qy" path="res://3d model/Thermoplastic Mask Short Type.obj" id="1_op5g6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lehvq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_op5g6"]
+
+[node name="box" type="RigidBody3D"]
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_lehvq")
+continuous_cd = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+mesh = ExtResource("1_op5g6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.577386, 0, 0, 0, 0.13062096, 0, 0, 0, 2.754345, 0, 0, -0.63441324)
+shape = SubResource("BoxShape3D_op5g6")
