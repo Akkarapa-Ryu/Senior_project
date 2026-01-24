@@ -1,9 +1,3 @@
-Debug Keystore: C:/Users/Ryu/godot_quest/debug.keystore
-Debud Keystore Pass: android
-Android SDK Path: C:/Users/Ryu/AppData/Local/Android/Sdk
-
-# ----------------------------------------
-
 ขั้นตอนที่ 1: เตรียมเครื่อง Quest 2 (โหมดนักพัฒนา)
 ก่อนอื่นต้องทำให้แว่นยอมรับการเชื่อมต่อจากโปรแกรมภายนอกก่อน:
     1. เปิด Developer Mode: เข้าไปที่แอป Meta Quest ในมือถือ ไปที่ Settings > Headset Settings > Developer Mode แล้วกดเปิด (หากไม่มีตัวเลือกนี้ ต้องไปสมัครเป็นนักพัฒนาที่ dashboard.oculus.com ก่อน)
