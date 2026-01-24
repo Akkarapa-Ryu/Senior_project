@@ -1,0 +1,51 @@
+Debug Keystore: C:/Users/Ryu/godot_quest/debug.keystore
+Debud Keystore Pass: android
+Android SDK Path: C:/Users/Ryu/AppData/Local/Android/Sdk
+
+# ----------------------------------------
+
+ขั้นตอนที่ 1: เตรียมเครื่อง Quest 2 (โหมดนักพัฒนา)
+ก่อนอื่นต้องทำให้แว่นยอมรับการเชื่อมต่อจากโปรแกรมภายนอกก่อน:
+    1. เปิด Developer Mode: เข้าไปที่แอป Meta Quest ในมือถือ ไปที่ Settings > Headset Settings > Developer Mode แล้วกดเปิด (หากไม่มีตัวเลือกนี้ ต้องไปสมัครเป็นนักพัฒนาที่ dashboard.oculus.com ก่อน)
+    2. อนุญาต USB Debugging: เมื่อเสียบสายเข้าคอมครั้งแรก ให้สวมแว่นแล้วกด "Always Allow" เมื่อมีหน้าต่างถามเรื่องการเชื่อมต่อ
+
+ขั้นตอนที่ 2: เตรียมคอมพิวเตอร์ (Android SDK & Meta App)
+เนื่องจาก Quest 2 เป็นระบบ Android คุณจึงต้องมีเครื่องมือของ Android ในเครื่อง:
+    1. ติดตั้ง Android Studio: เพื่อโหลด Android SDK Platform และ Build Tools (จดที่อยู่โฟลเดอร์ SDK ไว้ ปกติจะอยู่ที่ C:/Users/[ชื่อคุณ]/AppData/Local/Android/Sdk)
+    2. สร้าง Debug Keystore: เปิด Command Prompt (CMD) แล้ววางคำสั่งนี้เพื่อสร้างไฟล์ยืนยันตัวตน: keytool -keyalg RSA -genkey -alias androiddebugkey -keystore debug.keystore -storepass android -keypass android -validity 36500 -dname "CN=Android Debug,O=Android,C=US"
+    3. ตั้งค่า Meta Quest Link App:
+        - เปิดแอป Meta บน PC
+        - ไปที่ Settings > General
+        - ที่หัวข้อ OpenXR Runtime ให้กดปุ่ม "Set Oculus as active"
+
+ขั้นตอนที่ 3: ตั้งค่าใน Godot Editor
+    1. ระบุตำแหน่ง SDK: ไปที่ Editor > Editor Settings > Export > Android
+        - ใส่ Path ของ Android Sdk Path ที่คุณจดไว้
+        - ใส่ Path ของไฟล์ Debug Keystore ที่คุณสร้างในขั้นตอนก่อนหน้า
+    2. ติดตั้งปลั๊กอิน: ไปที่แถบ Asset Lib (ด้านบนกลาง) ค้นหา "Godot OpenXR Vendors" แล้วกดดาวน์โหลดและ Install ให้เรียบร้อย
+
+ขั้นตอนที่ 4: ตั้งค่าโปรเจกต์ (Project Settings)
+    1. เปิดระบบ XR: ไปที่ Project > Project Settings...
+        - แถบ General: หาหัวข้อ XR > OpenXR แล้วติ๊ก Enabled
+        - หาหัวข้อ XR > Shaders แล้วติ๊ก Enabled
+    2. ตั้งค่าการ Export: ไปที่ Project > Export...
+        - กด Add... > Android
+        - ที่หัวข้อ XR Features เลือก XR Mode เป็น OpenXR
+        - หาหัวข้อ XR Features ติ๊ก Enable Meta Plugin
+
+ขั้นตอนที่ 5: สร้าง Scene และเขียน Script พื้นฐาน
+    1. โครงสร้าง Node: สร้าง Scene ใหม่ที่มี Node ดังนี้:
+        - XROrigin3D (Node หลัก)
+            - XRCamera3D (ลูกของ Origin - คือหัวของเรา)
+            - XRController3D (ลูกของ Origin - ตั้งชื่อ "LeftHand" และตั้ง Tracker ใน Inspector เป็น left_hand)
+            - XRController3D (ลูกของ Origin - ตั้งชื่อ "RightHand" และตั้ง Tracker เป็น right_hand)
+    2. เขียนโค้ดเปิดระบบ: สร้าง Script แปะไว้ที่ Node หลัก:
+        extends Node3D
+        func _ready():
+            var xr_interface = XRServer.find_interface("OpenXR")
+            if xr_interface and xr_interface.is_initialized():
+                get_viewport().use_xr = true
+
+ขั้นตอนที่ 6: วิธีทดสอบ
+    - แบบ PCVR (รันผ่านคอม): เปิดแอป Meta บน PC > เชื่อมต่อแว่นผ่าน Quest Link จนเห็นหน้าจอคอมในแว่น > จากนั้นใน Godot ให้กดปุ่ม Play (F5)
+    - แบบ Native (ลงแว่นโดยตรง): เสียบสายแว่นเข้ากับคอม > มองหา ไอคอนหุ่นยนต์ Android ที่มุมขวาบนของ Godot > คลิกที่ไอคอนนั้นเพื่อส่งเกมเข้าไปรันในแว่นครับ

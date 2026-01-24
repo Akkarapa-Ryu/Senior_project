@@ -5,8 +5,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lehvq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_op5g6"]
+size = Vector3(2.6, 0.15, 2.8)
 
-[node name="box" type="RigidBody3D"]
+[node name="thermoplastic_mask_short" type="RigidBody3D"]
 collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_lehvq")
 continuous_cd = true
@@ -16,5 +17,5 @@ layers = 2
 mesh = ExtResource("1_op5g6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.577386, 0, 0, 0, 0.13062096, 0, 0, 0, 2.754345, 0, 0, -0.63441324)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.65947473)
 shape = SubResource("BoxShape3D_op5g6")

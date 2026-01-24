@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://st0lrd650fru"]
+[gd_scene load_steps=26 format=3 uid="uid://st0lrd650fru"]
 
+[ext_resource type="ArrayMesh" uid="uid://bitrl8xsp54x6" path="res://3d model/Main Room.obj" id="1_glbon"]
 [ext_resource type="PackedScene" uid="uid://dfmb7mlg24cuv" path="res://scences/3d_model/player_1.tscn" id="1_jix8l"]
 [ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="2_7vrkn"]
 [ext_resource type="PackedScene" uid="uid://db2ebm6fjb7r1" path="res://scences/UI/3d_button.tscn" id="2_glbon"]
-[ext_resource type="Texture2D" uid="uid://c2drcckrh74pw" path="res://images/blank_tradingcard.jpg" id="4_nlkkf"]
+[ext_resource type="Texture2D" uid="uid://r7jq6duankdy" path="res://images/combifix setup sheet.png" id="4_jix8l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_didnx"]
 sky_top_color = Color(0.78431594, 0.9182348, 0.99960345, 1)
@@ -37,11 +38,16 @@ resource_local_to_scene = true
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jix8l"]
+size = Vector2(25, 20)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glbon"]
 albedo_color = Color(1, 1, 1, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qe12f"]
+size = Vector3(25, 0.1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_glbon"]
+resource_local_to_scene = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_nlkkf"]
 viewport_path = NodePath("tranning_menu/Info_1/Sprite3D/SubViewport")
@@ -80,6 +86,7 @@ metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Background"]
 transform = Transform3D(100, 0, 0, 0, 2, 0, 0, 0, 100, 0, 0, 0)
+visible = false
 mesh = SubResource("BoxMesh_41ifa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Background"]
@@ -88,6 +95,9 @@ shape = SubResource("BoxShape3D_84ava")
 
 [node name="CtSimRoomWallB20" type="MeshInstance3D" parent="Background"]
 transform = Transform3D(1.6, 0, 0, 0, 2.37, 0, 0, 0, 1.3, 0, 0, 0)
+
+[node name="MainRoom" type="MeshInstance3D" parent="Background"]
+mesh = ExtResource("1_glbon")
 
 [node name="Block" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12207794, 0, 1.3427744)
@@ -110,7 +120,6 @@ transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.903488, 0, -0.7782489,
 shape = SubResource("BoxShape3D_1wfc2")
 
 [node name="Player" parent="." instance=ExtResource("1_jix8l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 
 [node name="btn_trainning" parent="." node_paths=PackedStringArray("info_node") instance=ExtResource("2_glbon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -30)
@@ -166,14 +175,15 @@ debug_color = Color(0.6552932, 0.92977214, 0.9999997, 0.41960785)
 
 [node name="Label3D" parent="tranning_menu/Button_Info_1" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12770844, 0.10103989)
-text = "หัวใจ"
+text = "สมอง"
 font_size = 300
 
 [node name="Info_1" type="Node3D" parent="tranning_menu"]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -35, 20, -40)
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -40.77, 12, -28.07)
 
 [node name="Label3D" type="Label3D" parent="tranning_menu/Info_1"]
-transform = Transform3D(1, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0, -12.909992, 0)
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 0.9999997, 0, 0, 0, 0.9999997, 0, -11.739134, 0)
+visible = false
 text = "สมอง"
 font = ExtResource("2_7vrkn")
 font_size = 500
@@ -182,20 +192,20 @@ font_size = 500
 transform = Transform3D(-1, -8.7422755e-08, 3.82137e-15, 0, -4.3711378e-08, -0.99999976, 8.742278e-08, -0.99999976, 4.3711378e-08, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="tranning_menu/Info_1/Information_1"]
-transform = Transform3D(15, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_jix8l")
 surface_material_override/0 = SubResource("StandardMaterial3D_glbon")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tranning_menu/Info_1/Information_1"]
-transform = Transform3D(30, 0, 0, 0, 0.1, 1.8626263e-06, 0, -9.313132e-09, 20, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 9.313131e-08, 0, -9.313131e-08, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_qe12f")
 
 [node name="Button_next" parent="tranning_menu/Info_1" instance=ExtResource("2_glbon")]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 12.3342285, -8.221217, 0.06088257)
+transform = Transform3D(1, 0, -7.1054274e-15, 0, 0.99999976, 0, 0, 0, 0.99999976, 7.713503, -2.4792023, 0.06088257)
 target_scene_path = "uid://cj0gekg8nwklm"
 
 [node name="MeshInstance3D" parent="tranning_menu/Info_1/Button_next" index="0"]
 transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_glbon")
 
 [node name="CollisionShape3D" parent="tranning_menu/Info_1/Button_next" index="1"]
 transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -210,7 +220,7 @@ transform = Transform3D(1, 0, -3.5527137e-15, 0, 0.9999998, 0, 0, 0, 0.9999998, 
 texture = SubResource("ViewportTexture_nlkkf")
 
 [node name="SubViewport" type="SubViewport" parent="tranning_menu/Info_1/Sprite3D"]
-size = Vector2i(3000, 2000)
+size = Vector2i(2500, 2000)
 render_target_update_mode = 4
 
 [node name="Control" type="Control" parent="tranning_menu/Info_1/Sprite3D/SubViewport"]
@@ -221,12 +231,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="TextureRect" type="TextureRect" parent="tranning_menu/Info_1/Sprite3D/SubViewport/Control"]
+layout_mode = 0
+offset_right = 1414.0
+offset_bottom = 2000.0
+texture = ExtResource("4_jix8l")
+
 [node name="Label" type="Label" parent="tranning_menu/Info_1/Sprite3D/SubViewport/Control"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -750.0
+offset_right = -263.0
 offset_bottom = 166.0
-grow_horizontal = 2
+grow_horizontal = 0
 theme_override_fonts/font = ExtResource("2_7vrkn")
 theme_override_font_sizes/font_size = 150
 text = "ข้อมูลผู้ป่วย"
@@ -234,26 +253,20 @@ horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="tranning_menu/Info_1/Sprite3D/SubViewport/Control"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -111.5
-offset_right = 1458.0
-offset_bottom = 111.5
+offset_left = -750.0
+offset_top = -500.0
+offset_right = -597.0
+offset_bottom = -390.0
+grow_horizontal = 0
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_7vrkn")
 theme_override_font_sizes/font_size = 100
-text = "ชื่อ:____________________________________
-นามสกุล:________________________________"
-
-[node name="TextureRect" type="TextureRect" parent="tranning_menu/Info_1/Sprite3D/SubViewport/Control"]
-layout_mode = 0
-offset_left = 2000.0
-offset_top = 50.0
-offset_right = 3080.0
-offset_bottom = 1970.0
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("4_nlkkf")
+text = "สมอง"
 
 [node name="Button_Info_2" parent="tranning_menu" instance=ExtResource("2_glbon")]
 transform = Transform3D(1, 0, 0, 0, 0.9524543, 0.30468145, 0, -0.30468145, 0.9524543, 0, 13.471, -22.224)
@@ -290,7 +303,7 @@ debug_color = Color(0.6552932, 0.92977214, 0.9999997, 0.41960785)
 
 [node name="Label3D" parent="tranning_menu/Button_Info_3" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12770844, 0.10103989)
-text = "สมอง"
+text = "ลำไส้"
 font_size = 300
 
 [node name="btn_option" type="Node3D" parent="."]
