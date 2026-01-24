@@ -4,6 +4,24 @@
 โฟลเดอร์โปรเจกต์
 ### 3d model
 ที่เก็นโมเดลที่ใช้ในโปรเจคต์ เป็นไฟล์ .obj และ .mtl
+### addons
+เก็น Library ที่ dowload มาจาก AssetLib
+### audio
+เก็นเสียงดนตรีประกอบ
+### backgrounds
+ภาพพื้นหลัง
+### dialogue
+เก็ยบทสนทนาของตัวละคร ไฟล์ .dialogue
+เช่น Player: ให้คนไข้นอนหงายบนเตียงก่อนนะคะ
+    NPC: คะ
+### fonts
+เก็นฟอนต์ที่ใช้ในโปรเจคต์
+### images
+ภาพต่างๆ เช่น sheet ข้อมูล
+### scences
+เก็นไฟล์ .tscn
+### scripts
+เก็ยโค้ด
 
 
 ## CT Sim Romm_Project
