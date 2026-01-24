@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b05hnnhgwde0c"]
+[gd_scene load_steps=10 format=3 uid="uid://b05hnnhgwde0c"]
 
 [ext_resource type="Script" uid="uid://dhfxmqsqwnau1" path="res://scripts/main_xr.gd" id="1_yl0rq"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_rl8yq"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="3_xint7"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="4_2nqgr"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_2nqgr"]
-[ext_resource type="Script" uid="uid://da5nltv8u3r4w" path="res://scripts/Dialog/dialogue_system.gd" id="6_hypx8"]
 
 [sub_resource type="Environment" id="Environment_yl0rq"]
 
@@ -22,7 +21,7 @@ script = ExtResource("1_yl0rq")
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2277088, 0)
 
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
@@ -53,13 +52,16 @@ environment = SubResource("Environment_yl0rq")
 transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
 mesh = SubResource("PlaneMesh_rl8yq")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_rl8yq")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_hypx8")
 
 [node name="DialogueSystem" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1864629, -4.9848256)
-script = ExtResource("6_hypx8")
 
 [node name="SubViewport" type="SubViewport" parent="DialogueSystem"]
 size = Vector2i(800, 400)
