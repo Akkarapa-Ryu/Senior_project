@@ -11,3 +11,7 @@
 
 ## Setting_Export_Godot_VR
 วิธีการตั้งค่าให้ Godot เชื่อมต่อและเล่น VR ได้
+
+
+## References
+https://www.youtube.com/watch?v=6FnKwXQ-2e8
