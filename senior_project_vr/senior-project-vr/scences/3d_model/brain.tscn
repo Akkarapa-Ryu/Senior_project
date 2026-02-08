@@ -1,0 +1,248 @@
+[gd_scene load_steps=15 format=3 uid="uid://eicndywcinij"]
+
+[ext_resource type="Script" uid="uid://v147nqgifyxc" path="res://scripts/Clipping/brain.gd" id="1_1ekgi"]
+[ext_resource type="ArrayMesh" uid="uid://0j8roedjo28k" path="res://3d model/Organ/Brain.obj" id="1_7rtyc"]
+[ext_resource type="Shader" uid="uid://bpnvenkcyrf40" path="res://shader/brain.gdshader" id="2_uu3c7"]
+[ext_resource type="Script" uid="uid://cur82u4eo4s8f" path="res://scripts/Clipping/scrolling.gd" id="4_hdv56"]
+[ext_resource type="Theme" uid="uid://cna1gst28qc7w" path="res://scences/Text Resource/brain.tres" id="5_olug5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ekgi"]
+render_priority = 0
+shader = ExtResource("2_uu3c7")
+shader_parameter/slice_height = 14.999999620015998
+shader_parameter/edge_color = Color(4.235506e-06, 0.9552793, 0.9611892, 1)
+shader_parameter/edge_thickness = 0.05
+shader_parameter/inside_color = Color(0.6, 0.2, 0.2, 1)
+shader_parameter/noise_scale = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olug5"]
+blend_mode = 3
+cull_mode = 2
+diffuse_mode = 1
+albedo_color = Color(0.7412212, 0.6200552, 0.47945774, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hdv56"]
+viewport_path = NodePath("show_y/UI")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ekgi"]
+size = Vector3(7, 5.12, 0.01)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_m05mo"]
+viewport_path = NodePath("show_x/UI")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_olug5"]
+viewport_path = NodePath("Sprite3D/UI")
+
+[sub_resource type="Environment" id="Environment_1ekgi"]
+background_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_1ekgi"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hdv56"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="Brain" type="Node3D" node_paths=PackedStringArray("model", "viewport_y", "viewport_x", "grid_y", "grid_x")]
+script = ExtResource("1_1ekgi")
+model = NodePath("ScannedModel")
+viewport_y = NodePath("Sprite3D/CaptureSystem_y/CaptureViewport_y")
+viewport_x = NodePath("Sprite3D/CaptureSystem_x/CaptureViewport_x")
+grid_y = NodePath("show_y/UI/Control/ScrollContainer_y/ResultGrid_y")
+grid_x = NodePath("show_x/UI/Control/ScrollContainer_x/ResultGrid_x")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15, 0)
+sky_mode = 1
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 4.8754864, 9.749472, 0)
+sky_mode = 1
+
+[node name="ScannedModel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+mesh = ExtResource("1_7rtyc")
+surface_material_override/0 = SubResource("ShaderMaterial_1ekgi")
+
+[node name="StandModel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+mesh = ExtResource("1_7rtyc")
+surface_material_override/0 = SubResource("StandardMaterial3D_olug5")
+
+[node name="show_y" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.18511, 12.590823, 0)
+texture = SubResource("ViewportTexture_hdv56")
+script = ExtResource("4_hdv56")
+
+[node name="UI" type="SubViewport" parent="show_y"]
+size = Vector2i(700, 512)
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="show_y/UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ScrollContainer_y" type="ScrollContainer" parent="show_y/UI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_olug5")
+horizontal_scroll_mode = 0
+
+[node name="ResultGrid_y" type="GridContainer" parent="show_y/UI/Control/ScrollContainer_y"]
+layout_mode = 2
+columns = 4
+
+[node name="Y-axis" type="Label" parent="show_y/UI/Control"]
+layout_mode = 1
+offset_right = 141.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 50
+text = "Y-axis"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="show_y"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="show_y/StaticBody3D"]
+shape = SubResource("BoxShape3D_1ekgi")
+
+[node name="show_x" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.08609, 12.590823, 0)
+texture = SubResource("ViewportTexture_m05mo")
+
+[node name="UI" type="SubViewport" parent="show_x"]
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="show_x/UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer_x" type="ScrollContainer" parent="show_x/UI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultGrid_x" type="GridContainer" parent="show_x/UI/Control/ScrollContainer_x"]
+layout_mode = 2
+columns = 4
+
+[node name="X-axis" type="Label" parent="show_x/UI/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -141.0
+offset_bottom = 69.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 50
+text = "X-axis"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7794535, 18.418509, -1.0921562)
+visible = false
+alpha_cut = 1
+texture = SubResource("ViewportTexture_olug5")
+
+[node name="UI" type="SubViewport" parent="Sprite3D"]
+size = Vector2i(1500, 512)
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="Sprite3D/UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer_y" type="ScrollContainer" parent="Sprite3D/UI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -597.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultGrid_y" type="GridContainer" parent="Sprite3D/UI/Control/ScrollContainer_y"]
+layout_mode = 2
+columns = 4
+
+[node name="ScrollContainer_x" type="ScrollContainer" parent="Sprite3D/UI/Control"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -415.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ResultGrid_x" type="GridContainer" parent="Sprite3D/UI/Control/ScrollContainer_x"]
+layout_mode = 2
+columns = 4
+
+[node name="Y-axis" type="Label" parent="Sprite3D/UI/Control"]
+layout_mode = 1
+offset_right = 141.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 50
+text = "Y-axis"
+
+[node name="X-axis" type="Label" parent="Sprite3D/UI/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -141.0
+offset_bottom = 69.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 50
+text = "X-axis"
+
+[node name="CaptureSystem_y" type="Node3D" parent="Sprite3D"]
+
+[node name="CaptureViewport_y" type="SubViewport" parent="Sprite3D/CaptureSystem_y"]
+handle_input_locally = false
+size = Vector2i(100, 100)
+render_target_update_mode = 4
+
+[node name="CaptureCamera_y" type="Camera3D" parent="Sprite3D/CaptureSystem_y/CaptureViewport_y"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 11, 0)
+environment = SubResource("Environment_1ekgi")
+projection = 1
+
+[node name="CaptureSystem_x" type="Node3D" parent="Sprite3D"]
+
+[node name="CaptureViewport_x" type="SubViewport" parent="Sprite3D/CaptureSystem_x"]
+handle_input_locally = false
+size = Vector2i(100, 100)
+render_target_update_mode = 4
+
+[node name="CaptureCamera_x" type="Camera3D" parent="Sprite3D/CaptureSystem_x/CaptureViewport_x"]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 1, 9.959764, 0)
+environment = SubResource("Environment_1ekgi")
+projection = 1
+size = 1.25
+
+[node name="btn_scan" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.7416334, 10.710518, 1.4023094)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="btn_scan"]
+mesh = SubResource("BoxMesh_1ekgi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="btn_scan"]
+shape = SubResource("ConvexPolygonShape3D_hdv56")

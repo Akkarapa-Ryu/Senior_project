@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dhrgqvad758so"]
 
 [ext_resource type="PackedScene" uid="uid://coukodsi5cy6m" path="res://scences/3d_model/door_1_L.tscn" id="1_6mxr4"]
-[ext_resource type="Script" uid="uid://erq7mrovjiiy" path="res://scripts/door.gd" id="1_ba7xd"]
+[ext_resource type="Script" uid="uid://erq7mrovjiiy" path="res://scripts/Animation/door.gd" id="1_ba7xd"]
 [ext_resource type="PackedScene" uid="uid://cu8cjv6ynbot2" path="res://scences/3d_model/door_1_R.tscn" id="1_ogmp8"]
 
 [sub_resource type="Animation" id="Animation_ba7xd"]
@@ -66,7 +66,7 @@ _data = {
 height = 21.97998
 radius = 15.825195
 
-[node name="Door" type="Node3D"]
+[node name="Door" type="Node3D" groups=["doors", "interactable_buttons"]]
 script = ExtResource("1_ba7xd")
 open_animation = "open_door"
 close_animation = "close_door"
@@ -83,14 +83,15 @@ libraries = {
 
 [node name="DetectionArea_R" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_R"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_R" groups=["interactable_buttons"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.98999, 0)
 shape = SubResource("CylinderShape3D_6mxr4")
 
 [node name="DetectionArea_L" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+collision_layer = 16387
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_L"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_L" groups=["interactable_buttons"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.98999, 0)
 shape = SubResource("CylinderShape3D_6mxr4")
 

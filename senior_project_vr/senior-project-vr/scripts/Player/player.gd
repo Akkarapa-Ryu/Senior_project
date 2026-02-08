@@ -17,12 +17,6 @@ var picked_object = null # เก็บตัวแปรว่าตอนน�
 @onready var ray = $Camera3D/InteractionRay
 @onready var hold_pos = $Camera3D/HoldPosition
 
-# Ref: https://forum.godotengine.org/t/how-to-change-meshinstance3d-to-another/77159
-# 3d model ที่ต้องการเปลี่ยนรูปร่าง
-var thermoplastic_mask_short_use_model = load("res://3d model/Thermoplastic Mask Short Type_use.obj")
-@export var model: MeshInstance3D
-#@onready var model = $"../thermoplastic_mask_short/MeshInstance3D"
-
 
 func _ready():
 	# ล็อคเมาส์ไว้กลางจอเพื่อให้เล่นเกมง่ายขึ้น
@@ -94,11 +88,7 @@ func drop_object():
 		if collider is Area3D:
 			if collider.has_method("_on_body_entered"):
 				collider._on_body_entered(picked_object)
-		
-		# เปลี่ยนเป็นไฟล์โมเดลที่ต้องการ
-		if collider.name == "thermoplastic_mask_short":
-			model.mesh = thermoplastic_mask_short_use_model
-		
+
 		picked_object = null
 # ส่วนนี้มาจาก Gemini ------------------------------
 
