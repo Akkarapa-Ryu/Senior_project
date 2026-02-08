@@ -3,37 +3,37 @@ class_name XRToolsInteractableAreaButton
 extends Area3D
 
 
-## XR Tools Interactable Area Button script
-##
-## The interactable area button detects objects and areas intering its
-## area, and moves an associated button object using a tween to animate
-## the movement.
+# XR Tools Interactable Area Button script
+#
+# The interactable area button detects objects and areas intering its
+# area, and moves an associated button object using a tween to animate
+# the movement.
 
 
-## Button pressed event
+# Button pressed event
 signal button_pressed(button)
 
-## Button released event
+# Button released event
 signal button_released(button)
 
 
-## Button object
+# Button object
 @export var button := NodePath()
 
-## Displacement when pressed
+# Displacement when pressed
 @export var displacement : Vector3 = Vector3(0.0, -0.02, 0.0)
 
-## Displacement duration
+# Displacement duration
 @export var duration : float = 0.1
 
 
-## If true, the button is pressed
+# If true, the button is pressed
 var pressed : bool = false
 
-## Dictionary of trigger items pressing the button
+# Dictionary of trigger items pressing the button
 var _trigger_items := {}
 
-## Tween for animating button
+# Tween for animating button
 var _tween: Tween
 
 
