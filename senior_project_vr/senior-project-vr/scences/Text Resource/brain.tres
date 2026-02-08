@@ -1,0 +1,32 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cna1gst28qc7w"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_hdv56"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hdv56"]
+bg_color = Color(0, 0.55951667, 0.7541189, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 30.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_olug5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m05mo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_odfsc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dbcqv"]
+
+[resource]
+VScrollBar/icons/decrement = SubResource("ImageTexture_hdv56")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_hdv56")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_hdv56")
+VScrollBar/icons/increment = SubResource("ImageTexture_hdv56")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_hdv56")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_hdv56")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_hdv56")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_olug5")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_m05mo")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_odfsc")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_dbcqv")

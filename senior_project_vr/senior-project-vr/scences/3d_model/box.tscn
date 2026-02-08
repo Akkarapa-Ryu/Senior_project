@@ -5,6 +5,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_1xppt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lehvq"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [node name="box" type="RigidBody3D"]
 collision_layer = 2
@@ -12,6 +13,7 @@ physics_material_override = SubResource("PhysicsMaterial_lehvq")
 continuous_cd = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 layers = 2
 mesh = SubResource("BoxMesh_1xppt")
 

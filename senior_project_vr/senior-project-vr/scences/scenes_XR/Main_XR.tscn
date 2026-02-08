@@ -1,0 +1,474 @@
+[gd_scene load_steps=30 format=3 uid="uid://bsv1ecrcfh1mp"]
+
+[ext_resource type="Script" uid="uid://dhfxmqsqwnau1" path="res://scripts/XR/main_xr.gd" id="1_yl0rq"]
+[ext_resource type="ArrayMesh" uid="uid://bitrl8xsp54x6" path="res://3d model/Room/Main Room.obj" id="6_qj02w"]
+[ext_resource type="PackedScene" uid="uid://db2ebm6fjb7r1" path="res://scences/UI/3d_button.tscn" id="7_w5ctp"]
+[ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="8_tgkqf"]
+[ext_resource type="PackedScene" uid="uid://cqkbuf2bh4nbu" path="res://scences/3d_model/player_xr.tscn" id="8_ydldf"]
+[ext_resource type="Texture2D" uid="uid://r7jq6duankdy" path="res://images/combifix setup sheet.png" id="9_gubi1"]
+
+[sub_resource type="Environment" id="Environment_yl0rq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_e7esl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y7otk"]
+size = Vector3(100, 2, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_375ii"]
+size = Vector3(1, 13.974609, 4.8851013)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_31kea"]
+viewport_path = NodePath("DialogueSystem/SubViewport")
+
+[sub_resource type="BoxMesh" id="BoxMesh_dh5w7"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_6uywf"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_r1j63"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6kg2u"]
+size = Vector2(25, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmvpm"]
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_486el"]
+size = Vector3(25, 0.1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1aodx"]
+resource_local_to_scene = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8gwp7"]
+viewport_path = NodePath("training_menu/Info_1/Sprite3D/SubViewport")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_o6bs5"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ydldf"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_73ofv"]
+size = Vector3(22, 0.1, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4i8j0"]
+size = Vector3(22, 0.1, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nq0qn"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ydldf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0cmk3"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kkjgl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u5ftq"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0cmk3"]
+viewport_path = NodePath("XROrigin3D/Sprite3D/SubViewport")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_yl0rq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 47.19735, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yl0rq")
+
+[node name="Background" type="StaticBody3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(100, 0, 0, 0, 2, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_e7esl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Background"]
+shape = SubResource("BoxShape3D_y7otk")
+
+[node name="CtSimRoomWallB20" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(1.6, 0, 0, 0, 2.37, 0, 0, 0, 1.3, 0, 0, 0)
+
+[node name="MainRoom" type="MeshInstance3D" parent="Background"]
+mesh = ExtResource("6_qj02w")
+
+[node name="Block" type="StaticBody3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(0.7782489, 0, 0, 0, 2.903488, 0, 0, 0, 20.808882, -49.887268, 14.753491, -1.6010637)
+shape = SubResource("BoxShape3D_375ii")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(0.7782489, 0, 0, 0, 2.903488, 0, 0, 0, 20.808882, 50.603844, 14.753491, -1.6010637)
+shape = SubResource("BoxShape3D_375ii")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.903488, 0, -0.7782489, 0, -9.095851e-07, 0.084854126, 14.753491, -51.573185)
+shape = SubResource("BoxShape3D_375ii")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Block"]
+transform = Transform3D(-3.401834e-08, 0, 20.808882, 0, 2.903488, 0, -0.7782489, 0, -9.095851e-07, 0.32608795, 14.753491, 49.13516)
+shape = SubResource("BoxShape3D_375ii")
+
+[node name="DialogueSystem" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1864629, -4.9848256)
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="SubViewport" type="SubViewport" parent="DialogueSystem"]
+size = Vector2i(800, 400)
+
+[node name="ColorRect" type="ColorRect" parent="DialogueSystem/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="DialogueSystem/SubViewport"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Sprite3D" type="Sprite3D" parent="DialogueSystem"]
+billboard = 1
+texture = SubResource("ViewportTexture_31kea")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DialogueSystem"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueSystem/StaticBody3D"]
+
+[node name="btn_training" parent="." instance=ExtResource("7_w5ctp")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.5, -3)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" parent="btn_training" index="0"]
+mesh = SubResource("BoxMesh_dh5w7")
+
+[node name="Label3D" parent="btn_training" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.13354677)
+text = "โหมดฝึก"
+font_size = 500
+
+[node name="btn_ass" parent="." instance=ExtResource("7_w5ctp")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.1, -3)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" parent="btn_ass" index="0"]
+mesh = SubResource("BoxMesh_dh5w7")
+
+[node name="Label3D" parent="btn_ass" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.13354677)
+text = "โหมดทดสอบ
+"
+font_size = 500
+
+[node name="training_menu" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 1.2064116, 0, 1.9)
+visible = false
+
+[node name="Button_Info_1" parent="training_menu" node_paths=PackedStringArray("info_node") instance=ExtResource("7_w5ctp")]
+transform = Transform3D(1, 0, 0, 0, 0.9524543, 0.30468145, 0, -0.30468145, 0.9524543, -20, 13.471, -22.224)
+custom_mesh = SubResource("BoxMesh_6uywf")
+custom_scale = Vector3(5, 3, 0.2)
+info_node = NodePath("../Info_1")
+
+[node name="MeshInstance3D" parent="training_menu/Button_Info_1" index="0"]
+transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_6uywf")
+
+[node name="CollisionShape3D" parent="training_menu/Button_Info_1" index="1"]
+transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_r1j63")
+debug_color = Color(0.6552932, 0.92977214, 0.9999997, 0.41960785)
+
+[node name="Label3D" parent="training_menu/Button_Info_1" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12770844, 0.10103989)
+text = "สมอง"
+font_size = 300
+
+[node name="Info_1" type="Node3D" parent="training_menu"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -40.77, 12, -28.07)
+visible = false
+
+[node name="Label3D" type="Label3D" parent="training_menu/Info_1"]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 0.9999997, 0, 0, 0, 0.9999997, 0, -11.739134, 0)
+visible = false
+text = "สมอง"
+font = ExtResource("8_tgkqf")
+font_size = 500
+
+[node name="Information_1" type="StaticBody3D" parent="training_menu/Info_1"]
+transform = Transform3D(-1, -8.7422755e-08, 3.82137e-15, 0, -4.3711378e-08, -0.99999976, 8.742278e-08, -0.99999976, 4.3711378e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="training_menu/Info_1/Information_1"]
+mesh = SubResource("PlaneMesh_6kg2u")
+surface_material_override/0 = SubResource("StandardMaterial3D_rmvpm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="training_menu/Info_1/Information_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 9.313131e-08, 0, -9.313131e-08, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_486el")
+
+[node name="Button_next_1" parent="training_menu/Info_1" instance=ExtResource("7_w5ctp")]
+transform = Transform3D(1, 0, -7.1054274e-15, 0, 0.99999976, 0, 0, 0, 0.99999976, 7.713503, -2.4792023, 0.06088257)
+target_scene_path = "uid://cj0gekg8nwklm"
+
+[node name="MeshInstance3D" parent="training_menu/Info_1/Button_next_1" index="0"]
+transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_1aodx")
+
+[node name="CollisionShape3D" parent="training_menu/Info_1/Button_next_1" index="1"]
+transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="Label3D" parent="training_menu/Info_1/Button_next_1" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.103279114)
+text = "เลือก"
+font_size = 300
+
+[node name="Sprite3D" type="Sprite3D" parent="training_menu/Info_1"]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 0.9999998, 0, 0, 0, 0.9999998, 0, 0, 0)
+texture = SubResource("ViewportTexture_8gwp7")
+
+[node name="SubViewport" type="SubViewport" parent="training_menu/Info_1/Sprite3D"]
+size = Vector2i(2500, 2000)
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="training_menu/Info_1/Sprite3D/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="training_menu/Info_1/Sprite3D/SubViewport/Control"]
+layout_mode = 0
+offset_right = 1414.0
+offset_bottom = 2000.0
+texture = ExtResource("9_gubi1")
+
+[node name="Label" type="Label" parent="training_menu/Info_1/Sprite3D/SubViewport/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -750.0
+offset_right = -263.0
+offset_bottom = 166.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("8_tgkqf")
+theme_override_font_sizes/font_size = 150
+text = "ข้อมูลผู้ป่วย"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="training_menu/Info_1/Sprite3D/SubViewport/Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -500.0
+offset_right = -597.0
+offset_bottom = -390.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_tgkqf")
+theme_override_font_sizes/font_size = 100
+text = "สมอง"
+
+[node name="Button_Info_2" parent="training_menu" instance=ExtResource("7_w5ctp")]
+transform = Transform3D(1, 0, 0, 0, 0.9524543, 0.30468145, 0, -0.30468145, 0.9524543, 0, 13.471, -22.224)
+custom_mesh = SubResource("BoxMesh_6uywf")
+custom_scale = Vector3(5, 3, 0.2)
+
+[node name="MeshInstance3D" parent="training_menu/Button_Info_2" index="0"]
+transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_6uywf")
+
+[node name="CollisionShape3D" parent="training_menu/Button_Info_2" index="1"]
+transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_o6bs5")
+debug_color = Color(0.6552932, 0.92977214, 0.9999997, 0.41960785)
+
+[node name="Label3D" parent="training_menu/Button_Info_2" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12770844, 0.10103989)
+text = "มดลูก"
+font_size = 300
+
+[node name="Button_Info_3" parent="training_menu" instance=ExtResource("7_w5ctp")]
+transform = Transform3D(1, 0, 0, 0, 0.9524543, 0.30468145, 0, -0.30468145, 0.9524543, 20, 13.471, -22.224)
+custom_mesh = SubResource("BoxMesh_6uywf")
+custom_scale = Vector3(5, 3, 0.2)
+
+[node name="MeshInstance3D" parent="training_menu/Button_Info_3" index="0"]
+transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_6uywf")
+
+[node name="CollisionShape3D" parent="training_menu/Button_Info_3" index="1"]
+transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_ydldf")
+debug_color = Color(0.6552932, 0.92977214, 0.9999997, 0.41960785)
+
+[node name="Label3D" parent="training_menu/Button_Info_3" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12770844, 0.10103989)
+text = "ลำไส้"
+font_size = 300
+
+[node name="btn_option" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.371139e-09, -3, 1.5, 0)
+
+[node name="btn_setting" parent="btn_option" node_paths=PackedStringArray("info_node") instance=ExtResource("7_w5ctp")]
+info_node = NodePath("../setting")
+
+[node name="MeshInstance3D" parent="btn_option/btn_setting" index="0"]
+mesh = SubResource("BoxMesh_dh5w7")
+
+[node name="Label3D" parent="btn_option/btn_setting" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.13354677)
+text = "การตั้งค่า
+"
+font_size = 500
+
+[node name="btn_exit" parent="btn_option" node_paths=PackedStringArray("info_node") instance=ExtResource("7_w5ctp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+info_node = NodePath("../exit")
+
+[node name="MeshInstance3D" parent="btn_option/btn_exit" index="0"]
+mesh = SubResource("BoxMesh_dh5w7")
+
+[node name="Label3D" parent="btn_option/btn_exit" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.13354677)
+text = "ออก
+"
+font_size = 500
+
+[node name="setting" type="Node3D" parent="btn_option"]
+unique_name_in_owner = true
+transform = Transform3D(0.99999994, 0, -3.5527137e-15, 0, 0.99999994, 0, 0, 0, 0.9999999, -16.914383, -2, 0)
+visible = false
+
+[node name="Label3D" type="Label3D" parent="btn_option/setting"]
+transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 0.99999964, 0, 6, 0.1)
+text = "การตั้งค่า"
+font = ExtResource("8_tgkqf")
+font_size = 500
+
+[node name="Information_1" type="StaticBody3D" parent="btn_option/setting"]
+transform = Transform3D(1, 0, 0, 0, -4.3711378e-08, -0.99999976, 0, 0.99999976, -4.3711378e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="btn_option/setting/Information_1"]
+mesh = SubResource("BoxMesh_73ofv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="btn_option/setting/Information_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 9.313131e-08, 0, -9.313131e-08, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_4i8j0")
+
+[node name="btn_sound" parent="btn_option/setting" instance=ExtResource("7_w5ctp")]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 0, 3, 0.226)
+target_scene_path = "uid://cj0gekg8nwklm"
+
+[node name="MeshInstance3D" parent="btn_option/setting/btn_sound" index="0"]
+mesh = SubResource("BoxMesh_nq0qn")
+
+[node name="Label3D" parent="btn_option/setting/btn_sound" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.103279114)
+text = "เสียง"
+font_size = 300
+
+[node name="exit" type="Node3D" parent="btn_option"]
+unique_name_in_owner = true
+transform = Transform3D(0.9999999, 0, -3.5527137e-15, 0, 0.99999994, 0, 3.5527137e-15, 0, 0.9999998, 17.209131, -2, 0)
+visible = false
+
+[node name="Label3D" type="Label3D" parent="btn_option/exit"]
+transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 0.99999964, 0, 6, 0.1)
+text = "ออกจากโปรแกรม"
+font = ExtResource("8_tgkqf")
+font_size = 500
+
+[node name="Information_1" type="StaticBody3D" parent="btn_option/exit"]
+transform = Transform3D(1, 0, 0, 0, -4.3711378e-08, -0.99999976, 0, 0.99999976, -4.3711378e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="btn_option/exit/Information_1"]
+mesh = SubResource("BoxMesh_73ofv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="btn_option/exit/Information_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 9.313131e-08, 0, -9.313131e-08, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_4i8j0")
+
+[node name="btn_no" parent="btn_option/exit" node_paths=PackedStringArray("info_node") instance=ExtResource("7_w5ctp")]
+transform = Transform3D(0.99999994, 0, -3.5527137e-15, 0, 0.99999976, 0, 0, 0, 0.9999998, -5.3, 0, 0.226)
+custom_scale = Vector3(6, 2, 0.2)
+info_node = NodePath("..")
+
+[node name="MeshInstance3D" parent="btn_option/exit/btn_no" index="0"]
+mesh = SubResource("BoxMesh_nq0qn")
+
+[node name="Label3D" parent="btn_option/exit/btn_no" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.103279114)
+text = "No"
+font_size = 300
+
+[node name="btn_yes" parent="btn_option/exit" node_paths=PackedStringArray("info_node") instance=ExtResource("7_w5ctp")]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 5.3, 0, 0.226)
+custom_scale = Vector3(6, 2, 0.2)
+info_node = NodePath("..")
+
+[node name="MeshInstance3D" parent="btn_option/exit/btn_yes" index="0"]
+mesh = SubResource("BoxMesh_nq0qn")
+
+[node name="Label3D" parent="btn_option/exit/btn_yes" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.103279114)
+text = "Yes"
+font_size = 300
+
+[node name="static_Button_test" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0421524, 2.729743, -7.0475144)
+collision_layer = 16384
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="static_Button_test"]
+layers = 16385
+mesh = SubResource("BoxMesh_ydldf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="static_Button_test"]
+shape = SubResource("BoxShape3D_0cmk3")
+
+[node name="area_Button_test" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6372538, 2.729743, -7.0475144)
+collision_layer = 16384
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="area_Button_test"]
+layers = 16385
+mesh = SubResource("SphereMesh_kkjgl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="area_Button_test"]
+shape = SubResource("SphereShape3D_u5ftq")
+
+[node name="PlayerXR" parent="." instance=ExtResource("8_ydldf")]
+
+[node name="leftController" parent="PlayerXR/XROrigin3D" index="1" node_paths=PackedStringArray("exit_node", "setting_node", "training_node", "info_node")]
+exit_node = NodePath("../../../btn_option/exit")
+setting_node = NodePath("../../../btn_option/setting")
+training_node = NodePath("../../../training_menu")
+info_node = NodePath("../../../training_menu/Info_1")
+
+[node name="Sprite3D" parent="PlayerXR/XROrigin3D" index="4"]
+texture = SubResource("ViewportTexture_0cmk3")
+
+[editable path="btn_training"]
+[editable path="btn_ass"]
+[editable path="training_menu/Button_Info_1"]
+[editable path="training_menu/Info_1/Button_next_1"]
+[editable path="training_menu/Button_Info_2"]
+[editable path="training_menu/Button_Info_3"]
+[editable path="btn_option/btn_setting"]
+[editable path="btn_option/btn_exit"]
+[editable path="btn_option/setting/btn_sound"]
+[editable path="btn_option/exit/btn_no"]
+[editable path="btn_option/exit/btn_yes"]
+[editable path="PlayerXR"]

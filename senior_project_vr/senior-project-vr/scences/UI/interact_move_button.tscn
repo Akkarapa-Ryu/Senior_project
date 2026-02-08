@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5fqdg2y4lttj"]
+
+[ext_resource type="Script" uid="uid://c1p33ksnqkbcf" path="res://scripts/UI/interact_button_move.gd" id="1_u2725"]
+[ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="2_lh3ng"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yjgxj"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lh3ng"]
+albedo_color = Color(0.26593998, 7.9126956e-05, 0.9455697, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5av4p"]
+points = PackedVector3Array(-0.5, -0.1, -0.5, -0.5, 0.1, -0.5, 0.5, -0.1, -0.5, -0.5, -0.1, 0.5, -0.5, 0.1, 0.5, 0.5, 0.1, -0.5, 0.5, -0.1, 0.5, 0.5, 0.1, 0.5)
+
+[node name="Button" type="StaticBody3D" node_paths=PackedStringArray("label_node")]
+collision_layer = 16387
+script = ExtResource("1_u2725")
+label_node = NodePath("Label3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_yjgxj")
+surface_material_override/0 = SubResource("StandardMaterial3D_lh3ng")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_5av4p")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.105, 0)
+font = ExtResource("2_lh3ng")
+font_size = 150

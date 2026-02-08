@@ -1,23 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://db2ebm6fjb7r1"]
+[gd_scene load_steps=6 format=3 uid="uid://db2ebm6fjb7r1"]
 
-[ext_resource type="Script" uid="uid://bpwtudiyk5bb2" path="res://scripts/3d_button.gd" id="1_r3swg"]
+[ext_resource type="Script" uid="uid://bpwtudiyk5bb2" path="res://scripts/UI/3d_button.gd" id="1_r3swg"]
 [ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="2_aarvx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r3swg"]
 resource_local_to_scene = true
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_aarvx"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aarvx"]
 
-[node name="MyButton" type="StaticBody3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_aarvx"]
+size = Vector3(10, 3, 0.2)
+
+[node name="MyButton" type="StaticBody3D" groups=["interactable_buttons"]]
 collision_layer = 2
 script = ExtResource("1_r3swg")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+layers = 16386
 mesh = SubResource("BoxMesh_r3swg")
+surface_material_override/0 = SubResource("StandardMaterial3D_aarvx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConcavePolygonShape3D_aarvx")
+shape = SubResource("BoxShape3D_aarvx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

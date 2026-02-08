@@ -1,40 +1,54 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5qeg0e46jl6i"]
+[gd_scene load_steps=11 format=3 uid="uid://b5qeg0e46jl6i"]
 
 [ext_resource type="Script" uid="uid://b5s5kds54tvfg" path="res://scripts/NPC/npc.gd" id="1_hrr7t"]
 [ext_resource type="Script" uid="uid://cklll18j8eov1" path="res://scripts/NPC/npc_movement.gd" id="1_puqyl"]
 [ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="2_dyoqb"]
-[ext_resource type="ArrayMesh" uid="uid://dc6ckdjrtm6n2" path="res://3d model/Person.obj" id="2_puqyl"]
 [ext_resource type="Script" uid="uid://d16jj88frv10k" path="res://scripts/NPC/npc_dialogue.gd" id="4_g1s3y"]
+[ext_resource type="PackedScene" uid="uid://cegunveir4wa2" path="res://scences/Animation/human_anim.tscn" id="5_g1s3y"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0rojp"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 1.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kumfq"]
 albedo_color = Color(0.49411765, 0.56078434, 0.36078432, 1)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_puqyl"]
-points = PackedVector3Array(-1, 0, -0.00019574165, -0.8660924, 0, -0.50019574, -0.8660924, 0, 0.49980426, -1, 17, -0.00019574165, -0.8660924, 17, -0.50019574, -0.50019574, 0, -0.8660924, -0.50019574, 0, 0.8658966, -0.8660924, 17, 0.49980426, -0.50019574, 17, -0.8660924, -0.00019574165, 0, -1, -0.00019574165, 0, 1, -0.50019574, 17, 0.8658966, -0.00019574165, 17, -1, 0.49980426, 0, -0.8660924, 0.49980426, 0, 0.8658966, -0.00019574165, 17, 1, 0.49980426, 17, -0.8660924, 0.8658966, 0, -0.50019574, 0.8658966, 0, 0.49980426, 0.49980426, 17, 0.8658966, 0.8658966, 17, -0.50019574, 1, 0, -0.00019574165, 0.8658966, 17, 0.49980426, 1, 17, -0.00019574165)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_kumfq"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_g1s3y"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1s3y"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.20848483, 0.24762386, 0.38599312, 1)
+corner_detail = 10
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g1s3y"]
+radius = 0.25
+
 [node name="NPC" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 16387
 script = ExtResource("1_hrr7t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_puqyl")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+visible = false
+mesh = SubResource("CylinderMesh_0rojp")
 surface_material_override/0 = SubResource("StandardMaterial3D_kumfq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_puqyl")
-
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.337, 14, -2.407)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0018649, 1.6765008, 0.6338991)
 visible = false
 billboard = 1
 texture_filter = 1
-texture = SubResource("ViewportTexture_kumfq")
+texture = SubResource("ViewportTexture_g1s3y")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D"]
 transparent_bg = true
-size = Vector2i(800, 400)
+size = Vector2i(150, 50)
 render_target_update_mode = 4
 
 [node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
@@ -46,6 +60,7 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Sprite3D/SubViewport/CenterContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g1s3y")
 
 [node name="MarginContainer" type="MarginContainer" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer"]
 layout_mode = 2
@@ -53,8 +68,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_dyoqb")
-theme_override_font_sizes/font_size = 75
+theme_override_font_sizes/font_size = 35
 text = "Hello Player"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -69,3 +85,66 @@ script = ExtResource("4_g1s3y")
 
 [node name="MovementComponent" type="Node3D" parent="."]
 script = ExtResource("1_puqyl")
+
+[node name="human" parent="." instance=ExtResource("5_g1s3y")]
+
+[node name="Skeleton3D" parent="human" index="1"]
+bones/0/position = Vector3(2.2888183e-07, 1.0579708, -0.06687967)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/1/rotation = Quaternion(-0.06808865, 0, 0, 0.9976793)
+bones/2/rotation = Quaternion(-1.8453744e-07, 0, 0, 1)
+bones/3/rotation = Quaternion(-4.1633363e-17, 2.8572106e-35, -2.507056e-32, 1)
+bones/4/rotation = Quaternion(0.06808884, -9.2048e-41, -2.470925e-32, 0.9976793)
+bones/5/rotation = Quaternion(0, 0, 4.9303807e-32, 1)
+bones/7/rotation = Quaternion(-0.55827457, -0.42469925, 0.5870701, -0.40411475)
+bones/8/rotation = Quaternion(-0.10740361, 0.0047446736, -0.043877326, 0.99323547)
+bones/9/rotation = Quaternion(0.011646634, 0.045648716, 0.2469423, 0.9678843)
+bones/10/rotation = Quaternion(0.00069878774, -0.12266477, 0.0045800298, 0.99243736)
+bones/11/rotation = Quaternion(0.17975383, 0.044362403, 0.23546353, 0.95408463)
+bones/12/rotation = Quaternion(-0.06771186, 3.6512993e-17, 1.3909712e-17, 0.9977049)
+bones/13/rotation = Quaternion(-0.051879983, -3.4741255e-18, 0, 0.99865335)
+bones/15/rotation = Quaternion(0.032620214, 0.004172957, 0.12682205, 0.9913802)
+bones/16/rotation = Quaternion(0.009320343, 2.0817592e-17, -5.5513567e-17, 0.99995655)
+bones/17/rotation = Quaternion(-0.06567504, 6.953908e-18, 6.9539076e-17, 0.99784106)
+bones/19/rotation = Quaternion(-0.032530565, -0.00044967534, 0.013814905, 0.99937516)
+bones/20/rotation = Quaternion(0.06190855, 4.8665616e-17, -1.1123569e-16, 0.9980818)
+bones/21/rotation = Quaternion(-0.004206228, 6.938955e-18, 1.6156014e-27, 0.9999912)
+bones/23/rotation = Quaternion(-0.018902155, 0.0015286189, -0.080591895, 0.9965668)
+bones/24/rotation = Quaternion(0.026969168, -1.3882837e-17, 2.58588e-26, 0.9996363)
+bones/25/rotation = Quaternion(-0.085683815, -2.785803e-17, -1.3929013e-17, 0.9963224)
+bones/27/rotation = Quaternion(0.059182014, -0.007889305, -0.13190158, 0.9894631)
+bones/28/rotation = Quaternion(0.007444544, 6.939087e-18, 6.939087e-18, 0.9999723)
+bones/29/rotation = Quaternion(-0.101132035, 4.1847924e-17, 2.0923962e-17, 0.994873)
+bones/31/rotation = Quaternion(0.5613058, -0.42241344, 0.58469874, 0.40574634)
+bones/32/rotation = Quaternion(-0.10821467, -0.005627137, 0.05162383, 0.9927703)
+bones/33/rotation = Quaternion(0.011287469, -0.043634497, -0.25018418, 0.96714866)
+bones/34/rotation = Quaternion(0.0018278018, 0.13274963, 0.0016750281, 0.9911465)
+bones/35/rotation = Quaternion(0.18907982, -0.051805545, -0.2591208, 0.94573855)
+bones/36/rotation = Quaternion(-0.09199655, -1.114951e-16, -1.8117957e-16, 0.9957593)
+bones/37/rotation = Quaternion(-0.048055965, 1.389384e-17, -2.778768e-17, 0.9988446)
+bones/39/rotation = Quaternion(0.008426589, -0.0013955992, -0.16338761, 0.986525)
+bones/40/rotation = Quaternion(0.053466283, -4.1693e-17, -1.3897665e-17, 0.99856967)
+bones/41/rotation = Quaternion(-0.046497457, 1.3892814e-17, 1.3892814e-17, 0.9989184)
+bones/43/rotation = Quaternion(-0.010400307, 0.00017635874, -0.016954055, 0.9998022)
+bones/44/rotation = Quaternion(0.03958017, -6.944336e-18, -1.388867e-17, 0.9992164)
+bones/45/rotation = Quaternion(-0.08500964, -2.7856412e-17, -4.178462e-17, 0.99638015)
+bones/47/rotation = Quaternion(-0.046341226, -0.0027766412, 0.05974575, 0.9971335)
+bones/48/rotation = Quaternion(0.042396117, 0, -2.0835416e-17, 0.99910086)
+bones/49/rotation = Quaternion(0.07750083, 1.3919655e-17, 6.959827e-18, 0.9969923)
+bones/51/rotation = Quaternion(0.040464092, 0.0056297253, 0.1376865, 0.98963296)
+bones/52/rotation = Quaternion(0.012758536, 3.081739e-33, -5.74e-42, 0.9999186)
+bones/53/rotation = Quaternion(-0.049389176, -2.778949e-17, 6.9473725e-18, 0.99877965)
+bones/55/rotation = Quaternion(0.0017619482, 0.06092732, 0.9977236, -0.028853022)
+bones/56/rotation = Quaternion(-0.13719976, 0.0029989502, -0.021646304, 0.9903023)
+bones/57/rotation = Quaternion(0.5102436, -0.03235573, 0.019214604, 0.85920626)
+bones/58/rotation = Quaternion(0.32273582, 0.05854293, -0.020004872, 0.944465)
+bones/60/rotation = Quaternion(-0.0018177963, 0.062889285, 0.9976022, 0.028835403)
+bones/61/rotation = Quaternion(-0.13375357, -0.0029220372, 0.021644872, 0.9907739)
+bones/62/rotation = Quaternion(0.500638, 0.03346413, -0.019372754, 0.8647927)
+bones/63/rotation = Quaternion(0.32813323, -0.059273098, 0.020635076, 0.94254416)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9980196, 0)
+shape = SubResource("CapsuleShape3D_g1s3y")
+
+[editable path="human"]
