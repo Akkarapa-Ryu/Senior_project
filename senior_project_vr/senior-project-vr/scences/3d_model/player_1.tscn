@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d4im1mgxfw4ws" path="res://scripts/Player/player.gd" id="1_hqvp4"]
 [ext_resource type="ArrayMesh" uid="uid://dc6ckdjrtm6n2" path="res://3d model/Human/Person.obj" id="2_mk41u"]
-[ext_resource type="Script" uid="uid://x2kpor7awvaq" path="res://scripts/Player/interaction_ray.gd" id="3_mk41u"]
+[ext_resource type="Script" path="res://scripts/Player/interaction_ray.gd" id="3_mk41u"]
 [ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="3_qj3hs"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mk41u"]
@@ -36,6 +36,7 @@ shape = SubResource("ConvexPolygonShape3D_mk41u")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 2.5, 14, -6)
+visible = false
 billboard = 1
 shaded = true
 texture_filter = 1
@@ -74,20 +75,20 @@ autowrap_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14, -1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(0.02, 0, 0, 0, -4.371139e-08, -0.02, 0, 1, -8.7422775e-10, 0, 0, -2)
+transform = Transform3D(0.02, 0, 0, 0, -4.371139e-08, -0.02, 0, 1, -8.7422775e-10, 0, 0, -1)
 visible = false
 material_override = SubResource("StandardMaterial3D_fukdw")
 mesh = SubResource("CylinderMesh_fukdw")
 
 [node name="InteractionRay" type="RayCast3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, -0.64340734)
-target_position = Vector3(0, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, -0.5)
+target_position = Vector3(0, 0, 1)
 collision_mask = 3
 debug_shape_custom_color = Color(0.6614647, 0.28556305, 1, 1)
 script = ExtResource("3_mk41u")
 
 [node name="HoldPosition" type="Marker3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 
 [node name="Control" type="Control" parent="."]
 visible = false

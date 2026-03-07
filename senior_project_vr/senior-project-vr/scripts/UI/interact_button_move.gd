@@ -30,7 +30,7 @@ signal interacted_move_target()
 @export var max_height: float = 5.0
 @export var min_height: float = 0.0
 
-@onready var NPC = $"../../NPC"
+@onready var NPC_Node = $"../../NPC"
 
 func _ready() -> void:
 	update_label_text()
@@ -47,7 +47,7 @@ func interact_move_target(_body):
 	move_target()
 
 func move_target():
-	NPC.attach_all_to_bed()
+	NPC_Node.attach_all_to_bed()
 	
 	var tween = create_tween().set_parallel(true)
 	

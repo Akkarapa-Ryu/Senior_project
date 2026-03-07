@@ -1,6 +1,6 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib Main Room.mtl
+mtllib main_room.mtl
 g default
 v -50.000000 0.000000 50.000000
 v 50.000000 0.000000 50.000000

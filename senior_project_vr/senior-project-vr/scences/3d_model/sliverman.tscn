@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://db0gynlkdcuhv"]
+
+[ext_resource type="ArrayMesh" uid="uid://d5213i08unyx" path="res://3d model/Equipment/Sliverman.obj" id="1_sbhd2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sbhd2"]
+size = Vector3(0.13, 0.11, 0.22)
+
+[node name="Sliverman" type="RigidBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+layers = 16386
+mesh = ExtResource("1_sbhd2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05096128, -0.029400755)
+shape = SubResource("BoxShape3D_sbhd2")

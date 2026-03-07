@@ -11,20 +11,21 @@ albedo_color = Color(0.4862745, 0.37254903, 1, 1)
 albedo_color = Color(1, 0.45882353, 0.4509804, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_op5g6"]
-size = Vector3(0.26, 0.05, 0.28)
+size = Vector3(0.31, 0.05, 0.32)
 
 [node name="thermoplastic_mask_short" type="RigidBody3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
 collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_lehvq")
 continuous_cd = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-layers = 2
+layers = 16386
 mesh = ExtResource("1_op5g6")
 surface_material_override/0 = SubResource("StandardMaterial3D_op5g6")
 surface_material_override/1 = SubResource("StandardMaterial3D_64uec")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.066)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.06833614)
 shape = SubResource("BoxShape3D_op5g6")

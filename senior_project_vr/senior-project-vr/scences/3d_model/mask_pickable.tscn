@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdldau4al4bew"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_wwokg"]
+[ext_resource type="ArrayMesh" uid="uid://bxal0r0k0k4qy" path="res://3d model/Equipment/Thermoplastic Mask Short Type.obj" id="2_pjxaj"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="4_qgcse"]
+[ext_resource type="Script" uid="uid://0b7wkxi4vymb" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="5_ynnug"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6jgpw"]
+size = Vector3(0.34, 0.02, 0.355)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s61js"]
+cull_mode = 1
+albedo_color = Color(0.12156863, 0.23921569, 1, 1)
+
+[node name="thermoplastic_mask_short" groups=["equipment", "mask"] instance=ExtResource("1_wwokg")]
+collision_layer = 4
+
+[node name="ThermoplasticMaskShortType" type="MeshInstance3D" parent="." index="0"]
+transform = Transform3D(0.11, 0, 0, 0, 0.1, 0, 0, 0, 0.11, 0, 0, 0)
+mesh = ExtResource("2_pjxaj")
+
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.07266658)
+shape = SubResource("BoxShape3D_6jgpw")
+
+[node name="GrabPointSnap" parent="." index="2" instance=ExtResource("4_qgcse")]
+visible = true
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="3"]
+script = ExtResource("5_ynnug")
+metadata/_custom_type_script = "uid://0b7wkxi4vymb"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
+transform = Transform3D(0.11, 0, 0, 0, 0.1, 0, 0, 0, 0.11, 0, 0, 0)
+mesh = ExtResource("2_pjxaj")
+surface_material_override/0 = SubResource("StandardMaterial3D_s61js")
+surface_material_override/1 = SubResource("StandardMaterial3D_s61js")

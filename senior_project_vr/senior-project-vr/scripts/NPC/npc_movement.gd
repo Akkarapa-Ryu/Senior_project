@@ -24,6 +24,9 @@ func start_following():
 		print("ERROR: ไม่มีเป้าหมายให้เดินตาม!")
 
 func _physics_process(delta: float) -> void:
+	if npc_main.can_follow:
+		print("กำลังจะเดินตาม")
+	
 	if npc_main.can_follow and player_node:
 		movement_logic(delta)
 
@@ -54,7 +57,7 @@ func movement_logic(delta: float):
 	
 	if not nav_agent.is_navigation_finished():
 		var next_path_pos = nav_agent.get_next_path_position()
-		var direction = global_position.direction_to(next_path_pos)
+		var direction = npc_main.global_position.direction_to(next_path_pos)
 		
 		# คำนวณความเร็ว
 		npc_main.velocity.x = direction.x * npc_main.SPEED
@@ -62,7 +65,7 @@ func movement_logic(delta: float):
 		npc_main.anim_state.travel("walking")
 		
 		# 4. หันหน้า (หันเฉพาะเมื่อเป้าหมายอยู่ห่างเกิน 0.2 เมตร เพื่อกัน Error)
-		if global_position.distance_to(next_path_pos) > 0.2:
+		if npc_main.global_position.distance_to(next_path_pos) > 0.2:
 			var look_dir = Vector3(direction.x, 0, direction.z)
 			if look_dir.length() > 0.01:
 				npc_main.look_at(npc_main.global_position + look_dir, Vector3.UP)
@@ -70,6 +73,8 @@ func movement_logic(delta: float):
 			npc_main.anim_state.travel("idle") # ถึงจุดหมายแล้ว
 	
 	npc_main.move_and_slide()
+	print("target:", player_node.global_position)
+	print("next path:", nav_agent.get_next_path_position())
 
 # ฟังก์ชันที่จะทำงานเมื่อคุยจบ
 func _on_dialogue_finished():
@@ -85,3 +90,29 @@ func stop_following():
 	if get_parent() is CharacterBody3D:
 		get_parent().velocity = Vector3.ZERO
 	print("MovementComponent: หยุดการเคลื่อนที่แล้ว")
+
+# --- NPC ลุกขึ้นจากเตียง ---
+func wake_up():
+	print("NPC: กำลังลุกจากเตียง...")
+	if npc_main.current_state != NPC.State.SLEEPING: return 
+	
+	# 1. ย้าย NPC ออกจากการเป็นลูกของเตียงก่อน
+	if npc_main.original_parent:
+		npc_main.reparent(npc_main.original_parent, true)
+	else:
+		npc_main.reparent(get_tree().current_scene, true)
+	
+	# 2. คำนวณจุดยืน (ข้างๆ เตียง)
+	var stand_up_pos = npc_main.global_position + (npc_main.global_transform.basis.x * 1.0)
+	stand_up_pos.y = npc_main.global_position.y
+	print("stand_up_pos.y: ", stand_up_pos.y)
+	var tween = create_tween().set_parallel(true) # ให้หมุนและย้ายพร้อมกัน
+	tween.tween_property(npc_main, "global_rotation_degrees", Vector3.ZERO, 0.5)
+	tween.tween_property(npc_main, "global_position", stand_up_pos, 0.5)
+	
+	await tween.finished
+	
+	# 3. คืนค่าสถานะ
+	npc_main.current_state = NPC.State.IDLE
+	set_physics_process(true)
+	npc_main.anim_state.travel("idle")

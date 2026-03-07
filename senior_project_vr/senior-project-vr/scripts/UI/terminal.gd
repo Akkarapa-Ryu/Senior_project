@@ -6,7 +6,7 @@ func _on_btn_up_interacted_move_target() -> void:
 
 
 func _on_btn_rigth_interacted_move_target() -> void:
-	print("Object Rigth")
+	print("Object Right")
 
 
 func _on_btn_down_interacted_move_target() -> void:

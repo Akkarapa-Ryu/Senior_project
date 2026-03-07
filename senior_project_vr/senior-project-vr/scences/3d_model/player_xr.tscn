@@ -1,17 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqkbuf2bh4nbu"]
+[gd_scene load_steps=13 format=3 uid="uid://cqkbuf2bh4nbu"]
 
-[ext_resource type="Script" uid="uid://1hut0wrn7utc" path="res://scripts/XR/left_controller.gd" id="1_521en"]
+[ext_resource type="Script" uid="uid://1hut0wrn7utc" path="res://scripts/XR/controller.gd" id="1_us8ep"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_5i8tu"]
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_uaimc"]
 [ext_resource type="PackedScene" uid="uid://raeeicvvindd" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_hand.tscn" id="4_6ah6e"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_1lfm6"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_3v37m"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5_5i8tu"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="5_us8ep"]
 [ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="7_uaimc"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_1lfm6"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_us8ep"]
+size = Vector3(0.039746094, 0.025708009, 0.060253907)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_uaimc"]
-viewport_path = NodePath("XROrigin3D/Sprite3D/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_vfogk"]
+viewport_path = NodePath("Sprite3D/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lfm6"]
 content_margin_left = 5.0
@@ -21,10 +24,11 @@ content_margin_bottom = 5.0
 bg_color = Color(0.20848483, 0.24762386, 0.38599312, 1)
 corner_detail = 10
 
-[node name="PlayerXR" type="Node3D"]
+[node name="PlayerXR" type="Node3D" groups=["player", "player_xr"]]
 
 [node name="XROrigin3D" type="XROrigin3D" parent="." groups=["player", "player_xr"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+current = true
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 current = true
@@ -32,67 +36,73 @@ current = true
 [node name="leftController" type="XRController3D" parent="XROrigin3D" groups=["player_controller"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.645, 0, -0.5)
 tracker = &"left_hand"
-script = ExtResource("1_521en")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/leftController"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-visible = false
-layers = 2
-mesh = SubResource("BoxMesh_1lfm6")
-
-[node name="RayCast3D" type="RayCast3D" parent="XROrigin3D/leftController"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
-collision_mask = 16387
-collide_with_areas = true
+script = ExtResource("1_us8ep")
 
 [node name="LeftHand" parent="XROrigin3D/leftController" instance=ExtResource("2_uaimc")]
 
+[node name="InteractionArea" type="Area3D" parent="XROrigin3D/leftController/LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.09693599)
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/leftController/LeftHand/InteractionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021910608, 0.037145972, -0.025183797)
+shape = SubResource("BoxShape3D_us8ep")
+
 [node name="MovementDirect" parent="XROrigin3D/leftController" instance=ExtResource("2_5i8tu")]
+
+[node name="FunctionPickup" parent="XROrigin3D/leftController" instance=ExtResource("5_us8ep")]
+grab_distance = 0.1
+
+[node name="FunctionPointer" parent="XROrigin3D/leftController" instance=ExtResource("5_3v37m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.05, -0.1)
+distance = 0.1
+show_laser = 0
+collision_mask = 5242883
 
 [node name="rightController" type="XRController3D" parent="XROrigin3D" groups=["player", "player_controller"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.645, 0, -0.5)
 tracker = &"right_hand"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/rightController"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-visible = false
-mesh = SubResource("BoxMesh_1lfm6")
-
 [node name="RightHand" parent="XROrigin3D/rightController" instance=ExtResource("4_6ah6e")]
 
 [node name="MovementTurn" parent="XROrigin3D/rightController" instance=ExtResource("5_5i8tu")]
 
-[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("5_1lfm6")]
-collision_layer = 540675
+[node name="FunctionPickup" parent="XROrigin3D/rightController" instance=ExtResource("5_us8ep")]
+grab_distance = 0.1
 
-[node name="Sprite3D" type="Sprite3D" parent="XROrigin3D" groups=["player", "player_xr"]]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.8096708, 0.15519655, -0.9231179)
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("5_1lfm6")]
+collision_layer = 540674
+collision_mask = 5
+
+[node name="Sprite3D" type="Sprite3D" parent="." groups=["player", "player_xr"]]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.46800852, 1.1551965, -0.9231179)
 visible = false
 billboard = 1
 shaded = true
 texture_filter = 1
-texture = SubResource("ViewportTexture_uaimc")
+texture = SubResource("ViewportTexture_vfogk")
 
-[node name="SubViewport" type="SubViewport" parent="XROrigin3D/Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
 transparent_bg = true
 size = Vector2i(100, 50)
 render_target_update_mode = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="XROrigin3D/Sprite3D/SubViewport"]
+[node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="XROrigin3D/Sprite3D/SubViewport/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Sprite3D/SubViewport/CenterContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1lfm6")
 
-[node name="MarginContainer" type="MarginContainer" parent="XROrigin3D/Sprite3D/SubViewport/CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="XROrigin3D/Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_uaimc")

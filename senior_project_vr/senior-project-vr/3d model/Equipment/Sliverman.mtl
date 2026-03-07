@@ -1,0 +1,76 @@
+newmtl MaleHumanAnatomy_Scanline:Body_InnerEyes2SG1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Body_NoGenitalsSG2
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00
+newmtl MaleHumanAnatomy_Scanline:Body_NoGenitalsSG3
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00
+newmtl Nervous_Cerebrum_MulticolorSG2
+illum 4
+Kd 0.45 0.71 0.93
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl Nervous_Cerebrum_MulticolorSG4
+illum 4
+Kd 0.94 0.80 0.45
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl Nervous_Cerebrum_MulticolorSG5
+illum 4
+Kd 0.94 0.65 0.60
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl Nervous_Cerebrum_MulticolorSG6
+illum 4
+Kd 0.45 0.71 0.93
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl Nervous_Cerebrum_MulticolorSG7
+illum 4
+Kd 0.64 0.75 0.53
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl initialShadingGroup
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl polySurface3SG1
+illum 4
+Kd 0.43 0.51 0.54
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
