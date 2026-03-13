@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://denncu8dnhm0c"]
+
+[ext_resource type="PackedScene" uid="uid://ckgjtm1pv3pld" path="res://3d model/Human_Skeletal.fbx" id="1_saff7"]
+[ext_resource type="Shader" uid="uid://bdguq1bvr6l1s" path="res://scanning_shader.gdshader" id="2_ysgje"]
+[ext_resource type="Shader" uid="uid://duk6prfplmbrs" path="res://main_2.gdshader" id="3_ysgje"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g8inc"]
+render_priority = 0
+shader = ExtResource("2_ysgje")
+shader_parameter/scan_color = Color(0.2, 0.7, 1, 1)
+shader_parameter/intensity = 4.0
+shader_parameter/softness = 0.8
+shader_parameter/transparency_level = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ysgje"]
+render_priority = 0
+shader = ExtResource("3_ysgje")
+shader_parameter/slice_height = 0.25000048687500076
+shader_parameter/edge_color = Color(0, 1, 1, 1)
+shader_parameter/edge_thickness = 0.05
+shader_parameter/inside_color = Color(0.6, 0.2, 0.2, 1)
+shader_parameter/noise_scale = 2.0
+
+[node name="Human_Skeletal" instance=ExtResource("1_saff7")]
+
+[node name="Skeletal_Radius" parent="Skeleton3D" index="0"]
+material_override = SubResource("ShaderMaterial_g8inc")
+
+[node name="Nervous_Medulla_Caudate_Nucleus" parent="Skeleton3D" index="1"]
+material_override = SubResource("ShaderMaterial_ysgje")
+
+[node name="Body_NoGenitals" parent="Skeleton3D" index="3"]
+visible = false
+
+[node name="Body_InnerEyes1" parent="Skeleton3D" index="4"]
+visible = false
