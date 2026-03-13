@@ -10,11 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="5_us8ep"]
 [ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="7_uaimc"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_us8ep"]
-size = Vector3(0.039746094, 0.025708009, 0.060253907)
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_vfogk"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+viewport_path = NodePath("XROrigin3D/XRCamera3D/Sprite3D/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lfm6"]
 content_margin_left = 5.0
@@ -24,7 +21,10 @@ content_margin_bottom = 5.0
 bg_color = Color(0.20848483, 0.24762386, 0.38599312, 1)
 corner_detail = 10
 
-[node name="PlayerXR" type="Node3D" groups=["player", "player_xr"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_us8ep"]
+size = Vector3(0.039746094, 0.025708009, 0.060253907)
+
+[node name="PlayerXR" type="Node3D"]
 
 [node name="XROrigin3D" type="XROrigin3D" parent="." groups=["player", "player_xr"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -32,6 +32,43 @@ current = true
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 current = true
+
+[node name="Sprite3D" type="Sprite3D" parent="XROrigin3D/XRCamera3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.468, 0, -0.5)
+visible = false
+billboard = 1
+texture_filter = 1
+texture = SubResource("ViewportTexture_vfogk")
+
+[node name="SubViewport" type="SubViewport" parent="XROrigin3D/XRCamera3D/Sprite3D"]
+transparent_bg = true
+render_target_update_mode = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="XROrigin3D/XRCamera3D/Sprite3D/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="XROrigin3D/XRCamera3D/Sprite3D/SubViewport/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1lfm6")
+
+[node name="MarginContainer" type="MarginContainer" parent="XROrigin3D/XRCamera3D/Sprite3D/SubViewport/CenterContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="XROrigin3D/XRCamera3D/Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_uaimc")
+theme_override_font_sizes/font_size = 24
+text = "Hello NPC"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="leftController" type="XRController3D" parent="XROrigin3D" groups=["player_controller"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.645, 0, -0.5)
@@ -74,40 +111,3 @@ grab_distance = 0.1
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("5_1lfm6")]
 collision_layer = 540674
 collision_mask = 5
-
-[node name="Sprite3D" type="Sprite3D" parent="." groups=["player", "player_xr"]]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.46800852, 1.1551965, -0.9231179)
-visible = false
-billboard = 1
-shaded = true
-texture_filter = 1
-texture = SubResource("ViewportTexture_vfogk")
-
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
-transparent_bg = true
-size = Vector2i(100, 50)
-render_target_update_mode = 4
-
-[node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="Sprite3D/SubViewport/CenterContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1lfm6")
-
-[node name="MarginContainer" type="MarginContainer" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("7_uaimc")
-theme_override_font_sizes/font_size = 16
-text = "Hello NPC"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3

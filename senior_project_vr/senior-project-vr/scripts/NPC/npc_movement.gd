@@ -4,7 +4,6 @@ extends Node3D
 @onready var nav_agent = $"../NavigationAgent3D"
 
 var player_node: Node3D
-var can_follow: bool = false # สถานะเริ่มแรกคือยังไม่เดิน
 
 func _ready() -> void:
 	await get_tree().process_frame # รอให้ Group พร้อมใช้งาน
@@ -31,47 +30,40 @@ func _physics_process(delta: float) -> void:
 		movement_logic(delta)
 
 func movement_logic(delta: float):
-	if not npc_main.can_follow or not player_node:
-		npc_main.anim_state.travel("idle") # ถ้าไม่ได้เดิน ใช้ท่า idle
+	# เช็คความปลอดภัยก่อน
+	if not is_instance_valid(player_node) or not npc_main.can_follow:
+		npc_main.anim_state.travel("idle")
 		return
 
-	# 1. ใส่แรงโน้มถ่วงเสมอ (ช่วยให้เท้าติดพื้น NavMesh)
+	# 1. แรงโน้มถ่วง (ใช้จาก npc_main โดยตรง)
 	if not npc_main.is_on_floor():
 		npc_main.velocity.y -= 20.0 * delta
 	else:
 		npc_main.velocity.y = 0
 
-	#var dist_to_player = global_position.distance_to(player_node.global_position)
 	var dist_to_player = npc_main.global_position.distance_to(player_node.global_position)
 
-	# 2. ระยะหยุด (ปรับ follow_distance เป็น 2.0 เพื่อเว้นที่ให้ Player ขยับ)
-	if dist_to_player < npc_main.follow_distance: 
+	# 2. ระยะหยุด (ปรับให้ยืดหยุ่น)
+	if dist_to_player < npc_main.follow_distance:
+		# ค่อยๆ หยุด
 		npc_main.velocity.x = move_toward(npc_main.velocity.x, 0, npc_main.SPEED)
 		npc_main.velocity.z = move_toward(npc_main.velocity.z, 0, npc_main.SPEED)
-		npc_main.move_and_slide()
-		npc_main.anim_state.travel("idle") # เมื่อหยุดเดิน
-		return
-
-	# 3. สั่ง Agent คำนวณทาง
-	nav_agent.target_position = player_node.global_position
-	
-	if not nav_agent.is_navigation_finished():
+		npc_main.anim_state.travel("idle")
+	else:
+		# 3. สั่งเดิน
+		nav_agent.target_position = player_node.global_position
 		var next_path_pos = nav_agent.get_next_path_position()
 		var direction = npc_main.global_position.direction_to(next_path_pos)
 		
-		# คำนวณความเร็ว
 		npc_main.velocity.x = direction.x * npc_main.SPEED
 		npc_main.velocity.z = direction.z * npc_main.SPEED
 		npc_main.anim_state.travel("walking")
 		
-		# 4. หันหน้า (หันเฉพาะเมื่อเป้าหมายอยู่ห่างเกิน 0.2 เมตร เพื่อกัน Error)
-		if npc_main.global_position.distance_to(next_path_pos) > 0.2:
-			var look_dir = Vector3(direction.x, 0, direction.z)
-			if look_dir.length() > 0.01:
-				npc_main.look_at(npc_main.global_position + look_dir, Vector3.UP)
-		else:
-			npc_main.anim_state.travel("idle") # ถึงจุดหมายแล้ว
-	
+		# หันหน้าไปหาทิศที่จะเดิน
+		var look_target = Vector3(next_path_pos.x, npc_main.global_position.y, next_path_pos.z)
+		if npc_main.global_position.distance_to(look_target) > 0.1:
+			npc_main.look_at(look_target, Vector3.UP)
+
 	npc_main.move_and_slide()
 	print("target:", player_node.global_position)
 	print("next path:", nav_agent.get_next_path_position())
@@ -93,6 +85,7 @@ func stop_following():
 
 # --- NPC ลุกขึ้นจากเตียง ---
 func wake_up():
+	# ต้องเอา npc ออกจาก bed_marker ก่อน
 	print("NPC: กำลังลุกจากเตียง...")
 	if npc_main.current_state != NPC.State.SLEEPING: return 
 	

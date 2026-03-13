@@ -56,7 +56,7 @@ func _is_interactable(node: Node) -> bool:
 		node.has_method("attempt_toggle") or # <--- เพิ่มบรรทัดนี้
 		(node.get_parent() and node.get_parent().has_method("attempt_toggle")) or # <--- และบรรทัดนี้
 		node.has_method("interact_move_target") or 
-		(node.get_parent() and node.get_parent().has_method("ScanModel"))
+		(node.get_parent() and node.get_parent().has_method("scan_model"))
 	)
 
 func _set_highlight(node: Node3D, active: bool) -> void:
@@ -117,8 +117,13 @@ func _handle_trigger_interaction(target: Node3D) -> void:
 	if target.get_parent() and target.get_parent().has_method("interact_move_target"):
 		target.get_parent().interact_move_target(self)
 		
-	if target.get_parent().has_method("ScanModel"):
-		target.get_parent().ScanModel()
+	if target.get_parent().has_method("scan_model") or target.get_parent().has_method("capture_model"):
+		if target.name == "btn_sim":
+			print("VR: Calling scan_model via btn_sim")
+			target.get_parent().scan_model()
+		elif target.name == "btn_scan":
+			print("VR: Calling scan_model via btn_scan")
+			target.get_parent().capture_model()
 
 func _handle_scrolling(button_name: String, target: Node3D) -> void:
 	var sprite = target.get_parent()

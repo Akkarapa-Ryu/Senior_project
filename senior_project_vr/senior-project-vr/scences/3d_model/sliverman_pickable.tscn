@@ -11,11 +11,12 @@ size = Vector3(0.155, 0.136, 0.26)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6m2d"]
 albedo_color = Color(0.29219002, 0.29219005, 0.29219002, 1)
 
-[node name="Sliverman" groups=["equipment"] instance=ExtResource("1_ujgen")]
+[node name="Sliverman" groups=["equipment", "pillow"] instance=ExtResource("1_ujgen")]
 collision_layer = 4
 
 [node name="Sliverman" type="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+layers = 4
 mesh = ExtResource("2_g8ckd")
 
 [node name="CollisionShape3D" parent="." index="1"]

@@ -2,11 +2,12 @@ extends Area3D
 # ส่วนนี้มาจาก Gemini ------------------------------
 var bodies_waiting_to_snap = []
 @export var snap_pos: Marker3D
+@export var accepted_group: String = "" # ใส่ชื่อกลุ่ม เช่น "mask" หรือ "pillow"
 
 # Ref: https://forum.godotengine.org/t/how-to-change-meshinstance3d-to-another/77159
 # 3d model ที่ต้องการเปลี่ยนรูปร่าง
-var thermoplastic_mask_short_use_model = load("res://3d model/Equipment/Thermoplastic Mask Short Type_use.obj")
-@export var model: MeshInstance3D
+#var thermoplastic_mask_short_use_model = load("res://3d model/Equipment/Thermoplastic Mask Short Type_use.obj")
+#@export var model: MeshInstance3D
 @export var attached_objects: Array[Node3D]
 @export var bed_marker: Marker3D
 
@@ -19,11 +20,14 @@ func _ready():
 	body_exited.connect(_on_body_exited)
 	
 func _on_body_entered(body):
-	print("ตรวจพบวัตถุ: ", body.name) # ถ้าอันนี้ไม่ขึ้น แสดงว่าเป็นที่ Collision Layer/Mask
+	# เช็คว่าวัตถุอยู่ในกลุ่มที่ต้องการไหม (ถ้าไม่ได้ตั้งค่าไว้ก็รับหมด)
+	if accepted_group != "" and not body.is_in_group(accepted_group):
+		return
+		
+	print("ตรวจพบวัตถุที่ถูกต้อง: ", body.name)
 	if body.has_method("is_picked_up"):
 		if not bodies_waiting_to_snap.has(body):
 			bodies_waiting_to_snap.append(body)
-			print("รอนับถอยหลังการปล่อยมือ: ", body.name)
 
 func _on_body_exited(body):
 	# ถ้าหยิบออกไปนอกเขตก่อนปล่อยมือ ให้ลบชื่อทิ้ง
@@ -48,40 +52,54 @@ func _process(_delta):
 # --- add object into area ---
 func snap_object(obj):
 	if item_name.size() >= max_slots:
-		print("จุดนี้เต็มแล้ว! วางเพิ่มไม่ได้")
+		if bed_marker and bed_marker.get_parent().get("npc_label"):
+			var label = bed_marker.get_parent().npc_label
+			var original_text = label.text
+			label.text = "จุดนี้เต็มแล้ว วางเพิ่มไม่ได้!"
+			
+			# รอ 2 วินาทีแล้วคืนค่าเดิม หรือซ่อนไป
+			await get_tree().create_timer(2.0).timeout
+			label.text = original_text
+		print("จุดนี้เต็มแล้ว!")
 		return
 	
-	# ถ้ามัน Snap แล้ว อย่าให้มันมาอยู่ในคิวรออีก
 	if bodies_waiting_to_snap.has(obj):
 		bodies_waiting_to_snap.erase(obj)
-	
-	# ปิดฟิสิกส์เพื่อไม่ให้มันร่วงหรือขยับ
-	#obj.freeze = true
-	# --- เพิ่มส่วนนี้: เชื่อมต่อสัญญาณตอนโดนหยิบ ---
+
+	# 1. เชื่อมต่อสัญญาณการหยิบ (ใช้ .bind เหมือนเดิมแต่เราแก้ฟังก์ชันรับแล้ว)
 	if obj.has_signal("picked_up"):
-		# ป้องกันการเชื่อมต่อซ้ำ (กัน Error)
 		if not obj.is_connected("picked_up", _on_item_picked_up):
-			obj.picked_up.connect(_on_item_picked_up.bind(obj))
+			obj.picked_up.connect(_on_item_picked_up)
 	
-	# ย้ายตำแหน่งไปที่ SnapPosition เป๊ะๆ
-	var offset_y = Vector3(0, item_name.size() * 0.01, 0) # ขยับขึ้นข้างบนนิดหน่อยตามจำนวนชิ้น
+	# 2. ปิดฟิสิกส์ให้หยุดนิ่ง
+	if obj is RigidBody3D:
+		obj.freeze = true
+
+	# 3. ย้ายตำแหน่ง (ใช้ global_transform เพื่อความแม่นยำ)
+	var offset_y = Vector3(0, item_name.size() * 0.01, 0)
 	obj.global_position = snap_pos.global_position + offset_y
 	obj.global_rotation = snap_pos.global_rotation
 	
-	# จัดการเรื่อง Mesh (ถ้าเป็นหน้ากากชิ้นที่กำหนด)
+	# 4. เปลี่ยน Parent ไปที่เตียง เพื่อให้เคลื่อนที่ไปพร้อมกับเตียง/NPC
+	if bed_marker:
+		obj.reparent(bed_marker, true)
+
+	# 5. เปลี่ยน Mesh (กรณีหน้ากาก)
 	if obj.is_in_group("mask") or obj.name.begins_with("thermoplastic_mask_short"):
-		if model:
-			model.mesh = thermoplastic_mask_short_use_model
-			
-	attach_all_to_bed()
+		# หา Node ลูกที่อยู่ในตัวหน้ากาก
+		var m_normal = obj.get_node_or_null("MeshNormal")
+		var m_used = obj.get_node_or_null("MeshUsed")
+		
+		if m_normal and m_used:
+			m_normal.visible = false
+			m_used.visible = true
+			print("สลับเป็นหน้ากากทรงใช้งานแล้ว")
 	
-	# add item name
 	item_name.append(obj)
-	
 	if obj.has_method("on_snapped"):
 		obj.on_snapped()
 
-	print("วางสำเร็จ! (ชิ้นที่ ", item_name.size(), "/", max_slots, ")")
+	print("วาง ", obj.name, " สำเร็จ!")
 # ส่วนนี้มาจาก Gemini ------------------------------
 
 # --- remove object from area ---
@@ -107,17 +125,28 @@ func attach_all_to_bed():
 				# ถ้าไม่อยากให้ของทับกันที่จุดเดียว อาจจะไม่ต้องเซต position = 0
 				print("ยึด ", obj.name, " ติดกับเตียงเรียบร้อย")
 
+
 func _on_item_picked_up(obj):
 	if is_instance_valid(obj):
-		obj.freeze = false # คืนแรงโน้มถ่วงทันที!
+		# 1. ปลด Freeze และปลุกฟิสิกส์
+		if obj is RigidBody3D:
+			obj.freeze = false
+			obj.sleeping = false # บังคับให้ตื่นมาคำนวณแรงโน้มถ่วง
+			# แถม: ปรับแรงให้เป็นศูนย์ป้องกันมันพุ่งกระเด็นตอนหลุด
+			obj.linear_velocity = Vector3.ZERO
+			obj.angular_velocity = Vector3.ZERO
 		
-		# ถ้าตอน Snap คุณสั่ง reparent ไปที่เตียง 
-		# ตอนหยิบควรย้ายมันกลับมาที่ Scene หลัก (หรือ Parent ของ Area นี้)
-		# เพื่อให้มันไม่ขยับตามเตียงเวลาโดนถือ
-		if obj.get_parent() != get_parent():
-			obj.reparent(get_parent(), true)
+		# 2. สำคัญมาก: ย้ายออกจากเตียง (bed_marker) มาที่โลกภายนอก
+		# ในโค้ดเดิมคุณสั่ง reparent กลับไปที่ bed_marker ทำให้มันลอยค้าง
+		if obj.get_parent() == bed_marker:
+			# ย้ายไปที่ root ของ scene ปัจจุบันเพื่อให้มันเป็นอิสระ
+			obj.reparent(get_tree().current_scene, true)
 			
-		print(obj.name, " ถูกหยิบออกจากจุด Snap: คืนแรงโน้มถ่วงแล้ว")
+		print(obj.name, " ถูกปลดจากเตียงแล้ว!")
 		
-		# อย่าลืมลบออกจากรายชื่อใน Zone ด้วย
+		# 3. ลบรายชื่อออกจาก Array ของจุดวาง
 		release_object(obj)
+		
+		# 4. ตัดการเชื่อมต่อสัญญาณ เพื่อไม่ให้มันเรียกฟังก์ชันนี้ซ้ำตอนเราไปวางที่อื่น
+		if obj.is_connected("picked_up", _on_item_picked_up):
+			obj.picked_up.disconnect(_on_item_picked_up)
