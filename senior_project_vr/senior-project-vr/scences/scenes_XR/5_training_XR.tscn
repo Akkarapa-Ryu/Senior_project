@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bkqs85aehrfrt"]
+[gd_scene load_steps=66 format=3 uid="uid://bkqs85aehrfrt"]
 
 [ext_resource type="Script" uid="uid://dhfxmqsqwnau1" path="res://scripts/XR/main_xr.gd" id="1_ynhno"]
 [ext_resource type="ArrayMesh" uid="uid://dogdg83yhpd6q" path="res://3d model/Room/CT Sim Room_cut.obj" id="2_uy381"]
@@ -24,8 +24,12 @@
 [ext_resource type="Resource" uid="uid://duyxipkoyyijq" path="res://dialogue/after_CTroom.dialogue" id="19_4ylh4"]
 [ext_resource type="PackedScene" uid="uid://eicndywcinij" path="res://scences/3d_model/scanned.tscn" id="19_uy381"]
 [ext_resource type="PackedScene" uid="uid://cdldau4al4bew" path="res://scences/3d_model/mask_pickable.tscn" id="19_vs7uq"]
+[ext_resource type="PackedScene" uid="uid://db2ebm6fjb7r1" path="res://scences/UI/3d_button.tscn" id="22_myo01"]
 [ext_resource type="ArrayMesh" uid="uid://c2700l7l3je3i" path="res://3d model/Room/monitor screen.obj" id="25_slnc5"]
 [ext_resource type="PackedScene" uid="uid://c63t0oexhra7n" path="res://scences/3d_model/sliverman_pickable.tscn" id="27_4ylh4"]
+[ext_resource type="PackedScene" uid="uid://5cn6a8u7nuro" path="res://scences/3d_model/overlay_pickable.tscn" id="27_uuoyw"]
+[ext_resource type="PackedScene" uid="uid://be4ivl0bp6sab" path="res://scences/3d_model/bar_pickable.tscn" id="28_uuoyw"]
+[ext_resource type="PackedScene" uid="uid://delv17eccnu8b" path="res://scences/Animation/laser_system.tscn" id="29_tskfp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1a35a"]
 sky_top_color = Color(0.78431594, 0.9182348, 0.99960345, 1)
@@ -42,6 +46,7 @@ background_color = Color(0.5402502, 0.4545924, 0.348666, 1)
 sky = SubResource("Sky_xnh8i")
 ambient_light_color = Color(0.45260113, 0.64722896, 0.5152213, 1)
 tonemap_mode = 2
+volumetric_fog_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yywqv"]
 size = Vector3(0.1, 3, 13)
@@ -86,14 +91,32 @@ data = PackedVector3Array(2.5167, 1.5087, 2.9225, 2.2749999, 1.5087, 2.9225, 2.5
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_onoif"]
 points = PackedVector3Array(0.25, 0.85, 0.78120005, -0.25, 0.85, 0.78120005, 0.25, 0.55, 0.78120005, 0.25, 0.85, -0.4188, -0.25, 0.55, 0.78120005, -0.25, 0.85, -0.4188, 0.25, 0.55, -0.4188, -0.25, 0.55, -0.4188)
 
-[sub_resource type="BoxMesh" id="BoxMesh_yywqv"]
-size = Vector3(0.1, 0.1, 0.1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_33iu2"]
-size = Vector3(0.35, 0.059887696, 0.35)
+size = Vector3(0.3, 0.06, 0.25)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tskfp"]
+size = Vector2(0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ylh4"]
+size = Vector3(0.4, 0.06, 0.2)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_myo01"]
+size = Vector2(0.2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tskfp"]
+size = Vector3(0.4, 0.06, 0.1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f4rbe"]
+size = Vector2(0.2, 0.05)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_slnc5"]
 points = PackedVector3Array(0.275, 0.8999989, 1.3311999, 0.2520654, 0.91885436, 1.0847336, 0.24232087, 0.91887885, 1.2664485, 0.1680795, 0.91885436, 1.2859769, -0.275, 0.8999989, 1.3311999, 0.275, 0.8, 1.3311999, 0.275, 0.8999989, -0.7688, 0.23236099, 0.9236693, 1.085967, 0.2520654, 0.91885436, -0.52274483, 0.1685102, 0.923657, 1.2380812, 0.22627744, 0.9224931, 1.22842, -0.16818716, 0.91885436, 1.2859769, -0.275, 0.8, 1.3311999, -0.24242854, 0.91887885, 1.2664485, -0.25211924, 0.91885436, 1.0847336, -0.275, 0.8999989, -0.7688, 0.275, 0.8, -0.7688, 0.1680795, 0.91885436, -0.7237824, 0.24232087, 0.91887885, -0.7042542, 0.168241, 0.925164, 1.0849392, 0.23236099, 0.9236693, -0.5237726, -0.16856402, 0.923657, 1.2380812, -0.275, 0.8, -0.7688, -0.22633125, 0.9224931, 1.22842, -0.23241484, 0.9236693, 1.085967, -0.25211924, 0.91885436, -0.52274483, -0.24242854, 0.91887885, -0.7042542, -0.16818716, 0.91885436, -0.7237824, 0.1685102, 0.923657, -0.6758869, 0.22627744, 0.9224931, -0.6662256, -0.16829483, 0.925164, 1.0849392, 0.168241, 0.925164, -0.52274483, -0.23241484, 0.9236693, -0.5237726, -0.16856402, 0.923657, -0.6758869, -0.22633125, 0.9224931, -0.6662256, -0.16829483, 0.925164, -0.52274483)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_myo01"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="BoxMesh" id="BoxMesh_yywqv"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ynhno"]
 vertices = PackedVector3Array(-44.155693, 0.2793879, -73.08954, -44.155693, 0.2793879, 105.91046, 98.84431, 0.2793879, 105.91046, 98.84431, 0.2793879, -73.08954)
@@ -104,17 +127,36 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 [sub_resource type="BoxShape3D" id="BoxShape3D_ikfju"]
 size = Vector3(144, 1, 180)
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_f4rbe"]
+viewport_path = NodePath("XROrigin3D/XRCamera3D/Sprite3D/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_frfg7"]
+viewport_path = NodePath("show_y/UI")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_k5unt"]
+viewport_path = NodePath("show_x/UI")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ggeks"]
+viewport_path = NodePath("Sprite3D/CaptureSystem_y/CaptureViewport_y")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_g6n7c"]
+viewport_path = NodePath("Sprite3D/CaptureSystem_x/CaptureViewport_x")
+
+[sub_resource type="BoxMesh" id="BoxMesh_f4rbe"]
+resource_local_to_scene = true
+
+[node name="Training_XR" type="Node3D"]
 script = ExtResource("1_ynhno")
 
 [node name="Light" type="Node3D" parent="."]
-visible = false
+metadata/_edit_lock_ = true
 
 [node name="WorldEnvironment2" type="WorldEnvironment" parent="Light"]
 environment = SubResource("Environment_33iu2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Light"]
 transform = Transform3D(1, 0, 4.371139e-08, -4.371139e-08, 1.9106855e-15, 1, 0, -1, 1.9106855e-15, 0, 10, 0)
+visible = false
 light_bake_mode = 0
 sky_mode = 1
 
@@ -126,41 +168,49 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 1.5, 2.6)
 shape = SubResource("BoxShape3D_yywqv")
 debug_color = Color(0, 0, 0.69803923, 0.6156863)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Block"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.25, 1.5, 2.4)
 shape = SubResource("BoxShape3D_yywqv")
 debug_color = Color(0, 0, 0.69803923, 0.6156863)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Block"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 1.47, -3.78)
 shape = SubResource("BoxShape3D_yywqv")
 debug_color = Color(0, 0, 0.69803923, 0.6156863)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Block"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 1.5, 8.8)
 shape = SubResource("BoxShape3D_yywqv")
 debug_color = Color(0, 0, 0.69803923, 0.6156863)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="Block"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.5, -1.6)
 shape = SubResource("BoxShape3D_tkmep")
 debug_color = Color(0, 0, 0.69803923, 0.6156863)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="Block"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.215, 1.5, 7.008)
 shape = SubResource("BoxShape3D_tkmep")
 debug_color = Color(0, 0, 0.69803923, 0.6156863)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D8" type="CollisionShape3D" parent="Block"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.205, 1.47, 6.4)
 shape = SubResource("BoxShape3D_tkmep")
 debug_color = Color(0, 0, 0.69803923, 0.6156863)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D9" type="CollisionShape3D" parent="Block"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 1.5, 3.8)
 shape = SubResource("BoxShape3D_q8col")
 debug_color = Color(0, 0, 0.69803923, 0.6156863)
+metadata/_edit_lock_ = true
 
 [node name="CTSimRoom" type="StaticBody3D" parent="."]
 metadata/_edit_lock_ = true
@@ -169,76 +219,94 @@ metadata/_edit_lock_ = true
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
 layers = 4
 mesh = ExtResource("2_uy381")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_onoif")
+metadata/_edit_lock_ = true
 
 [node name="GlassCTSimRoom" type="MeshInstance3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("3_f3iw4")
 surface_material_override/0 = SubResource("StandardMaterial3D_ngho7")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_slnc5")
+metadata/_edit_lock_ = true
 
 [node name="CtSimulation" type="MeshInstance3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("4_ht842")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_vs7uq")
+metadata/_edit_lock_ = true
 
 [node name="SlidePatient" type="MeshInstance3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("5_36wg3")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_4ylh4")
+metadata/_edit_lock_ = true
 
 [node name="Laser" type="MeshInstance3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 layers = 4
 mesh = ExtResource("6_vicih")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_uuoyw")
+metadata/_edit_lock_ = true
 
 [node name="Shelf_1" type="MeshInstance3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("7_vicih")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_tskfp")
+metadata/_edit_lock_ = true
 
 [node name="Shelf_2" type="MeshInstance3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("8_onoif")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_myo01")
+metadata/_edit_lock_ = true
 
 [node name="Shelf_3" type="MeshInstance3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("9_slnc5")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D8" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_f4rbe")
+metadata/_edit_lock_ = true
 
 [node name="Shelf_4" type="MeshInstance3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("10_vs7uq")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D9" type="CollisionShape3D" parent="CTSimRoom"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_frfg7")
+metadata/_edit_lock_ = true
 
 [node name="CTSimBed_anim" type="AnimatableBody3D" parent="."]
 
@@ -256,18 +324,12 @@ layers = 4
 mesh = ExtResource("8_slnc5")
 
 [node name="BedPoint" type="Marker3D" parent="CTSimBed_anim/CtSimulation3"]
-transform = Transform3D(0.99999994, 0, -8.4703295e-22, 0, -4.3711385e-08, -1, 0, 0.99999994, -4.371139e-08, 0, 1.07, -0.68)
+transform = Transform3D(0.99999994, 0, -8.4703295e-22, 0, -4.3711385e-08, -1, 0, 0.99999994, -4.371139e-08, 0, 1.1, -0.68)
 
-[node name="DropPoint" type="Node3D" parent="CTSimBed_anim/CtSimulation3"]
+[node name="DropPoint_sliverman" type="Node3D" parent="CTSimBed_anim/CtSimulation3"]
 transform = Transform3D(1, 0, 2.1316282e-14, 0, 1, 0, -2.1316282e-14, 0, 1, 0, 0.925, 1.02)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CTSimBed_anim/CtSimulation3/DropPoint"]
-transform = Transform3D(4, 0, 1.4210855e-13, 0, 0.5, 0, -1.4210855e-13, 0, 4, 0, 0, 0)
-visible = false
-layers = 6
-mesh = SubResource("BoxMesh_yywqv")
-
-[node name="Area3D" type="Area3D" parent="CTSimBed_anim/CtSimulation3/DropPoint" node_paths=PackedStringArray("snap_pos", "attached_objects", "bed_marker")]
+[node name="Area3D" type="Area3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_sliverman" node_paths=PackedStringArray("snap_pos", "attached_objects", "bed_marker")]
 transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, 0, 0.009632111, 0)
 collision_layer = 6
 collision_mask = 3
@@ -278,12 +340,65 @@ attached_objects = [NodePath("../../../../Sliverman")]
 bed_marker = NodePath("../../BedPoint")
 max_slots = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CTSimBed_anim/CtSimulation3/DropPoint/Area3D"]
-transform = Transform3D(1, 0, 2.1316282e-14, 0, 1, 0, -2.1316282e-14, 0, 1, 0, -0.021556258, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_sliverman/Area3D"]
+transform = Transform3D(1, 0, 2.1316282e-14, 0, 1, 0, -2.1316282e-14, 0, 1, -7.1054274e-15, -0.021556258, 0.017871141)
 shape = SubResource("BoxShape3D_33iu2")
 
-[node name="SnapPosition" type="Marker3D" parent="CTSimBed_anim/CtSimulation3/DropPoint"]
+[node name="SnapPosition" type="Marker3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_sliverman"]
 transform = Transform3D(-1, 0, -8.742281e-08, 0, 1, 0, 8.742281e-08, 0, -1, 0, 0.0032993555, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_sliverman"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0009524822, 0)
+layers = 4
+mesh = SubResource("PlaneMesh_tskfp")
+
+[node name="DropPoint_overlay" type="Node3D" parent="CTSimBed_anim/CtSimulation3"]
+transform = Transform3D(1, 0, 2.1316282e-14, 0, 1, 0, -2.1316282e-14, 0, 1, 0, 0.929, 0.62)
+
+[node name="Area3D" type="Area3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_overlay" node_paths=PackedStringArray("snap_pos", "attached_objects", "bed_marker")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, 0, 0.009632111, 0)
+collision_layer = 6
+collision_mask = 3
+script = ExtResource("9_vs7uq")
+snap_pos = NodePath("../SnapPosition")
+accepted_group = "overlay"
+attached_objects = [NodePath("../../../../Overlay")]
+bed_marker = NodePath("../../BedPoint")
+max_slots = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_overlay/Area3D"]
+shape = SubResource("BoxShape3D_4ylh4")
+
+[node name="SnapPosition" type="Marker3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_overlay"]
+transform = Transform3D(-1, 0, -8.742281e-08, 0, 1, 0, 8.742281e-08, 0, -1, 0, 0.0032993555, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_overlay"]
+layers = 4
+mesh = SubResource("PlaneMesh_myo01")
+
+[node name="DropPoint_bar" type="Node3D" parent="CTSimBed_anim/CtSimulation3"]
+transform = Transform3D(1, 0, 2.1316282e-14, 0, 1, 0, -2.1316282e-14, 0, 1, 0, 0.929, 0.41)
+
+[node name="Area3D" type="Area3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_bar" node_paths=PackedStringArray("snap_pos", "attached_objects", "bed_marker")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, 0, 0.009632111, 0)
+collision_layer = 6
+collision_mask = 3
+script = ExtResource("9_vs7uq")
+snap_pos = NodePath("../SnapPosition")
+accepted_group = "bar"
+attached_objects = [NodePath("../../../../Bar")]
+bed_marker = NodePath("../../BedPoint")
+max_slots = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_bar/Area3D"]
+shape = SubResource("BoxShape3D_tskfp")
+
+[node name="SnapPosition" type="Marker3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_bar"]
+transform = Transform3D(-1, 0, -8.742281e-08, 0, 1, 0, 8.742281e-08, 0, -1, 0, 0.0032993555, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CTSimBed_anim/CtSimulation3/DropPoint_bar"]
+layers = 4
+mesh = SubResource("PlaneMesh_f4rbe")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CTSimBed_anim"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -296,13 +411,16 @@ transform = Transform3D(-0.1, 0, -1.509958e-08, 0, 0.1, 0, 1.509958e-08, 0, -0.1
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -2.9, 0.01, 3.8)
 
 [node name="NPC" parent="." node_paths=PackedStringArray("player_ui", "player_label", "player", "bed_marker", "attached_objects") instance=ExtResource("13_myo01")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.3572283, 0.044, 2.1713583)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.044, 2.9618165)
 player_ui = NodePath("../PlayerXR/XROrigin3D/XRCamera3D/Sprite3D")
 player_label = NodePath("../PlayerXR/XROrigin3D/XRCamera3D/Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer/Label")
 dialogue_resource = Array[ExtResource("17_vs7uq")]([ExtResource("14_f4rbe"), ExtResource("19_4ylh4")])
 player = NodePath("../PlayerXR")
 bed_marker = NodePath("../CTSimBed_anim/CtSimulation3/BedPoint")
 attached_objects = [NodePath("../thermoplastic_mask_short")]
+
+[node name="Sprite3D" parent="NPC" index="4"]
+texture = SubResource("ViewportTexture_myo01")
 
 [node name="DropPoint" type="Node3D" parent="NPC/Idle_skeletal" index="6"]
 transform = Transform3D(-0.1, 8.742278e-09, 3.8213711e-16, 0, -4.371139e-09, 0.1, 8.742278e-09, 0.1, 4.371139e-09, 0, 1.6904233, -0.13370824)
@@ -333,30 +451,34 @@ gizmo_extents = 2.0
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.1, 0)
 navigation_mesh = SubResource("NavigationMesh_ynhno")
+metadata/_edit_lock_ = true
 
 [node name="Floor" type="StaticBody3D" parent="NavigationRegion3D"]
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Floor"]
 transform = Transform3D(-72, 0, -1.35896225e-05, 0, 1, 0, 1.0871698e-05, 0, -90, 27.344322, 0, 16.41047)
 mesh = SubResource("PlaneMesh_tkmep")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor"]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 27.344, 0, 16.41)
 shape = SubResource("BoxShape3D_ikfju")
+metadata/_edit_lock_ = true
 
 [node name="Terminal" type="Node3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, -0.10000001, 0, 0.10000001, -4.371139e-09, 0.78661036, 1.0745413, -1.001828)
 script = ExtResource("16_k5unt")
 
 [node name="btn_Up" parent="Terminal" node_paths=PackedStringArray("target_object_1", "target_object_2") instance=ExtResource("17_ggeks")]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, -0.65)
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, -9.536743e-07, -2.2016869)
 label_text = "Up"
 target_object_1 = NodePath("../../CTSimBed_anim/CtSimulation2")
 target_object_2 = NodePath("../../CTSimBed_anim/CtSimulation3")
 move_direction = Vector3(0, 0.1, 0)
 
 [node name="btn_Down" parent="Terminal" node_paths=PackedStringArray("target_object_1", "target_object_2") instance=ExtResource("17_ggeks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.65)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.536743e-07, -0.90168667)
 label_text = "Down"
 target_object_1 = NodePath("../../CTSimBed_anim/CtSimulation2")
 target_object_2 = NodePath("../../CTSimBed_anim/CtSimulation3")
@@ -364,12 +486,14 @@ move_direction = Vector3(0, -0.1, 0)
 
 [node name="btn_Right" parent="Terminal" node_paths=PackedStringArray("target_object_2") instance=ExtResource("17_ggeks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
+visible = false
 label_text = "Right"
 target_object_2 = NodePath("../../CTSimBed_anim/CtSimulation3")
 move_direction = Vector3(0.1, 0, 0)
 
 [node name="btn_Left" parent="Terminal" node_paths=PackedStringArray("target_object_2") instance=ExtResource("17_ggeks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, 0)
+visible = false
 label_text = "Left"
 target_object_2 = NodePath("../../CTSimBed_anim/CtSimulation3")
 move_direction = Vector3(-0.1, 0, 0)
@@ -387,7 +511,13 @@ target_object_2 = NodePath("../../CTSimBed_anim/CtSimulation3")
 move_direction = Vector3(0, 0, 0.1)
 
 [node name="PlayerXR" parent="." instance=ExtResource("18_g6n7c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9872503, 0.44000825, 3.3886423)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33185148, 1.313)
+
+[node name="Sprite3D" parent="PlayerXR/XROrigin3D/XRCamera3D" index="0"]
+texture = SubResource("ViewportTexture_f4rbe")
+
+[node name="leftController" parent="PlayerXR/XROrigin3D" index="1" node_paths=PackedStringArray("laser_node")]
+laser_node = NodePath("../../../Open_Close_Laser")
 
 [node name="Scanned" parent="." node_paths=PackedStringArray("model", "skeletal") instance=ExtResource("19_uy381")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
@@ -404,19 +534,22 @@ metadata/_edit_lock_ = true
 [node name="show_y" parent="Scanned" index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.865644, 13.282395, 40.503624)
 visible = false
+texture = SubResource("ViewportTexture_frfg7")
 
 [node name="show_x" parent="Scanned" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.758894, 13.282395, 40.503624)
 visible = false
+texture = SubResource("ViewportTexture_k5unt")
 
 [node name="Sprite3D" parent="Scanned" index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.803416, 13.282395, 40.503624)
+texture = SubResource("ViewportTexture_ggeks")
 
 [node name="CaptureCamera_y" parent="Scanned/Sprite3D/CaptureSystem_y/CaptureViewport_y" index="0"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.2, -1.0226547)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.2, -1.0479867)
 
 [node name="CaptureCamera_x" parent="Scanned/Sprite3D/CaptureSystem_x/CaptureViewport_x" index="0"]
-transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 0.069953665, 1, -1.022567)
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 0.121907815, 1, -1.048332)
 
 [node name="btn_sim" parent="Scanned" index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.1655655, 9.94512, 43.47816)
@@ -426,6 +559,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1013517, 9.94512, 43.47816)
 
 [node name="Sprite3D2" parent="Scanned" index="9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4133134, 13.282395, 40.503624)
+texture = SubResource("ViewportTexture_g6n7c")
 
 [node name="Monitors" type="Node3D" parent="."]
 metadata/_edit_lock_ = true
@@ -453,14 +587,34 @@ mesh = ExtResource("25_slnc5")
 skeleton = NodePath("../../Scanned")
 
 [node name="Sliverman" parent="." instance=ExtResource("27_4ylh4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5749674, 0.91142994, -2.4317577)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.531886, 1.043508, -2.4317577)
 contact_monitor = false
 max_contacts_reported = 0
 
 [node name="thermoplastic_mask_short" parent="." instance=ExtResource("19_vs7uq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5230892, 0.91142994, -1.4771489)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5869749, 0.9392301, -1.6713523)
 contact_monitor = false
 max_contacts_reported = 0
+
+[node name="Overlay" parent="." instance=ExtResource("27_uuoyw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6030197, 0.949, -2.5693479)
+
+[node name="Bar" parent="." instance=ExtResource("28_uuoyw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.595955, 1.3684086, -1.7928963)
+
+[node name="LaserSystem" parent="." instance=ExtResource("29_tskfp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98252904, -0.79537356)
+
+[node name="Open_Close_Laser" parent="." instance=ExtResource("22_myo01")]
+transform = Transform3D(3.821371e-17, -8.742278e-10, 0.020000001, -1.110223e-16, 0.020000001, 8.7422786e-10, -0.020000001, -1.110223e-16, 3.8213723e-17, -2.879078, 1.0745411, 0.942467)
+
+[node name="MeshInstance3D" parent="Open_Close_Laser" index="0"]
+mesh = SubResource("BoxMesh_f4rbe")
+
+[node name="Label3D" parent="Open_Close_Laser" index="2"]
+modulate = Color(0, 0, 0, 1)
+text = "Open/Close Laser"
+font_size = 350
 
 [connection signal="interacted_move_target" from="Terminal/btn_Up" to="Terminal" method="_on_btn_up_interacted_move_target"]
 [connection signal="interacted_move_target" from="Terminal/btn_Down" to="Terminal" method="_on_btn_down_interacted_move_target"]
@@ -474,3 +628,4 @@ max_contacts_reported = 0
 [editable path="PlayerXR"]
 [editable path="Scanned"]
 [editable path="thermoplastic_mask_short"]
+[editable path="Open_Close_Laser"]

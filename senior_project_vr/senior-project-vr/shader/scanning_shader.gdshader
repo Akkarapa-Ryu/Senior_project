@@ -35,10 +35,10 @@
 shader_type spatial;
 render_mode blend_add, depth_draw_always, unshaded, cull_disabled;
 
-uniform vec4 scan_color : source_color = vec4(0.2, 0.7, 1.0, 1.0);
+uniform vec4 scan_color : source_color = vec4(0.1, 0.1, 0.1, 1.0);
 uniform float intensity : hint_range(0.0, 10.0) = 4.0;
 uniform float softness : hint_range(0.1, 10.0) = 0.8;
-uniform float transparency_level : hint_range(0.0, 1.0) = 0.3;
+uniform float transparency_level : hint_range(0.0, 1.0) = 0.4;
 
 // --- ส่วน Slicing แบบบางเฉียบ ---
 uniform bool is_slicing = false;

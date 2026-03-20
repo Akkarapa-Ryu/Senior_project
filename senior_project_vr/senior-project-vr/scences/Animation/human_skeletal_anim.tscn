@@ -10,10 +10,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_77fpv"]
 render_priority = 0
 shader = ExtResource("2_vd347")
-shader_parameter/scan_color = Color(0.2, 0.7, 1, 1)
+shader_parameter/scan_color = Color(0.1, 0.1, 0.1, 1)
 shader_parameter/intensity = 4.0
 shader_parameter/softness = 0.8
-shader_parameter/transparency_level = 0.3
+shader_parameter/transparency_level = 0.4
 shader_parameter/is_slicing = false
 shader_parameter/slice_normal = Vector3(0, 0, 1)
 shader_parameter/slice_dist = 0.0
@@ -28,10 +28,10 @@ albedo_texture = ExtResource("2_0qofj")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vd347"]
 render_priority = 0
 shader = ExtResource("2_vd347")
-shader_parameter/scan_color = Color(0.2, 0.7, 1, 1)
+shader_parameter/scan_color = Color(0.1, 0.1, 0.1, 1)
 shader_parameter/intensity = 4.0
 shader_parameter/softness = 0.8
-shader_parameter/transparency_level = 0.3
+shader_parameter/transparency_level = 0.4
 shader_parameter/is_slicing = false
 shader_parameter/slice_normal = Vector3(0, 1, 0)
 shader_parameter/slice_dist = 0.0

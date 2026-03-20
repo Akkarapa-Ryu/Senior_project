@@ -23,7 +23,7 @@ corner_detail = 10
 
 [node name="NPC" type="CharacterBody3D"]
 collision_layer = 4
-collision_mask = 16387
+collision_mask = 16899
 script = ExtResource("1_hrr7t")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

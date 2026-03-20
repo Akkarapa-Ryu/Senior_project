@@ -7,10 +7,9 @@
 [ext_resource type="Script" uid="uid://0b7wkxi4vymb" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="5_ynnug"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6jgpw"]
-size = Vector3(0.34, 0.02, 0.355)
+size = Vector3(0.34, 0.04, 0.355)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s61js"]
-cull_mode = 1
 albedo_color = Color(0.12156863, 0.23921569, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rswqv"]
@@ -25,7 +24,7 @@ layers = 4
 mesh = ExtResource("2_pjxaj")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.07266658)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0105317235, -0.07266658)
 shape = SubResource("BoxShape3D_6jgpw")
 
 [node name="GrabPointSnap" parent="." index="2" instance=ExtResource("4_qgcse")]

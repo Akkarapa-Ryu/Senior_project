@@ -47,16 +47,16 @@ size = Vector3(22, 0.1, 15)
 [sub_resource type="BoxMesh" id="BoxMesh_nq0qn"]
 resource_local_to_scene = true
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_o6bs5"]
+viewport_path = NodePath("XROrigin3D/XRCamera3D/Sprite3D/SubViewport")
+
 [sub_resource type="BoxMesh" id="BoxMesh_0cmk3"]
 resource_local_to_scene = true
 material = ExtResource("7_ydldf")
 size = Vector3(0.002, 0.002, 0.05)
 subdivide_depth = 20
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ydldf"]
-viewport_path = NodePath("Sprite3D/SubViewport")
-
-[node name="Node3D" type="Node3D"]
+[node name="Main_XR" type="Node3D"]
 script = ExtResource("1_yl0rq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -359,6 +359,9 @@ font_size = 300
 
 [node name="PlayerXR" parent="." instance=ExtResource("8_ydldf")]
 
+[node name="Sprite3D" parent="PlayerXR/XROrigin3D/XRCamera3D" index="0"]
+texture = SubResource("ViewportTexture_o6bs5")
+
 [node name="leftController" parent="PlayerXR/XROrigin3D" index="1" node_paths=PackedStringArray("exit_node", "setting_node", "training_node", "info_node")]
 exit_node = NodePath("../../../btn_option/exit")
 setting_node = NodePath("../../../btn_option/setting")
@@ -367,9 +370,6 @@ info_node = NodePath("../../../training_menu/Info_1")
 
 [node name="Laser" parent="PlayerXR/XROrigin3D/leftController/FunctionPointer" index="1"]
 mesh = SubResource("BoxMesh_0cmk3")
-
-[node name="Sprite3D" parent="PlayerXR" index="1"]
-texture = SubResource("ViewportTexture_ydldf")
 
 [connection signal="button_pressed" from="btn_training/InteractableAreaButton" to="." method="_on_interactable_area_button_button_pressed"]
 [connection signal="button_pressed" from="btn_option/btn_setting/InteractableAreaButton" to="." method="_on_interactable_area_button_button_pressed"]
