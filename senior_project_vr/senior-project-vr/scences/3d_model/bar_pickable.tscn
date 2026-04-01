@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://0b7wkxi4vymb" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_b2bsv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_trtx4"]
-size = Vector3(0.61, 0.033, 0.043)
+size = Vector3(0.615, 0.04, 0.065)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70ra6"]
 albedo_color = Color(1, 0.6509804, 0.15686275, 1)
@@ -18,10 +18,10 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = ExtResource("2_em3od")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.004, 0.007968828)
 shape = SubResource("BoxShape3D_trtx4")
 
 [node name="GrabPointSnap" parent="." index="2" instance=ExtResource("3_trtx4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00019975379, 0)
 visible = true
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="." index="3"]

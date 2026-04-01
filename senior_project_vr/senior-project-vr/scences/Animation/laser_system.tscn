@@ -1,39 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://delv17eccnu8b"]
-
-[ext_resource type="Shader" uid="uid://fvrwxlm440ye" path="res://shader/laser.gdshader" id="2_yp1s0"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvh0v"]
-render_priority = 0
-shader = ExtResource("2_yp1s0")
-shader_parameter/laser_color = Vector3(0, 1, 0)
-shader_parameter/intensity = 0.3
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_lfqtk"]
-size = Vector2(3, 3)
-subdivide_width = 50
-subdivide_depth = 50
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bqk2h"]
-render_priority = 0
-shader = ExtResource("2_yp1s0")
-shader_parameter/laser_color = Vector3(0, 1, 0)
-shader_parameter/intensity = 0.3
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_fccj0"]
-size = Vector2(3, 3)
-subdivide_width = 50
-subdivide_depth = 50
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dkqsh"]
-render_priority = 0
-shader = ExtResource("2_yp1s0")
-shader_parameter/laser_color = Vector3(0, 1, 0)
-shader_parameter/intensity = 0.3
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_bbf7q"]
-size = Vector2(3, 3)
-subdivide_width = 50
-subdivide_depth = 50
+[gd_scene load_steps=3 format=3 uid="uid://delv17eccnu8b"]
 
 [sub_resource type="Gradient" id="Gradient_yp1s0"]
 interpolation_mode = 1
@@ -47,26 +12,6 @@ height = 1
 [node name="LaserSystem" type="Node3D"]
 
 [node name="Pivot" type="Node3D" parent="."]
-
-[node name="HorizontalPlane" type="MeshInstance3D" parent="Pivot"]
-visible = false
-layers = 4
-material_override = SubResource("ShaderMaterial_cvh0v")
-mesh = SubResource("PlaneMesh_lfqtk")
-
-[node name="VerticalPlane_X" type="MeshInstance3D" parent="Pivot"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
-visible = false
-layers = 4
-material_override = SubResource("ShaderMaterial_bqk2h")
-mesh = SubResource("PlaneMesh_fccj0")
-
-[node name="VerticalPlane_Z" type="MeshInstance3D" parent="Pivot"]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
-visible = false
-layers = 4
-material_override = SubResource("ShaderMaterial_dkqsh")
-mesh = SubResource("PlaneMesh_bbf7q")
 
 [node name="Decal_Y" type="Decal" parent="Pivot"]
 layers = 4

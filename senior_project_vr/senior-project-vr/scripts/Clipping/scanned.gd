@@ -22,6 +22,8 @@ class_name ScanModel
 
 #@export_group("Frame")
 @onready var frame_yellow = $Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Frame_yellow
+@onready var decal_x = $Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Decal_X
+@onready var decal_y = $Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Decal_Y
 
 
 var materials = []
@@ -34,6 +36,8 @@ func _ready() -> void:
 	print("พบ Material ทั้งหมด: ", materials.size(), " ชิ้น")
 	
 	frame_yellow.visible = false
+	decal_x.visible = false
+	decal_y.visible = false
 	skeletal.visible = true
 
 # ฟังก์ชันช่วยหา Material ในลูกหลานทุกชั้น
@@ -64,7 +68,9 @@ func _find_materials_recursive(node: Node):
 			#capture_model() # เปลี่ยนตามโจทย์: btn_scan -> capture_model
 
 func capture_model():
-	frame_yellow.visible = !frame_yellow.visible
+	#frame_yellow.visible = !frame_yellow.visible
+	decal_x.visible = !decal_x.visible
+	decal_y.visible = !decal_y.visible
 	print("เริ่มทำการถ่ายรูป...")
 	# ใส่ Logic สำหรับหมุนเครื่องหรือเปิดไฟที่นี่
 

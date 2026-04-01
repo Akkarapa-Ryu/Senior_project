@@ -4,18 +4,18 @@ signal dialogue_finished
 
 @onready var npc_main = get_parent()
 var current_dialogue_line: DialogueLine
-var is_processing: bool = false # กันการกดรัวๆ
+var is_active: bool = false # กันการกดรัวๆ
 var current_resource_index: int = 0 # Resource ลำดับที่เท่าไหร่
 
 func interact_talking():
-	if is_processing: return
+	if is_active: return
 	
-	is_processing = true
+	is_active = true
 	
 	# ตรวจสอบว่ามี Resource ใน Array ไหม เพื่อป้องกัน Error index out of bounds
 	if npc_main.dialogue_resource.size() <= current_resource_index:
 		print("Error: ไม่พบไฟล์บทสนทนาที่ Index: ", current_resource_index)
-		is_processing = false
+		is_active = false
 		return
 
 	# 1. เริ่มบทสนทนาใหม่ (ระบุ Index ของ Array)
@@ -40,7 +40,7 @@ func interact_talking():
 		else:
 			finish_dialogue()
 
-	is_processing = false
+	is_active = false
 
 
 func show_current_line():
@@ -84,12 +84,12 @@ func update_ui(ui, label, text):
 
 # --- ฟังก์ชันใหม่: เรียกใช้เมื่อต้องการเจาะจงไฟล์และจุดเริ่มต้น ---
 func start_specific_dialogue(resource_index: int, label_name: String):
-	if is_processing: return
+	if is_active: return
 	
 	# อัปเดต index ปัจจุบัน เพื่อให้เวลากด Interact ต่อ มันยังใช้ไฟล์เดิม
 	current_resource_index = resource_index 
 	
-	is_processing = true
+	is_active = true
 	
 	# ตรวจสอบความปลอดภัยของ Array
 	if resource_index < npc_main.dialogue_resource.size():
@@ -104,4 +104,4 @@ func start_specific_dialogue(resource_index: int, label_name: String):
 	else:
 		print("Error: Index ", resource_index, " ไม่มีอยู่ใน Array ของ dialogue_resource")
 		
-	is_processing = false
+	is_active = false

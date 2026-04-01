@@ -18,7 +18,7 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(0.20848483, 0.24762386, 0.38599312, 1)
+bg_color = Color(0.34915653, 0.21809998, 0.16317022, 1)
 corner_detail = 10
 
 [node name="NPC" type="CharacterBody3D"]

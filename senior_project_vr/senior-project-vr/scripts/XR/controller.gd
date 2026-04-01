@@ -28,7 +28,7 @@ func _ready() -> void:
 		if ui_elements[key]:
 			ui_elements[key].visible = false
 	
-	laser_node.visible = false
+	#laser_node.visible = false
 
 func _physics_process(_delta: float) -> void:
 	_update_interaction()
@@ -46,9 +46,9 @@ func _update_interaction() -> void:
 			
 	# ตรวจสอบการเปลี่ยน Target (สำหรับทำ Highlight)
 	if new_target != current_target:
-		_set_highlight(current_target, false) # ปิดไฮไลท์ตัวเก่า
+		_set_highlight(current_target) # ปิดไฮไลท์ตัวเก่า
 		current_target = new_target
-		_set_highlight(current_target, true)  # เปิดไฮไลท์ตัวใหม่
+		_set_highlight(current_target)  # เปิดไฮไลท์ตัวใหม่
 	
 
 func _is_interactable(node: Node) -> bool:
@@ -62,13 +62,11 @@ func _is_interactable(node: Node) -> bool:
 		(node.get_parent() and node.get_parent().has_method("scan_model"))
 	)
 
-func _set_highlight(node: Node3D, active: bool) -> void:
+func _set_highlight(node: Node3D) -> void:
 	if not node: return
 	# ตัวอย่าง: ถ้ามี MeshInstance ให้ลองปรับค่า (ต้องไปปรับ Shader หรือ Material ต่อ)
 	var mesh = _find_mesh_instance(node)
 	if mesh:
-		# สมมติว่าใช้ StandardMaterial3D และต้องการให้เรืองแสงตอนแตะ
-		# mesh.set_instance_shader_parameter("active", active) 
 		pass
 
 func _on_button_pressed(button_name: String) -> void:
@@ -101,6 +99,7 @@ func _on_button_pressed(button_name: String) -> void:
 	# --- 3. จัดการปุ่ม BY (Scrolling) ---
 	elif button_name == "by_button":
 		_handle_scrolling(button_name, current_target)
+	
 
 
 func _handle_trigger_interaction(target: Node3D) -> void:
@@ -136,16 +135,17 @@ func _handle_scrolling(button_name: String, target: Node3D) -> void:
 
 func _handle_ui_logic(obj_name: String) -> void:
 	match obj_name:
-		"btn_setting":  ui_elements["setting_board"].visible = true
-		"btn_exit":     ui_elements["exit_board"].visible = true
+		"btn_setting":  ui_elements["setting_board"].visible = !ui_elements["setting_board"].visible
+		"btn_exit":     ui_elements["exit_board"].visible = !ui_elements["exit_board"].visible
 		"btn_yes":      get_tree().quit()
-		"btn_no":       ui_elements["exit_board"].visible = false
-		"btn_training": ui_elements["training_menu"].visible = true
-		"Button_Info_1": ui_elements["info_1"].visible = true
+		"btn_no":       ui_elements["exit_board"].visible = !ui_elements["exit_board"].visible
+		"btn_training": ui_elements["training_menu"].visible = !ui_elements["training_menu"].visible
+		"Button_Info_1": ui_elements["info_1"].visible = !ui_elements["info_1"].visible
 		"Button_next_1":
 			if has_node("/root/SceneTransition"):
 				get_node("/root/SceneTransition").change_scene("res://scences/scenes_XR/5_training_XR.tscn")
-		"Open_Close_Laser": laser_node.visible != laser_node.visible
+		"Open_Close_Laser": laser_node.visible = !laser_node.visible
+
 
 func _find_mesh_instance(parent: Node) -> MeshInstance3D:
 	if parent is MeshInstance3D: return parent

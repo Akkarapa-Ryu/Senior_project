@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://eicndywcinij"]
+[gd_scene load_steps=26 format=3 uid="uid://eicndywcinij"]
 
 [ext_resource type="Script" uid="uid://v147nqgifyxc" path="res://scripts/Clipping/scanned.gd" id="1_1ekgi"]
 [ext_resource type="ArrayMesh" uid="uid://0j8roedjo28k" path="res://3d model/Organ/Brain.obj" id="1_7rtyc"]
@@ -34,6 +34,23 @@ viewport_path = NodePath("show_x/UI")
 viewport_path = NodePath("Sprite3D/CaptureSystem_y/CaptureViewport_y")
 
 [sub_resource type="Environment" id="Environment_koqep"]
+background_mode = 1
+background_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+
+[sub_resource type="Gradient" id="Gradient_3852y"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_koqep"]
+gradient = SubResource("Gradient_3852y")
+width = 1
+height = 1
+
+[sub_resource type="Gradient" id="Gradient_koqep"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xg2is"]
+gradient = SubResource("Gradient_koqep")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3852y"]
 albedo_color = Color(1, 1, 0, 1)
@@ -44,7 +61,12 @@ outer_radius = 0.198
 rings = 4
 ring_segments = 4
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_3852y"]
+size = Vector2(0.5, 0.5)
+
 [sub_resource type="Environment" id="Environment_j3tvy"]
+background_mode = 1
+background_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_1ekgi"]
 size = Vector3(1, 0.2, 1)
@@ -190,6 +212,7 @@ shape = SubResource("BoxShape3D_1ekgi")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.459175, 15.137651, 14.997137)
+pixel_size = 0.005
 alpha_cut = 1
 texture = SubResource("ViewportTexture_3852y")
 
@@ -266,12 +289,32 @@ environment = SubResource("Environment_koqep")
 projection = 1
 size = 0.35
 
+[node name="Decal_X" type="Decal" parent="Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3375746e-08, -0.99232143)
+visible = false
+layers = 512
+size = Vector3(0.5, 0.005, 2)
+texture_albedo = SubResource("GradientTexture2D_koqep")
+
+[node name="Decal_Y" type="Decal" parent="Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y"]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0, 4.3375746e-08, -0.99232143)
+visible = false
+layers = 512
+size = Vector3(0.5, 0.005, 2)
+texture_albedo = SubResource("GradientTexture2D_xg2is")
+
 [node name="Frame_yellow" type="MeshInstance3D" parent="Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y"]
 transform = Transform3D(0.7071067, 1.2802769e-08, 0.7071067, 0.7071067, -3.090862e-08, -0.7071067, 1.2802769e-08, 1, -3.0908616e-08, 0, -0.09560382, -0.060000002)
 visible = false
 layers = 512
 material_override = SubResource("StandardMaterial3D_3852y")
 mesh = SubResource("TorusMesh_3852y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y"]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 3.75425e-08, -0.8588724)
+visible = false
+layers = 512
+mesh = SubResource("PlaneMesh_3852y")
 
 [node name="CaptureSystem_x" type="Node3D" parent="Sprite3D"]
 
@@ -319,4 +362,5 @@ text = "scan"
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.442905, 15.137651, 14.997137)
+pixel_size = 0.005
 texture = SubResource("ViewportTexture_koqep")

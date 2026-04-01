@@ -89,11 +89,29 @@ func snap_object(obj):
 		# หา Node ลูกที่อยู่ในตัวหน้ากาก
 		var m_normal = obj.get_node_or_null("MeshNormal")
 		var m_used = obj.get_node_or_null("MeshUsed")
+		# ดึง Node Highlight (ปรับชื่อให้ตรงตามภาพ _N และ _U)
+		var hl_normal = obj.get_node_or_null("XRToolsHighlightVisible_Normal")
+		var hl_used = obj.get_node_or_null("XRToolsHighlightVisible_Used")
 		
-		if m_normal and m_used:
-			m_normal.visible = false
-			m_used.visible = true
-			print("สลับเป็นหน้ากากทรงใช้งานแล้ว")
+		# ตรวจสอบว่า Node หลักๆ อยู่ครบไหมก่อนทำงาน
+		if m_normal and m_used and hl_normal and hl_used:
+			m_normal.hide() # ใช้ .hide() แทน .visible = false ได้ครับ
+			m_used.show()
+			
+			hl_normal.hide()
+			hl_used.show()
+			
+			# สำหรับลูกของ Highlight ถ้ามั่นใจว่าโครงสร้างเป๊ะ สั่งผ่านตัวแม่ได้เลย
+			# หรือจะเจาะจงไปที่ MeshHighlight_used ก็ได้
+			var m_h_used = hl_used.get_node_or_null("MeshHighlight_used")
+			var m_h_normal = hl_normal.get_node_or_null("MeshHighlight_normal")
+			var zone = obj.get_node_or_null("Zone")
+			if m_h_used:
+				m_h_normal.hide()
+				m_h_used.show()
+				zone.show()
+			
+		print("สลับเป็นหน้ากากทรงใช้งานแล้ว: ", obj.name)
 	
 	item_name.append(obj)
 	if obj.has_method("on_snapped"):
@@ -106,7 +124,7 @@ func snap_object(obj):
 func release_object(obj):
 	if obj in item_name:
 		item_name.erase(obj)
-		#obj.freese = false
+		#obj.freeze = false
 		print("หยิบของออกแล้ว เหลือที่ว่างเพิ่ม!")
 
 
