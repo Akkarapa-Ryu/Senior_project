@@ -11,7 +11,7 @@ radius = 0.21923828
 height = 1.8146973
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_g1s3y"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+viewport_path = NodePath("TextBox/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy2th"]
 content_margin_left = 5.0
@@ -44,7 +44,7 @@ script = ExtResource("1_puqyl")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9086181, 0.061897516)
 shape = SubResource("CapsuleShape3D_g1s3y")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="TextBox" type="Sprite3D" parent="."]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.7, 1.4, 0.6)
 visible = false
 billboard = 1
@@ -52,25 +52,25 @@ shaded = true
 texture_filter = 1
 texture = SubResource("ViewportTexture_g1s3y")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="TextBox"]
 transparent_bg = true
 render_target_update_mode = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
+[node name="CenterContainer" type="CenterContainer" parent="TextBox/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Sprite3D/SubViewport/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="TextBox/SubViewport/CenterContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qy2th")
 
-[node name="MarginContainer" type="MarginContainer" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TextBox/SubViewport/CenterContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="TextBox/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dyoqb")

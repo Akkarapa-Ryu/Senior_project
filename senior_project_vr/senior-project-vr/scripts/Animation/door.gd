@@ -10,7 +10,7 @@ var is_open = false
 var player_near = false
 var is_animating = false
 
-@onready var animation_player = $DoorAnimation
+@export var animation_player: AnimationPlayer
 @onready var open_sound = $OpenSound
 @onready var close_sound = $CloseSound
 
@@ -44,10 +44,12 @@ func toggle_door():
 	if is_open:
 		# --- จังหวะปิดประตู ---
 		animation_player.play(close_animation)
+		print("Open Door")
 	else:
 		# --- จังหวะเปิดประตู ---
 		animation_player.play(open_animation)
 		open_sound.play()
+		print("Close Door")
 	is_open = !is_open
 
 func _on_AnimationPlayer_animation_finished(anim_name):

@@ -142,11 +142,11 @@ size = Vector3(1, 20.947021, 9.09967)
 [sub_resource type="BoxShape3D" id="BoxShape3D_y7rbp"]
 size = Vector3(1, 20.947021, 9.09967)
 
-[node name="Door" type="Node3D" node_paths=PackedStringArray("static_body") groups=["doors", "interactable_buttons"]]
+[node name="Door" type="Node3D" node_paths=PackedStringArray("animation_player") groups=["doors", "interactable_buttons"]]
 script = ExtResource("1_ba7xd")
 open_animation = "open_door"
 close_animation = "close_door"
-static_body = NodePath("StaticBody3D")
+animation_player = NodePath("DoorAnimation")
 
 [node name="Door1_L" parent="." instance=ExtResource("1_6mxr4")]
 

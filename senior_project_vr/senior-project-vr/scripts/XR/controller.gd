@@ -3,8 +3,9 @@ extends XRController3D
 const BUTTON_GROUP_NAME = "interactable_buttons"
 
 # อ้างอิงโหนด Area ที่เราสร้างไว้ที่มือเพื่อใช้ตรวจจับปุ่ม/NPC
-@onready var interacting_area = $LeftHand/InteractionArea
+@export var interacting_area: Area3D
 var current_target: Node3D = null # เก็บวัตถุที่มือแตะอยู่ในปัจจุบัน
+var original_materials := {} # ตัวแปรเก็บ material เดิม
 
 @export var exit_node: Node3D
 @export var setting_node: Node3D
@@ -46,9 +47,16 @@ func _update_interaction() -> void:
 			
 	# ตรวจสอบการเปลี่ยน Target (สำหรับทำ Highlight)
 	if new_target != current_target:
-		_set_highlight(current_target) # ปิดไฮไลท์ตัวเก่า
+		
+		# 🔴 ปิดของเก่า (ต้องเช็คก่อน)
+		if current_target:
+			_set_highlight_off(current_target)
+		
 		current_target = new_target
-		_set_highlight(current_target)  # เปิดไฮไลท์ตัวใหม่
+		
+		# 🟢 เปิดของใหม่
+		if current_target:
+			_set_highlight_on(current_target)
 	
 
 func _is_interactable(node: Node) -> bool:
@@ -62,12 +70,27 @@ func _is_interactable(node: Node) -> bool:
 		(node.get_parent() and node.get_parent().has_method("scan_model"))
 	)
 
-func _set_highlight(node: Node3D) -> void:
-	if not node: return
-	# ตัวอย่าง: ถ้ามี MeshInstance ให้ลองปรับค่า (ต้องไปปรับ Shader หรือ Material ต่อ)
+func _set_highlight_on(node: Node3D) -> void:
 	var mesh = _find_mesh_instance(node)
-	if mesh:
-		pass
+	if not mesh:
+		return
+
+	if not original_materials.has(mesh):
+		original_materials[mesh] = mesh.get_active_material(0)
+
+	var mat = StandardMaterial3D.new()
+	mat.albedo_color = Color(1, 0.4, 0.4)
+	
+	mesh.set_surface_override_material(0, mat)
+
+func _set_highlight_off(node: Node3D) -> void:
+	var mesh = _find_mesh_instance(node)
+	if not mesh:
+		return
+
+	if original_materials.has(mesh):
+		mesh.set_surface_override_material(0, original_materials[mesh])
+		original_materials.erase(mesh)
 
 func _on_button_pressed(button_name: String) -> void:
 	print("Button Pressed: ", button_name)
@@ -119,13 +142,13 @@ func _handle_trigger_interaction(target: Node3D) -> void:
 	if target.get_parent() and target.get_parent().has_method("interact_move_target"):
 		target.get_parent().interact_move_target(self)
 		
-	if target.get_parent().has_method("scan_model") or target.get_parent().has_method("capture_model"):
+	if target.get_parent().has_method("scan_model") or target.get_parent().has_method("scout_model"):
 		if target.name == "btn_sim":
 			print("VR: Calling scan_model via btn_sim")
 			target.get_parent().scan_model()
 		elif target.name == "btn_scan":
 			print("VR: Calling scan_model via btn_scan")
-			target.get_parent().capture_model()
+			target.get_parent().scout_model()
 
 func _handle_scrolling(button_name: String, target: Node3D) -> void:
 	var sprite = target.get_parent()

@@ -9,35 +9,39 @@ class_name ScanModel
 @export var btn_scan: StaticBody3D
 
 @export_group("Model Settings")
-@export var model: Node3D
+@export var npc_model: Node3D
 @export var total_slices: int = 48
 @export var slice_delay: float = 0.1 # ยิ่งมากยิ่งช้า (หน่วยเป็นวินาที)
 @export var skeletal: MeshInstance3D
+@export var bed_model: MeshInstance3D
 
 @export_group("Viewport & Grids")
 @export var viewport_y: SubViewport # z-axis ของโมเดล เนื่องจากโมเดลมันมีการหมุนเปลี่ยนมุม
 @export var viewport_x: SubViewport
 @export var grid_y: GridContainer
 @export var grid_x: GridContainer
+@export var capture_viewport_x: SubViewport
+@export var capture_viewport_y: SubViewport
 
 #@export_group("Frame")
-@onready var frame_yellow = $Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Frame_yellow
 @onready var decal_x = $Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Decal_X
 @onready var decal_y = $Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Decal_Y
+@onready var decal_z = $Sprite3D/CaptureSystem_x/CaptureViewport_x/CaptureCamera_x/Decal_Z
 
 
 var materials = []
 var is_scanning = false
+var original_bed_pos: Vector3 # ตัวแปรเก็บตำแหน่งเริ่มต้นของเตียง
 
 func _ready() -> void:
 	# ค้นหา Material แบบละเอียด (ลึกแค่ไหนก็เจอ)
-	if model:
-		_find_materials_recursive(model)
+	if npc_model:
+		_find_materials_recursive(npc_model)
 	print("พบ Material ทั้งหมด: ", materials.size(), " ชิ้น")
 	
-	frame_yellow.visible = false
 	decal_x.visible = false
 	decal_y.visible = false
+	decal_z.visible = false
 	skeletal.visible = true
 
 # ฟังก์ชันช่วยหา Material ในลูกหลานทุกชั้น
@@ -56,33 +60,69 @@ func _find_materials_recursive(node: Node):
 	for child in node.get_children():
 		_find_materials_recursive(child)
 
+# --- Scout ---
+func scout_model():
+	# 0. เตรียมการและ Reset
+	print("เริ่มกระบวนการถ่ายรูป X และ Y...")
+	original_bed_pos = bed_model.position # เก็บค่าตำแหน่งเดิมไว้
+	print("original_bed_pos: ", )
+	
+	# --- ขั้นตอนที่ 1: ถ่ายแนว X ---
+	print("1. กำลังเลื่อนเตียงเข้าตำแหน่ง (X)...")
+	decal_x.show() # เปิด Decal X
+	decal_z.show()
+	await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, -0.3))
+	
+	print("2. บันทึกภาพ CaptureCamera_x...")
+	# สั่งให้ Viewport อัปเดตแค่เฟรมเดียว (เหมือนการกดชัตเตอร์)
+	capture_viewport_x.render_target_update_mode = SubViewport.UPDATE_ONCE
+	await get_tree().process_frame # รอ 1 เฟรมเพื่อให้ GPU วาดภาพเสร็จ
+	
+	# --- ขั้นตอนที่ 2: เลื่อนเตียงออก ---
+	print("3. เลื่อนเตียงกลับจุดเริ่มต้น...")
+	decal_x.hide()
+	decal_z.hide()
+	await move_bed(original_bed_pos)
+	await get_tree().create_timer(0.5).timeout # พักหายใจครู่หนึ่ง
+	
+	# --- ขั้นตอนที่ 3: ถ่ายแนว Y ---
+	print("4. กำลังเลื่อนเตียงเข้าตำแหน่ง (Y)...")
+	decal_y.show()
+	decal_x.show() # เปิด Decal Y
+	await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, -0.3))
+	
+	print("5. บันทึกภาพ CaptureCamera_y...")
+	capture_viewport_y.render_target_update_mode = SubViewport.UPDATE_ONCE
+	await get_tree().process_frame
+	
+	# --- ขั้นตอนสุดท้าย: เลื่อนกลับและเสร็จสิ้น ---
+	print("6. เสร็จสิ้นกระบวนการ เลื่อนเตียงกลับ...")
+	decal_y.hide()
+	decal_x .hide()
+	await move_bed(original_bed_pos)
+	print("ถ่ายรูปเรียบร้อยทั้งสองแกน!")
 
-# ฟังก์ชันตรวจจับการคลิกด้วยเมาส์ (สำหรับ Debug บน PC)
-#func _on_btn_sim_input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int):
-	#if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		#scan_model() # เปลี่ยนตามโจทย์: btn_sim -> scan_model
-#
-#func _on_btn_scan_input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int):
-	#if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		#if not is_scanning:
-			#capture_model() # เปลี่ยนตามโจทย์: btn_scan -> capture_model
+# ฟังก์ชันเสริมสำหรับเลื่อนเตียงและรอให้เสร็จ (Helper Function)
+func move_bed(target_pos: Vector3) -> Signal:
+	var tween = create_tween()
+	tween.tween_property(bed_model, "position", target_pos, 1.5).set_trans(Tween.TRANS_SINE)
+	return tween.finished # ส่งคืน Signal เพื่อให้ใช้ await ได้
+# --- Scout ---
 
-func capture_model():
-	#frame_yellow.visible = !frame_yellow.visible
-	decal_x.visible = !decal_x.visible
-	decal_y.visible = !decal_y.visible
-	print("เริ่มทำการถ่ายรูป...")
-	# ใส่ Logic สำหรับหมุนเครื่องหรือเปิดไฟที่นี่
 
+#--- Simulation ---
 func scan_model():
 	if materials.is_empty() or is_scanning:
 		return
 	
+	capture_viewport_x.render_target_update_mode = SubViewport.UPDATE_DISABLED
+	capture_viewport_y.render_target_update_mode = SubViewport.UPDATE_DISABLED
+	await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, -0.3))
 	is_scanning = true
 	print("เริ่มทำการสแกน...simulation")
 	
 	# หาขอบเขตของโมเดล (AABB) เพื่อความแม่นยำในการเลื่อน Slice
-	var combined_aabb = _get_model_aabb(model)
+	var combined_aabb = _get_model_aabb(npc_model)
 
 	# ล้างข้อมูลเก่าใน Grid
 	for n in grid_x.get_children(): n.queue_free()
@@ -115,24 +155,12 @@ func scan_model():
 	
 	is_scanning = false
 	print("การสแกนเสร็จสมบูรณ์")
+	await move_bed(original_bed_pos)
 	
 	# --- ส่งสัญญาณว่า "สแกนเสร็จแล้ว" ไปที่ npc_movement.gd ---
-	if model:
-		await get_tree().create_timer(5.0).timeout
-		model.start_post_scan_sequence()
-
-
-# ฟังก์ชันช่วยเก็บภาพ (ช่วยให้โค้ดสะอาดขึ้น)
-func _capture_to_grid(vp, grid):
-	var img = vp.get_texture().get_image()
-	if img and !img.is_empty():
-		var tex = ImageTexture.create_from_image(img)
-		var rect = TextureRect.new()
-		rect.texture = tex
-		rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		rect.custom_minimum_size = Vector2(150, 150)
-		grid.add_child(rect)
+	#if npc_model:
+		#await get_tree().create_timer(5.0).timeout
+		#npc_model.start_post_scan_sequence()
 
 
 # ฟังก์ชันคำนวณหาขนาดโมเดลรวม
@@ -178,3 +206,17 @@ func _run_scan_loop(normal: Vector3, start: float, end: float, vp: SubViewport, 
 		# 5. หน่วงเวลาเพื่อให้คนดู (User ใน VR) เห็นกระบวนการสแกนแบบค่อยเป็นค่อยไป
 		if slice_delay > 0:
 			await get_tree().create_timer(slice_delay).timeout
+
+
+# ฟังก์ชันช่วยเก็บภาพ (ช่วยให้โค้ดสะอาดขึ้น)
+func _capture_to_grid(vp, grid):
+	var img = vp.get_texture().get_image()
+	if img and !img.is_empty():
+		var tex = ImageTexture.create_from_image(img)
+		var rect = TextureRect.new()
+		rect.texture = tex
+		rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		rect.custom_minimum_size = Vector2(150, 150)
+		grid.add_child(rect)
+# --- Simulation ---

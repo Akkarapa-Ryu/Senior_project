@@ -74,15 +74,15 @@ func snap_object(obj):
 	# 2. ปิดฟิสิกส์ให้หยุดนิ่ง
 	if obj is RigidBody3D:
 		obj.freeze = true
-
-	# 3. ย้ายตำแหน่ง (ใช้ global_transform เพื่อความแม่นยำ)
-	var offset_y = Vector3(0, item_name.size() * 0.01, 0)
-	obj.global_position = snap_pos.global_position + offset_y
-	obj.global_rotation = snap_pos.global_rotation
 	
 	# 4. เปลี่ยน Parent ไปที่เตียง เพื่อให้เคลื่อนที่ไปพร้อมกับเตียง/NPC
 	if bed_marker:
 		obj.reparent(bed_marker, true)
+		
+		# 3. ย้ายตำแหน่ง (ใช้ global_transform เพื่อความแม่นยำ)
+		var offset_y = Vector3(0, item_name.size() * 0.01, 0)
+		obj.global_position = snap_pos.global_position + offset_y
+		obj.global_rotation = snap_pos.global_rotation
 
 	# 5. เปลี่ยน Mesh (กรณีหน้ากาก)
 	if obj.is_in_group("mask") or obj.name.begins_with("thermoplastic_mask_short"):
@@ -105,10 +105,14 @@ func snap_object(obj):
 			# หรือจะเจาะจงไปที่ MeshHighlight_used ก็ได้
 			var m_h_used = hl_used.get_node_or_null("MeshHighlight_used")
 			var m_h_normal = hl_normal.get_node_or_null("MeshHighlight_normal")
+			var label_used = hl_used.get_node_or_null("Label3D_used")
+			var label_normal = hl_used.get_node_or_null("Label3D_normal")
 			var zone = obj.get_node_or_null("Zone")
 			if m_h_used:
 				m_h_normal.hide()
+				label_normal.hide()
 				m_h_used.show()
+				label_used.show()
 				zone.show()
 			
 		print("สลับเป็นหน้ากากทรงใช้งานแล้ว: ", obj.name)

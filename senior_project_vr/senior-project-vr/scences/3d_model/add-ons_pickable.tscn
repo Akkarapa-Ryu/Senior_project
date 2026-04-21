@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl2svs5sw0sut"]
+[gd_scene load_steps=8 format=3 uid="uid://bl2svs5sw0sut"]
 
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_2kkma"]
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="2_ehkmw"]
 [ext_resource type="Script" uid="uid://0b7wkxi4vymb" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="3_ehkmw"]
+[ext_resource type="FontFile" uid="uid://b8s8wlcf2rd3u" path="res://fonts/07-TH-Sarabun-PSK/THSarabun.ttf" id="4_ehkmw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_agjkv"]
 size = Vector3(0.01, 0.01, 0.05)
@@ -11,12 +12,13 @@ size = Vector3(0.01, 0.01, 0.05)
 size = Vector3(0.03, 0.03, 0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_risju"]
-albedo_color = Color(1, 0.2, 0.74509805, 1)
+albedo_color = Color(0.5109156, 0.00084353954, 0.6337598, 1)
 
 [node name="Add-ons" groups=["Accessories", "Tag", "equipment"] instance=ExtResource("1_2kkma")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.004903894, 0)
+layers = 4
 mesh = SubResource("BoxMesh_agjkv")
 
 [node name="CollisionShape3D" parent="." index="1"]
@@ -34,3 +36,11 @@ metadata/_custom_type_script = "uid://0b7wkxi4vymb"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.004903894, 0)
 material_override = SubResource("StandardMaterial3D_risju")
 mesh = SubResource("BoxMesh_agjkv")
+
+[node name="Label3D" type="Label3D" parent="XRToolsHighlightVisible" index="1"]
+transform = Transform3D(-2.1855695e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.1855695e-09, 0, 0.038957722, 0)
+text = "Rerernce"
+font = ExtResource("4_ehkmw")
+font_size = 100
+outline_size = 5
+autowrap_mode = 3

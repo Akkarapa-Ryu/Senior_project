@@ -1,25 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://eicndywcinij"]
+[gd_scene load_steps=21 format=3 uid="uid://eicndywcinij"]
 
 [ext_resource type="Script" uid="uid://v147nqgifyxc" path="res://scripts/Clipping/scanned.gd" id="1_1ekgi"]
-[ext_resource type="ArrayMesh" uid="uid://0j8roedjo28k" path="res://3d model/Organ/Brain.obj" id="1_7rtyc"]
-[ext_resource type="Shader" uid="uid://bpnvenkcyrf40" path="res://shader/brain.gdshader" id="2_uu3c7"]
 [ext_resource type="Script" uid="uid://cur82u4eo4s8f" path="res://scripts/Clipping/scrolling.gd" id="4_hdv56"]
 [ext_resource type="Theme" uid="uid://cna1gst28qc7w" path="res://scences/Text Resource/scanned.tres" id="5_olug5"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ekgi"]
-render_priority = 0
-shader = ExtResource("2_uu3c7")
-shader_parameter/slice_height = 14.999999620015998
-shader_parameter/edge_color = Color(4.235506e-06, 0.9552793, 0.9611892, 1)
-shader_parameter/edge_thickness = 0.05
-shader_parameter/inside_color = Color(0.6, 0.2, 0.2, 1)
-shader_parameter/noise_scale = 2.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olug5"]
-blend_mode = 3
-cull_mode = 2
-diffuse_mode = 1
-albedo_color = Color(0.7412212, 0.6200552, 0.47945774, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_hdv56"]
 viewport_path = NodePath("show_y/UI")
@@ -51,22 +34,21 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_xg2is"]
 gradient = SubResource("Gradient_koqep")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3852y"]
-albedo_color = Color(1, 1, 0, 1)
-
-[sub_resource type="TorusMesh" id="TorusMesh_3852y"]
-inner_radius = 0.2
-outer_radius = 0.198
-rings = 4
-ring_segments = 4
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_3852y"]
-size = Vector2(0.5, 0.5)
+width = 1
+height = 1
 
 [sub_resource type="Environment" id="Environment_j3tvy"]
 background_mode = 1
 background_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+
+[sub_resource type="Gradient" id="Gradient_xg2is"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 0, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3aahp"]
+gradient = SubResource("Gradient_xg2is")
+width = 1
+height = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_1ekgi"]
 size = Vector3(1, 0.2, 1)
@@ -83,7 +65,7 @@ size = Vector3(1, 0.2, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_koqep"]
 viewport_path = NodePath("Sprite3D/CaptureSystem_x/CaptureViewport_x")
 
-[node name="Scanned" type="Node3D" node_paths=PackedStringArray("btn_sim", "btn_scan", "viewport_y", "viewport_x", "grid_y", "grid_x")]
+[node name="Scanned" type="Node3D" node_paths=PackedStringArray("btn_sim", "btn_scan", "viewport_y", "viewport_x", "grid_y", "grid_x", "capture_viewport_x", "capture_viewport_y")]
 script = ExtResource("1_1ekgi")
 btn_sim = NodePath("btn_sim")
 btn_scan = NodePath("btn_scan")
@@ -93,28 +75,8 @@ viewport_y = NodePath("Sprite3D/CaptureSystem_y/CaptureViewport_y")
 viewport_x = NodePath("Sprite3D/CaptureSystem_x/CaptureViewport_x")
 grid_y = NodePath("show_y/UI/Control/ScrollContainer_y/ResultGrid_y")
 grid_x = NodePath("show_x/UI/Control/ScrollContainer_x/ResultGrid_x")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15, 0)
-visible = false
-sky_mode = 1
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 4.8754864, 9.749472, 0)
-visible = false
-sky_mode = 1
-
-[node name="ScannedModel" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.7743597, 0)
-visible = false
-mesh = ExtResource("1_7rtyc")
-surface_material_override/0 = SubResource("ShaderMaterial_1ekgi")
-
-[node name="StandModel" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7743597, 0)
-visible = false
-mesh = ExtResource("1_7rtyc")
-surface_material_override/0 = SubResource("StandardMaterial3D_olug5")
+capture_viewport_x = NodePath("Sprite3D/CaptureSystem_x/CaptureViewport_x")
+capture_viewport_y = NodePath("Sprite3D/CaptureSystem_y/CaptureViewport_y")
 
 [node name="show_y" type="Sprite3D" parent="." node_paths=PackedStringArray("scroll_container")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.516077, 10, 15)
@@ -279,7 +241,7 @@ text = "X-axis"
 
 [node name="CaptureViewport_y" type="SubViewport" parent="Sprite3D/CaptureSystem_y"]
 handle_input_locally = false
-size = Vector2i(1280, 1024)
+size = Vector2i(1280, 1000)
 render_target_update_mode = 4
 
 [node name="CaptureCamera_y" type="Camera3D" parent="Sprite3D/CaptureSystem_y/CaptureViewport_y"]
@@ -303,24 +265,11 @@ layers = 512
 size = Vector3(0.5, 0.005, 2)
 texture_albedo = SubResource("GradientTexture2D_xg2is")
 
-[node name="Frame_yellow" type="MeshInstance3D" parent="Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y"]
-transform = Transform3D(0.7071067, 1.2802769e-08, 0.7071067, 0.7071067, -3.090862e-08, -0.7071067, 1.2802769e-08, 1, -3.0908616e-08, 0, -0.09560382, -0.060000002)
-visible = false
-layers = 512
-material_override = SubResource("StandardMaterial3D_3852y")
-mesh = SubResource("TorusMesh_3852y")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y"]
-transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 3.75425e-08, -0.8588724)
-visible = false
-layers = 512
-mesh = SubResource("PlaneMesh_3852y")
-
 [node name="CaptureSystem_x" type="Node3D" parent="Sprite3D"]
 
 [node name="CaptureViewport_x" type="SubViewport" parent="Sprite3D/CaptureSystem_x"]
 handle_input_locally = false
-size = Vector2i(1280, 1024)
+size = Vector2i(1280, 1000)
 render_target_update_mode = 4
 
 [node name="CaptureCamera_x" type="Camera3D" parent="Sprite3D/CaptureSystem_x/CaptureViewport_x"]
@@ -329,6 +278,13 @@ cull_mask = 513
 environment = SubResource("Environment_j3tvy")
 projection = 1
 size = 0.35
+
+[node name="Decal_Z" type="Decal" parent="Sprite3D/CaptureSystem_x/CaptureViewport_x/CaptureCamera_x"]
+transform = Transform3D(-4.3711385e-08, 0, 1, 0, 0.99999994, 0, -0.99999994, 0, -4.371139e-08, 2.172148e-08, 0, -0.49692947)
+visible = false
+layers = 512
+size = Vector3(1, 0.005, 0.5)
+texture_albedo = SubResource("GradientTexture2D_3aahp")
 
 [node name="btn_sim" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.759695, 10.710518, 16.175816)
@@ -343,7 +299,7 @@ shape = SubResource("BoxShape3D_3852y")
 
 [node name="Label3D" type="Label3D" parent="btn_sim"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.105324745, 0)
-text = "start"
+text = "Simulation"
 
 [node name="btn_scan" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.112008, 10.710518, 16.175816)
@@ -358,7 +314,7 @@ shape = SubResource("BoxShape3D_koqep")
 
 [node name="Label3D" type="Label3D" parent="btn_scan"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.105, 0)
-text = "scan"
+text = "Scout"
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.442905, 15.137651, 14.997137)

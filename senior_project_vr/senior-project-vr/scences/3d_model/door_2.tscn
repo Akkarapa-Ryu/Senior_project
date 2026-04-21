@@ -3,7 +3,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cyalhugmgg8k2" path="res://3d model/Door/Door3.obj" id="1_bsgny"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fulm8"]
-albedo_color = Color(0.7581918, 0.7581918, 0.7581917, 1)
+albedo_color = Color(0.003921569, 0.31764707, 0.47058824, 1)
 metallic = 1.0
 uv1_scale = Vector3(5, 2, 2)
 

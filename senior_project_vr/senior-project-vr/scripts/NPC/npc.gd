@@ -11,8 +11,8 @@ var current_state = State.TALKING
 @export_group("Dialogu UI")
 @export var player_ui: Sprite3D
 @export var player_label: Label
-@onready var npc_label = $Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer/Label
-@onready var npc_ui = $Sprite3D
+@onready var npc_label = $TextBox/SubViewport/CenterContainer/PanelContainer/MarginContainer/Label
+@onready var npc_ui = $TextBox
 
 @export_group("Dialogue Logic")
 @export var dialogue_resource: Array[DialogueResource]

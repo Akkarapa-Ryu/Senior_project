@@ -19,6 +19,7 @@ script = ExtResource("1_u2725")
 label_node = NodePath("Label3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 4
 mesh = SubResource("BoxMesh_yjgxj")
 surface_material_override/0 = SubResource("StandardMaterial3D_lh3ng")
 
@@ -27,5 +28,6 @@ shape = SubResource("ConvexPolygonShape3D_5av4p")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.105, 0)
+layers = 4
 font = ExtResource("2_lh3ng")
 font_size = 40

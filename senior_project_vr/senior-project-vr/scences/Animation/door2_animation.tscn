@@ -82,10 +82,11 @@ radius = 15.850586
 [sub_resource type="BoxShape3D" id="BoxShape3D_45rnr"]
 size = Vector3(9.067169, 20.95517, 1)
 
-[node name="Door2" type="Node3D" groups=["doors", "interactable_buttons"]]
+[node name="Door2" type="Node3D" node_paths=PackedStringArray("animation_player") groups=["doors", "interactable_buttons"]]
 script = ExtResource("1_sffwt")
 open_animation = "open_door"
 close_animation = "close_door"
+animation_player = NodePath("DoorAnimation")
 
 [node name="Door2_Room3" parent="." instance=ExtResource("2_k3upi")]
 transform = Transform3D(-0.99999946, 0, -1.5099572e-07, 0, 1, 0, 1.5099572e-07, 0, -0.99999946, 0, 0, 0)

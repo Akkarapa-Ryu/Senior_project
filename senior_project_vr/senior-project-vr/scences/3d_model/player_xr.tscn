@@ -11,7 +11,7 @@
 [ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="7_uaimc"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vfogk"]
-viewport_path = NodePath("XROrigin3D/XRCamera3D/Sprite3D/SubViewport")
+viewport_path = NodePath("XROrigin3D/XRCamera3D/TextBox/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lfm6"]
 content_margin_left = 5.0
@@ -33,34 +33,34 @@ current = true
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 current = true
 
-[node name="Sprite3D" type="Sprite3D" parent="XROrigin3D/XRCamera3D"]
+[node name="TextBox" type="Sprite3D" parent="XROrigin3D/XRCamera3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.468, 0, -0.5)
 visible = false
 billboard = 1
 texture_filter = 1
 texture = SubResource("ViewportTexture_vfogk")
 
-[node name="SubViewport" type="SubViewport" parent="XROrigin3D/XRCamera3D/Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="XROrigin3D/XRCamera3D/TextBox"]
 transparent_bg = true
 render_target_update_mode = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="XROrigin3D/XRCamera3D/Sprite3D/SubViewport"]
+[node name="CenterContainer" type="CenterContainer" parent="XROrigin3D/XRCamera3D/TextBox/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="XROrigin3D/XRCamera3D/Sprite3D/SubViewport/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="XROrigin3D/XRCamera3D/TextBox/SubViewport/CenterContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1lfm6")
 
-[node name="MarginContainer" type="MarginContainer" parent="XROrigin3D/XRCamera3D/Sprite3D/SubViewport/CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="XROrigin3D/XRCamera3D/TextBox/SubViewport/CenterContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="XROrigin3D/XRCamera3D/Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="XROrigin3D/XRCamera3D/TextBox/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_uaimc")
@@ -70,10 +70,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="leftController" type="XRController3D" parent="XROrigin3D" groups=["player_controller"]]
+[node name="leftController" type="XRController3D" parent="XROrigin3D" node_paths=PackedStringArray("interacting_area") groups=["player_controller"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.645, 0, -0.5)
 tracker = &"left_hand"
 script = ExtResource("1_us8ep")
+interacting_area = NodePath("LeftHand/InteractionArea")
 
 [node name="LeftHand" parent="XROrigin3D/leftController" instance=ExtResource("2_uaimc")]
 
@@ -100,11 +101,21 @@ show_laser = 0
 target_radius = 0.02
 collision_mask = 5242883
 
-[node name="rightController" type="XRController3D" parent="XROrigin3D" groups=["player", "player_controller"]]
+[node name="rightController" type="XRController3D" parent="XROrigin3D" node_paths=PackedStringArray("interacting_area") groups=["player", "player_controller"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.645, 0, -0.5)
 tracker = &"right_hand"
+script = ExtResource("1_us8ep")
+interacting_area = NodePath("RightHand/InteractionArea")
 
 [node name="RightHand" parent="XROrigin3D/rightController" instance=ExtResource("4_6ah6e")]
+
+[node name="InteractionArea" type="Area3D" parent="XROrigin3D/rightController/RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.061267138)
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/rightController/RightHand/InteractionArea"]
+shape = SubResource("BoxShape3D_us8ep")
 
 [node name="MovementTurn" parent="XROrigin3D/rightController" instance=ExtResource("5_5i8tu")]
 
@@ -112,6 +123,13 @@ tracker = &"right_hand"
 grab_distance = 0.05
 ranged_distance = 1.0
 ranged_angle = 1.0
+
+[node name="FunctionPointer" parent="XROrigin3D/rightController" instance=ExtResource("5_3v37m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0.05, -0.1)
+distance = 0.1
+show_laser = 0
+target_radius = 0.02
+collision_mask = 5242883
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("5_1lfm6")]
 collision_layer = 540674
