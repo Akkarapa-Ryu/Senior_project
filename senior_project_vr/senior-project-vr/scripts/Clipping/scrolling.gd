@@ -1,6 +1,7 @@
 extends Sprite3D
 
-@onready var scroll_container = $UI/Control/ScrollContainer_y # ระบุพาธให้ถูกตามรูปของคุณ
+#@onready var scroll_container = $UI/Control/ScrollContainer_y # ระบุพาธให้ถูกตามรูปของคุณ
+@export var scroll_container: ScrollContainer
 
 # ฟังก์ชันสำหรับเลื่อน ScrollContainer โดยตรง
 func scroll_with_controller(direction: float, speed: float = 20.0):

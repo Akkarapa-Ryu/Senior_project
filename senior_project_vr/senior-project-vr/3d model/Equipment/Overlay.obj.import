@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://brfrrq7e20m2q"
+path="res://.godot/imported/Overlay.obj-5e7e1492c4694257dd9d8ce2e1e84995.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Overlay.obj-5e7e1492c4694257dd9d8ce2e1e84995.mesh"]
+
+source_file="res://3d model/Equipment/Overlay.obj"
+dest_files=["res://.godot/imported/Overlay.obj-5e7e1492c4694257dd9d8ce2e1e84995.mesh", "res://.godot/imported/Overlay.obj-5e7e1492c4694257dd9d8ce2e1e84995.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

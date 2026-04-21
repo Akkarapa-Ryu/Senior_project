@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://5cn6a8u7nuro"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_40ti7"]
+[ext_resource type="ArrayMesh" uid="uid://brfrrq7e20m2q" path="res://3d model/Equipment/Overlay.obj" id="2_dft6a"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="3_8btus"]
+[ext_resource type="Script" uid="uid://0b7wkxi4vymb" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_mees5"]
+[ext_resource type="FontFile" uid="uid://b8s8wlcf2rd3u" path="res://fonts/07-TH-Sarabun-PSK/THSarabun.ttf" id="5_mees5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mees5"]
+albedo_color = Color(0.41981313, 0.41981313, 0.4198131, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dft6a"]
+size = Vector3(0.613, 0.028, 1.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8btus"]
+albedo_color = Color(3.272891e-06, 0.78678393, 0.48186165, 1)
+
+[node name="Overlay" groups=["equipment", "overlay"] instance=ExtResource("1_40ti7")]
+collision_layer = 4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+layers = 4
+material_override = SubResource("StandardMaterial3D_mees5")
+mesh = ExtResource("2_dft6a")
+
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.013819698, -0.101)
+shape = SubResource("BoxShape3D_dft6a")
+
+[node name="GrabPointSnap" parent="." index="2" instance=ExtResource("3_8btus")]
+visible = true
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="3"]
+script = ExtResource("4_mees5")
+metadata/_custom_type_script = "uid://0b7wkxi4vymb"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_8btus")
+mesh = ExtResource("2_dft6a")
+surface_material_override/0 = SubResource("StandardMaterial3D_8btus")
+
+[node name="Label3D" type="Label3D" parent="XRToolsHighlightVisible" index="1"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.045847885, 0)
+text = "Overlay"
+font = ExtResource("5_mees5")
+font_size = 100
+outline_size = 5

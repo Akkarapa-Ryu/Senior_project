@@ -1,0 +1,77 @@
+[gd_scene load_steps=13 format=3 uid="uid://c63t0oexhra7n"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_ujgen"]
+[ext_resource type="ArrayMesh" uid="uid://d5213i08unyx" path="res://3d model/Equipment/Sliverman.obj" id="2_g8ckd"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="4_17llt"]
+[ext_resource type="Script" uid="uid://0b7wkxi4vymb" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="5_17llt"]
+[ext_resource type="Script" uid="uid://cquqe4f1m1sw6" path="res://addons/godot-xr-tools/objects/snap_zone.gd" id="5_a6m2d"]
+[ext_resource type="FontFile" uid="uid://b8s8wlcf2rd3u" path="res://fonts/07-TH-Sarabun-PSK/THSarabun.ttf" id="5_vn38n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_txyry"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.5176471)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rx17w"]
+size = Vector3(0.195, 0.13147657, 0.305)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6m2d"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 0, 0, 0.59607846)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vn38n"]
+size = Vector3(0.01, 0.005, 0.255)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_17llt"]
+albedo_color = Color(0.31764707, 0, 0.007843138, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a6m2d"]
+size = Vector3(0.01, 0.001, 0.1)
+
+[node name="Sliverman" groups=["equipment", "pillow"] instance=ExtResource("1_ujgen")]
+collision_layer = 4
+
+[node name="Sliverman" type="MeshInstance3D" parent="." index="0"]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+layers = 4
+mesh = ExtResource("2_g8ckd")
+surface_material_override/0 = SubResource("StandardMaterial3D_txyry")
+
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06592877, -0.031756483)
+shape = SubResource("BoxShape3D_rx17w")
+
+[node name="GrabPointSnap" parent="." index="2" instance=ExtResource("4_17llt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00020420551, 0)
+visible = true
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="3"]
+script = ExtResource("5_17llt")
+metadata/_custom_type_script = "uid://0b7wkxi4vymb"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+mesh = ExtResource("2_g8ckd")
+surface_material_override/0 = SubResource("StandardMaterial3D_a6m2d")
+
+[node name="Label3D" type="Label3D" parent="XRToolsHighlightVisible" index="1"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.14340031, 0)
+text = "Sliverman"
+font = ExtResource("5_vn38n")
+font_size = 100
+outline_size = 5
+
+[node name="XRToolsSnapZone" type="Area3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08814354, 0.0030649155, -0.03890933)
+script = ExtResource("5_a6m2d")
+snap_require = "Accessories"
+metadata/_custom_type_script = "uid://cquqe4f1m1sw6"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsSnapZone" index="0"]
+shape = SubResource("BoxShape3D_vn38n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsSnapZone" index="1"]
+layers = 4
+material_override = SubResource("StandardMaterial3D_17llt")
+mesh = SubResource("BoxMesh_a6m2d")

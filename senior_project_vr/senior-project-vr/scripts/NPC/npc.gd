@@ -1,33 +1,35 @@
 extends CharacterBody3D
+class_name NPC # class_name ทำให้เราเรียก enum จากไฟล์อื่นได้
 
 # --- Animation ---
 enum State { IDLE, FOLLOWING, SLEEPING, TALKING }
 var current_state = State.TALKING
-@onready var anim_tree = $human/AnimationTree
+@onready var anim_tree = $Idle_skeletal/AnimationTree
 @onready var anim_state = anim_tree.get("parameters/playback")
 
 # --- ส่วนบทสนทนา ---
 @export_group("Dialogu UI")
 @export var player_ui: Sprite3D
 @export var player_label: Label
-@onready var npc_label = $Sprite3D/SubViewport/CenterContainer/PanelContainer/MarginContainer/Label
-@onready var npc_ui = $Sprite3D
+@onready var npc_label = $TextBox/SubViewport/CenterContainer/PanelContainer/MarginContainer/Label
+@onready var npc_ui = $TextBox
 
 @export_group("Dialogue Logic")
-@export var dialogue_resource: DialogueResource
+@export var dialogue_resource: Array[DialogueResource]
 @export var dialogue_start_node: String = "start" # ชื่อ Label ในไฟล์ เช่น ~ start
 
 var current_step = -1
+var original_parent: Node
 
 
 # --- ส่วนการเคลื่อนที่ ---
 @export_group("Movement Settings")
 #@export var destination_node: Node3D  # ลากจุดมาร์ค (Marker3D) มาใส่ที่นี่
-@export var follow_distance : float = 2
+@export var follow_distance : float = 1
 @export var resume_distance : float = 0.5
 const ARRIVE_DISTANCE: float = 1.0 # ระยะที่ถือว่า "ถึงจุดมาร์คแล้ว"
-const SPEED: float = 10.0
-const ACCEL: float = 20.0
+const SPEED: float = 2
+const ACCEL: float = 10.0
 var player_node: Node3D
 var has_reached_marker: bool = false
 var last_target_pos: Vector3 = Vector3.ZERO
@@ -92,67 +94,53 @@ func check_if_arrived_at_bed():
 	#print(dist_to_bed)
 
 func snap_to_bed():
-	print("NPC: กำลังจัดท่านอนและล็อคตัวกับเตียง...")
-	velocity = Vector3.ZERO
+	if current_state != State.SLEEPING: return
+	
+	print("NPC: กำลังนอน...")
+	# ปิดการเดินแน่นอน
+	can_follow = false 
 	if movement_comp:
 		movement_comp.stop_following()
 
+	# ย้ายไปเป็นลูกของเตียง (ทำครั้งเดียวพอ)
 	reparent(bed_marker, true)
-	position = Vector3.ZERO
-	rotation = Vector3.ZERO
 	
+	# ใช้ Tween เพื่อให้การ "นอน" ดูสมูท ไม่วาร์ป
+	var tween = create_tween()
+	tween.tween_property(self, "transform", Transform3D.IDENTITY, 0.5) # วางตำแหน่ง/หมุนให้ตรงกับ Marker
+	
+	attach_all_to_bed()
 	if npc_ui: npc_ui.hide()
-	print("NPC: ตอนนี้ติดไปกับเตียงแล้ว!")
 	anim_state.travel("sleeping")
 
 
-# --- NPC ลุกขึ้นจากเตียง ---
-func wake_up():
-	print("NPC: กำลังลุกจากเตียง...")
-	if current_state != State.SLEEPING: return 
-	
-	# 1. ย้าย NPC ออกจากการเป็นลูกของเตียงก่อน (สำคัญมาก!)
-	reparent(get_tree().current_scene, true)
-	
-	# 2. คำนวณจุดยืน (ข้างๆ เตียง)
-	var stand_up_pos = global_position + (global_transform.basis.x * 1.5) 
-	var tween = create_tween().set_parallel(true) # ให้หมุนและย้ายพร้อมกัน
-	tween.tween_property(self, "global_rotation_degrees", Vector3.ZERO, 1.0)
-	tween.tween_property(self, "global_position", stand_up_pos, 1.0)
-	
-	await tween.finished
-	
-	# 3. เรียกใช้ Logic การกลับมาเดิน (เรียกฟังก์ชันเดิมที่คุณมี)
-	current_state = State.FOLLOWING
-	if movement_comp:
-		movement_comp.can_follow = true
-		#movement_comp.set_physics_process(true)
-	if npc_ui: npc_ui.show()
-	anim_state.travel("idle")
 
-
-func add_object_to_list(obj: Node3D):
-	if not attached_objects.has(obj):
-		attached_objects.append(obj)
-		print("เพิ่ม ", obj.name, " เข้ารายการเตรียมยึด")
-		
 func attach_all_to_bed():
 	for obj in attached_objects:
-		if is_instance_valid(obj): # เช็คว่าวัตถุยังอยู่ในเกมไหม (ไม่ถูกลบไปก่อน)
-			# 1. หยุดฟิสิกส์ (ถ้ามี)
-			if obj is RigidBody3D:
-				obj.freeze = true
-			elif obj is CharacterBody3D:
-				# ถ้าเป็น NPC ให้สั่งหยุดเดินผ่านสคริปต์ของมัน
-				if obj.has_method("snap_to_bed"): 
-					obj.snap_to_bed() 
+		if is_instance_valid(obj) and obj != self: # ตรวจสอบว่า obj ไม่ใช่ตัวเองก่อนสั่ง
+			if is_instance_valid(obj): # เช็คว่าวัตถุยังอยู่ในเกมไหม (ไม่ถูกลบไปก่อน)
+				# 1. หยุดฟิสิกส์ (ถ้ามี)
+				if obj is RigidBody3D:
+					obj.freeze = true
+				elif obj is CharacterBody3D:
+					# ถ้าเป็น NPC ให้สั่งหยุดเดินผ่านสคริปต์ของมัน
+					if obj.has_method("snap_to_bed"): 
+						obj.snap_to_bed() 
 
-			# 2. เปลี่ยนพ่อแม่มาเป็นเตียง
-			obj.reparent(bed_marker, true)
-			
-			# 3. (Optional) จัดตำแหน่งของแต่ละชิ้น
-			# ถ้าไม่อยากให้ของทับกันที่จุดเดียว อาจจะไม่ต้องเซต position = 0
-			print("ยึด ", obj.name, " ติดกับเตียงเรียบร้อย")
+				# 2. เปลี่ยนพ่อแม่มาเป็นเตียง
+				obj.reparent(bed_marker, true)
+				
+				# 3. (Optional) จัดตำแหน่งของแต่ละชิ้น
+				# ถ้าไม่อยากให้ของทับกันที่จุดเดียว อาจจะไม่ต้องเซต position = 0
+				print("ยึด ", obj.name, " ติดกับเตียงเรียบร้อย")
+
+
+# ฟังก์ชันที่จะถูกเรียกหลังจากสแกนเสร็จ
+func start_post_scan_sequence():
+	# 1. ลุกจากเตียง
+	await movement_comp.wake_up()
 	
-	# หลังจากยึดหมดแล้ว อาจจะเคลียร์รายการออกก็ได้ถ้าต้องการ
-	# attached_objects.clear()
+	# 2. เริ่มคุยโดยใช้ไฟล์ Index ที่ 1 และไปที่ Label "~ after_scan"
+	if dialogue_comp:
+		# ระบุ (Index, Label)
+		dialogue_comp.start_specific_dialogue(1, "after_scan")

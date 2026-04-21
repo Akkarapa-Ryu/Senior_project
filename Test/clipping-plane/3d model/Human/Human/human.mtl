@@ -1,0 +1,256 @@
+newmtl MaleHumanAnatomy_Scanline:Body_Eyelashes
+illum 4
+Kd 0.17 0.14 0.14
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Body_Head
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Head_diffuse.jpg
+map_Ka Head_diffuse.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Body_InnerEyes
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Head_diffuse.jpg
+map_Ka Head_diffuse.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Body_NoGenitals1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd BodyNoGenitals_diffuse.jpg
+map_Ka BodyNoGenitals_diffuse.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Body_OuterEyes
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 0.00 0.00 0.00
+Ni 1.50
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl MaleHumanAnatomy_Scanline:Circular_Heart_Lower
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Heart_diffuse.jpg
+map_Ka Heart_diffuse.jpg
+bump  -bm 0 Heart_bump.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Circular_Heart_Upper
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Heart2_diffuse.jpg
+map_Ka Heart2_diffuse.jpg
+bump  -bm 0 Heart2_bump.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Circulatory_Arteries1
+illum 4
+Kd 0.71 0.13 0.16
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Circulatory_Veins1
+illum 4
+Kd 0.19 0.44 0.74
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Digestive_System
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd DigestiveSystem_diffuse.jpg
+map_Ka DigestiveSystem_diffuse.jpg
+bump  -bm 0 DigestiveSystem_bump.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Lymphatic_System
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd LymphaticSystem_diffuse.jpg
+map_Ka LymphaticSystem_diffuse.jpg
+bump  -bm 0 LymphaticSystem_bump.jpg
+Ni 1.52
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Muscular_System
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd MuscularSystem_diffuse.jpg
+map_Ka MuscularSystem_diffuse.jpg
+bump  -bm 0 MuscularSystem_bump.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Nervous_Cerebellum1
+illum 4
+Kd 0.63 0.40 0.31
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Nervous_Cerebrum1
+illum 4
+Kd 0.94 0.82 0.71
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Nervous_Cerebrum_Multicolor1
+illum 4
+Kd 0.94 0.80 0.45
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.50
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Nervous_Cerebrum_Multicolor3
+illum 4
+Kd 0.94 0.65 0.60
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.50
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Nervous_Cerebrum_Multicolor5
+illum 4
+Kd 0.45 0.71 0.93
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.50
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Nervous_Cerebrum_Multicolor7
+illum 4
+Kd 0.64 0.75 0.53
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.50
+Ks 0.27 0.27 0.27
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Nervous_Nerves1
+illum 4
+Kd 1.00 0.89 0.27
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 30.00
+newmtl MaleHumanAnatomy_Scanline:Reproductive_System
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd ReproductiveSystem_diffuse.jpg
+map_Ka ReproductiveSystem_diffuse.jpg
+bump  -bm 0 ReproductiveSystem_bump.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Respiratory_System
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd RespiratorySystem_diffuse.jpg
+map_Ka RespiratorySystem_diffuse.jpg
+bump  -bm 0 RespiratorySystem_bump.jpg
+Ni 1.52
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Skeletal_Skeleton
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Skeleton_diffuse.jpg
+map_Ka Skeleton_diffuse.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Skeletal_Skull
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Skull_diffuse.jpg
+map_Ka Skull_diffuse.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl MaleHumanAnatomy_Scanline:Urinary_System
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd UrinarySystem_diffuse.jpg
+map_Ka UrinarySystem_diffuse.jpg
+bump  -bm 0 UrinarySystem_bump.jpg
+Ni 1.60
+Ks 0.00 0.00 0.00
+Ns 50.00
+newmtl initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 0.00
+newmtl lambert2SG
+illum 4
+Kd 0.43 0.51 0.54
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl phong1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Body_diffuse_sRGB_ACEScg.jpg.tx
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00
+newmtl phong2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Head_diffuse.jpg
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00

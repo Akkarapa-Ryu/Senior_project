@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://be4ivl0bp6sab"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_f81om"]
+[ext_resource type="ArrayMesh" uid="uid://b6wbyxkjeervi" path="res://3d model/Equipment/Bar.obj" id="2_em3od"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="3_trtx4"]
+[ext_resource type="Script" uid="uid://0b7wkxi4vymb" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_b2bsv"]
+[ext_resource type="FontFile" uid="uid://b8s8wlcf2rd3u" path="res://fonts/07-TH-Sarabun-PSK/THSarabun.ttf" id="5_70ra6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trtx4"]
+size = Vector3(0.615, 0.04, 0.065)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70ra6"]
+albedo_color = Color(1, 0.6509804, 0.15686275, 1)
+
+[node name="Bar" groups=["bar", "equipment"] instance=ExtResource("1_f81om")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = ExtResource("2_em3od")
+
+[node name="CollisionShape3D" parent="." index="1"]
+shape = SubResource("BoxShape3D_trtx4")
+
+[node name="GrabPointSnap" parent="." index="2" instance=ExtResource("3_trtx4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00019975379, 0)
+visible = true
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="3"]
+script = ExtResource("4_b2bsv")
+metadata/_custom_type_script = "uid://0b7wkxi4vymb"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_70ra6")
+mesh = ExtResource("2_em3od")
+
+[node name="Label3D" type="Label3D" parent="XRToolsHighlightVisible" index="1"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.03975936, 0)
+text = "Bar"
+font = ExtResource("5_70ra6")
+font_size = 100
+outline_size = 5
+autowrap_mode = 3

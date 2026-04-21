@@ -22,7 +22,7 @@ signal interacted_move_target()
 
 @export_group("Movement Logic")
 @export var move_direction: Vector3 = Vector3.ZERO # เลือกทิศทาง (เช่น ขึ้น: 0,1,0 | ลง: 0,-1,0 | ซ้าย: -1,0,0 | ขวา: 1,0,0)
-@export var step_distance: float = 0.1 # ระยะทางในการกดแต่ละครั้ง
+@export var step_distance: float = 0.015 # ระยะทางในการกดแต่ละครั้ง
 @export var duration: float = 0.1 # ความเร็วในการเคลื่อนที่ (วินาที)
 
 @export_group("Limits (Optional)")
@@ -30,7 +30,7 @@ signal interacted_move_target()
 @export var max_height: float = 5.0
 @export var min_height: float = 0.0
 
-@onready var NPC = $"../../NPC"
+@onready var NPC_Node = $"../../NPC"
 
 func _ready() -> void:
 	update_label_text()
@@ -47,7 +47,7 @@ func interact_move_target(_body):
 	move_target()
 
 func move_target():
-	NPC.attach_all_to_bed()
+	NPC_Node.attach_all_to_bed()
 	
 	var tween = create_tween().set_parallel(true)
 	

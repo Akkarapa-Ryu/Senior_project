@@ -2,8 +2,8 @@ extends CharacterBody3D
 
 # ส่วนนี้มาจาก Gemini ------------------------------
 # การขยับของ player
-const SPEED = 10.0
-const JUMP_VELOCITY = 6.5
+const SPEED = 2.0
+const JUMP_VELOCITY = 3.0
 const MOUSE_SENSITIVITY = 0.002 # ความเร็วในการหันเมาส์
 
 @onready var camera = $Camera3D

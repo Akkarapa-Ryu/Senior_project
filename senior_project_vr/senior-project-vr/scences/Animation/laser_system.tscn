@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://delv17eccnu8b"]
+
+[sub_resource type="Gradient" id="Gradient_yp1s0"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cvh0v"]
+gradient = SubResource("Gradient_yp1s0")
+width = 1
+height = 1
+
+[node name="LaserSystem" type="Node3D"]
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Decal_Y" type="Decal" parent="Pivot"]
+layers = 4
+size = Vector3(5, 0.005, 5)
+texture_albedo = SubResource("GradientTexture2D_cvh0v")
+
+[node name="Decal_X" type="Decal" parent="Pivot"]
+layers = 4
+size = Vector3(0.005, 5, 5)
+texture_albedo = SubResource("GradientTexture2D_cvh0v")
+
+[node name="Decal_Z" type="Decal" parent="Pivot"]
+layers = 4
+size = Vector3(5, 5, 0.005)
+texture_albedo = SubResource("GradientTexture2D_cvh0v")
