@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name NPC # class_name ทำให้เราเรียก enum จากไฟล์อื่นได้
 
 # --- Animation ---
-enum State { IDLE, FOLLOWING, SLEEPING, TALKING }
+enum State { IDLE, FOLLOWING, SLEEPING, TALKING, LEAVING }
 var current_state = State.TALKING
 @onready var anim_tree = $Idle_skeletal/AnimationTree
 @onready var anim_state = anim_tree.get("parameters/playback")
@@ -27,7 +27,7 @@ var original_parent: Node
 #@export var destination_node: Node3D  # ลากจุดมาร์ค (Marker3D) มาใส่ที่นี่
 @export var follow_distance : float = 1
 @export var resume_distance : float = 0.5
-const ARRIVE_DISTANCE: float = 1.0 # ระยะที่ถือว่า "ถึงจุดมาร์คแล้ว"
+#const ARRIVE_DISTANCE: float = 1.0 # ระยะที่ถือว่า "ถึงจุดมาร์คแล้ว"
 const SPEED: float = 2
 const ACCEL: float = 10.0
 var player_node: Node3D
@@ -38,9 +38,10 @@ var last_target_pos: Vector3 = Vector3.ZERO
 # --- NPC นอนงลบนเตียง ---
 @export var player: Node3D
 @export var bed_marker: Marker3D
-@onready var nav_agent = $NavigationAgent3D
-const ARRIVE_DISTANCE_bed: float = 1 # ระยะที่ถือว่า "ถึงจุดมาร์คแล้ว"
-#@onready var anim_player = $AnimatableBody3D
+#@onready var nav_agent = $NavigationAgent3D
+const ARRIVE_DISTANCE_bed: float = 2 # ระยะที่ถือว่า "ถึงจุดมาร์คแล้ว"
+
+
 
 # --- obj ที่จะขัยไปด้วยเมื่อวางที่เตียง ---
 @export var attached_objects: Array[Node3D]

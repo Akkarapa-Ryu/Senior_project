@@ -5,14 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="3_trtx4"]
 [ext_resource type="Script" uid="uid://0b7wkxi4vymb" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_b2bsv"]
 [ext_resource type="FontFile" uid="uid://b8s8wlcf2rd3u" path="res://fonts/07-TH-Sarabun-PSK/THSarabun.ttf" id="5_70ra6"]
+[ext_resource type="Material" uid="uid://df86irxxhljcg" path="res://materials/equipment_highlight.tres" id="5_rs6di"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_trtx4"]
 size = Vector3(0.615, 0.04, 0.065)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70ra6"]
-albedo_color = Color(1, 0.6509804, 0.15686275, 1)
-
-[node name="Bar" groups=["bar", "equipment"] instance=ExtResource("1_f81om")]
+[node name="Bar" groups=["bar", "equipment", "resettable"] instance=ExtResource("1_f81om")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
@@ -31,11 +29,14 @@ metadata/_custom_type_script = "uid://0b7wkxi4vymb"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_70ra6")
+layers = 4
+material_override = ExtResource("5_rs6di")
 mesh = ExtResource("2_em3od")
 
 [node name="Label3D" type="Label3D" parent="XRToolsHighlightVisible" index="1"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.03975936, 0)
+layers = 4
+billboard = 1
 text = "Bar"
 font = ExtResource("5_70ra6")
 font_size = 100

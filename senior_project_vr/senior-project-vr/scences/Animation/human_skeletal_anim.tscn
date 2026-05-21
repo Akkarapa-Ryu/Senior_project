@@ -1,20 +1,20 @@
-[gd_scene load_steps=28 format=3 uid="uid://chwi7fy03vlhy"]
+[gd_scene load_steps=25 format=3 uid="uid://chwi7fy03vlhy"]
 
 [ext_resource type="PackedScene" uid="uid://dfiarjmyhw82g" path="res://animation/Idle_skeletal.fbx" id="1_lsryi"]
 [ext_resource type="Texture2D" uid="uid://bt6rmpdm8dm2n" path="res://3d model/Human/Human/Skull_diffuse.jpg" id="2_0qofj"]
+[ext_resource type="Shader" uid="uid://c1fi7p3dev85l" path="res://shader/skeleton_shader.gdshader" id="2_3m01r"]
 [ext_resource type="Texture2D" uid="uid://blgiyn18uxe63" path="res://3d model/Human/Human/Skeleton_diffuse.jpg" id="2_24f3j"]
 [ext_resource type="Shader" uid="uid://dobap70kn3q6h" path="res://shader/scanning_shader.gdshader" id="2_vd347"]
 [ext_resource type="Texture2D" uid="uid://sjy6yx7qo0dy" path="res://3d model/Human/Human/Head_diffuse.jpg" id="4_0qofj"]
-[ext_resource type="Texture2D" uid="uid://blf6u0ty7l63c" path="res://3d model/Human/Human/BodyNoGenitals_diffuse.jpg" id="5_0qofj"]
-[ext_resource type="Script" uid="uid://f15ch657p1ff" path="res://scripts/UI/DropPoint_area_3d.gd" id="7_3m01r"]
+[ext_resource type="Material" uid="uid://mk7amff017l8" path="res://materials/Body_Head_NPC.tres" id="6_8qb2g"]
+[ext_resource type="Material" uid="uid://blhqj0kn3dnqk" path="res://materials/Body_NPC.tres" id="7_3m01r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_77fpv"]
 render_priority = 0
-shader = ExtResource("2_vd347")
-shader_parameter/scan_color = Color(0.4817894, 0.48178953, 0.4817894, 1)
-shader_parameter/intensity = 4.0
-shader_parameter/softness = 0.8
-shader_parameter/transparency_level = 0.4
+shader = ExtResource("2_3m01r")
+shader_parameter/bone_color = Color(0.51, 0.51, 0.51, 0.84313726)
+shader_parameter/brightness = 1.2
+shader_parameter/opacity = 0.7930000376675
 shader_parameter/is_slicing = false
 shader_parameter/slice_normal = Vector3(0, 0, 1)
 shader_parameter/slice_dist = 0.0
@@ -29,23 +29,16 @@ albedo_texture = ExtResource("2_0qofj")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vd347"]
 render_priority = 0
 shader = ExtResource("2_vd347")
-shader_parameter/scan_color = Color(0.3, 0.3, 0.3, 1)
-shader_parameter/intensity = 4.0
-shader_parameter/softness = 0.8
-shader_parameter/transparency_level = 0.7
+shader_parameter/organ_color = Color(0.23673508, 0.2845093, 0.29101494, 1)
+shader_parameter/noise_scale = 25.0
+shader_parameter/transparency = 0.6
 shader_parameter/is_slicing = false
 shader_parameter/slice_normal = Vector3(0, 1, 0)
 shader_parameter/slice_dist = 0.0
 shader_parameter/edge_thickness = 0.02
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rd1m"]
-albedo_color = Color(0.27058825, 0, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3m01r"]
-albedo_texture = ExtResource("4_0qofj")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0tpwk"]
-albedo_texture = ExtResource("5_0qofj")
+albedo_color = Color(0.15294118, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qb2g"]
 albedo_texture = ExtResource("4_0qofj")
@@ -1522,12 +1515,6 @@ states/sleeping_crookedly/position = Vector2(497, 167)
 states/walking/node = SubResource("AnimationNodeAnimation_uf7b8")
 states/walking/position = Vector2(742, 51)
 
-[sub_resource type="BoxMesh" id="BoxMesh_8qb2g"]
-size = Vector3(0.1, 0.1, 0.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0tpwk"]
-size = Vector3(1.315, 0.61, 0.62)
-
 [node name="Idle_skeletal" instance=ExtResource("1_lsryi")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
@@ -1554,7 +1541,7 @@ bones/49/rotation = Quaternion(-0.06940405, 2.5911877e-26, -6.955667e-18, 0.9975
 bones/52/rotation = Quaternion(0.010221499, -6.939257e-18, -6.939257e-18, 0.9999477)
 bones/53/rotation = Quaternion(-0.050568186, -1.3895567e-17, -1.0421676e-17, 0.9987206)
 
-[node name="Skeletal_Radius" parent="Skeleton3D" index="0"]
+[node name="Skeletal_Radius" parent="Skeleton3D" index="0" groups=["radius"]]
 material_override = SubResource("ShaderMaterial_77fpv")
 surface_material_override/0 = SubResource("StandardMaterial3D_jnxkh")
 surface_material_override/1 = SubResource("StandardMaterial3D_77fpv")
@@ -1568,8 +1555,8 @@ surface_material_override/1 = SubResource("StandardMaterial3D_8rd1m")
 
 [node name="Body_NoGenitals" parent="Skeleton3D" index="3"]
 layers = 4
-surface_material_override/0 = SubResource("StandardMaterial3D_3m01r")
-surface_material_override/1 = SubResource("StandardMaterial3D_0tpwk")
+surface_material_override/0 = ExtResource("6_8qb2g")
+surface_material_override/1 = ExtResource("7_3m01r")
 
 [node name="Body_InnerEyes1" parent="Skeleton3D" index="4"]
 layers = 4
@@ -1583,26 +1570,3 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="." index="5"]
 tree_root = SubResource("AnimationNodeStateMachine_24f3j")
 anim_player = NodePath("../AnimationPlayer")
-
-[node name="DropPoint" type="Node3D" parent="." index="6"]
-transform = Transform3D(-0.1, 8.742278e-09, 3.8213711e-16, 0, -4.371139e-09, 0.1, 8.742278e-09, 0.1, 4.371139e-09, -8.9291063e-10, 1.632, -0.095213704)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DropPoint" index="0"]
-transform = Transform3D(4, 0, 0, 0, 0.5, 0, 0, 0, 4, 0, 0, 0)
-layers = 3
-mesh = SubResource("BoxMesh_8qb2g")
-
-[node name="Area3D" type="Area3D" parent="DropPoint" index="1" node_paths=PackedStringArray("snap_pos")]
-collision_layer = 16390
-collision_mask = 3
-script = ExtResource("7_3m01r")
-snap_pos = NodePath("../HumanPoint")
-accepted_group = "mask"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DropPoint/Area3D" index="0"]
-transform = Transform3D(1, 0, -8.4703295e-22, 0, 1, 0, -1.2281978e-19, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_0tpwk")
-
-[node name="HumanPoint" type="Marker3D" parent="DropPoint" index="2"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, -0.12, 0)
-gizmo_extents = 2.0
