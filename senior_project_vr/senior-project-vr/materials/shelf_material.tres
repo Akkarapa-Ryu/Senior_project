@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://2fcaxkpdpss3"]
+
+[ext_resource type="Texture2D" uid="uid://drpuwde7ux33b" path="res://Texture/Wood006_1K-JPG/Wood006_1K-JPG_Color.jpg" id="1_kxm0y"]
+[ext_resource type="Texture2D" uid="uid://c8gxfnnd65gxi" path="res://Texture/Wood051_1K-JPG/Wood051_1K-JPG_Displacement.jpg" id="2_rv6xm"]
+[ext_resource type="Texture2D" uid="uid://dr76cswgy3abr" path="res://Texture/Wood006_1K-JPG/Wood006_1K-JPG_NormalDX.jpg" id="3_rv6xm"]
+[ext_resource type="Texture2D" uid="uid://dvjrml0qlhnu" path="res://Texture/Wood006_1K-JPG/Wood006_1K-JPG_Roughness.jpg" id="4_aiu1n"]
+
+[resource]
+albedo_texture = ExtResource("1_kxm0y")
+roughness_texture = ExtResource("4_aiu1n")
+normal_enabled = true
+normal_texture = ExtResource("3_rv6xm")
+rim = 0.0
+ao_enabled = true
+heightmap_texture = ExtResource("2_rv6xm")
+backlight = Color(0.7919991, 0.79199916, 0.7919991, 1)
+uv1_scale = Vector3(5, 5, 5)
+texture_filter = 2
+billboard_keep_scale = true

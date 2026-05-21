@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvmxgchmm3ysm"]
+
+[ext_resource type="Material" path="res://Texture/Wood051_1K-JPG/Wood051_1K-JPG.tres" id="1_1xl7o"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_b555m"]
+
+[node name="Material_Tutorial" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_1xl7o")
+mesh = SubResource("SphereMesh_b555m")
