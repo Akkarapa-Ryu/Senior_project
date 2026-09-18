@@ -4,15 +4,17 @@ extends Node3D
 
 class_name ScanModel
 
-@export_group("UI Controls")
-@export var btn_sim: StaticBody3D
-@export var btn_scan: StaticBody3D
+#@export_group("UI Controls")
+#@export var btn_sim: StaticBody3D
+#@export var btn_scan: StaticBody3D
 
 @export_group("Model Settings")
 @export var npc_model: Node3D
 @export var total_slices: int = 48
 @export var slice_delay: float = 0.1 # ยิ่งมากยิ่งช้า (หน่วยเป็นวินาที)
-@export var skeletal: MeshInstance3D
+#@export var skeletal: MeshInstance3D
+#@onready var skeletal = $Skeleton3D/Skeletal_Radius
+var skeletal
 @export var bed_model: MeshInstance3D
 
 @export_group("Viewport & Grids")
@@ -24,9 +26,12 @@ class_name ScanModel
 @export var capture_viewport_y: SubViewport
 
 #@export_group("Frame")
-@onready var decal_x = $Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Decal_X
-@onready var decal_y = $Sprite3D/CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Decal_Y
-@onready var decal_z = $Sprite3D/CaptureSystem_x/CaptureViewport_x/CaptureCamera_x/Decal_Z
+@onready var decal_x = $CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Decal_X
+@onready var decal_y = $CaptureSystem_y/CaptureViewport_y/CaptureCamera_y/Decal_Y
+@onready var decal_z = $CaptureSystem_x/CaptureViewport_x/CaptureCamera_x/Decal_Z
+
+@export_group("Bed Position Moved")
+@export var bed_pos_x: float = 0.0
 
 
 var materials = []
@@ -34,6 +39,12 @@ var is_scanning = false
 var original_bed_pos: Vector3 # ตัวแปรเก็บตำแหน่งเริ่มต้นของเตียง
 
 func _ready() -> void:
+	skeletal = get_tree().get_first_node_in_group("radius")
+	if skeletal != null:
+		#skeletal.visible = false
+		pass
+	else:
+		print("Error: หาโหนดในกลุ่ม target_radius ไม่เจอ!")
 	# ค้นหา Material แบบละเอียด (ลึกแค่ไหนก็เจอ)
 	if npc_model:
 		_find_materials_recursive(npc_model)
@@ -42,7 +53,7 @@ func _ready() -> void:
 	decal_x.visible = false
 	decal_y.visible = false
 	decal_z.visible = false
-	skeletal.visible = true
+	#skeletal.visible = true
 
 # ฟังก์ชันช่วยหา Material ในลูกหลานทุกชั้น
 func _find_materials_recursive(node: Node):
@@ -71,7 +82,8 @@ func scout_model():
 	print("1. กำลังเลื่อนเตียงเข้าตำแหน่ง (X)...")
 	decal_x.show() # เปิด Decal X
 	decal_z.show()
-	await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, -0.3))
+	#await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, -0.3))
+	await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, bed_pos_x))
 	
 	print("2. บันทึกภาพ CaptureCamera_x...")
 	# สั่งให้ Viewport อัปเดตแค่เฟรมเดียว (เหมือนการกดชัตเตอร์)
@@ -89,7 +101,8 @@ func scout_model():
 	print("4. กำลังเลื่อนเตียงเข้าตำแหน่ง (Y)...")
 	decal_y.show()
 	decal_x.show() # เปิด Decal Y
-	await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, -0.3))
+	#await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, -0.3))
+	await move_bed(Vector3(original_bed_pos.x, original_bed_pos.y, bed_pos_x))
 	
 	print("5. บันทึกภาพ CaptureCamera_y...")
 	capture_viewport_y.render_target_update_mode = SubViewport.UPDATE_ONCE
@@ -110,7 +123,7 @@ func move_bed(target_pos: Vector3) -> Signal:
 # --- Scout ---
 
 
-#--- Simulation ---
+#--- CT scan / Simulation ---
 func scan_model():
 	if materials.is_empty() or is_scanning:
 		return
@@ -128,14 +141,15 @@ func scan_model():
 	for n in grid_x.get_children(): n.queue_free()
 	for n in grid_y.get_children(): n.queue_free()
 
-	skeletal.visible = false
+	#skeletal.visible = false
 	# เปิดโหมด Slicing
 	for mat in materials:
 		mat.set_shader_parameter("is_slicing", true)
 
 	# --- สแกนแกน X (Side View) ---
-	print("_run_scan_loop: X")
-	await _run_scan_loop(Vector3(-1, 0, 0), combined_aabb.position.x, combined_aabb.end.x, viewport_x, grid_x)
+	print("capture_single_slice: X")
+	#await _run_scan_loop(Vector3(-1, 0, 0), combined_aabb.position.x, combined_aabb.end.x, viewport_x, grid_x)
+	await capture_single_slice(Vector3(-1, 0, 0), 0.05, viewport_x, grid_x)
 	
 	# --- wait a minite for start ---
 	#await get_tree().create_timer(5).timeout
@@ -145,13 +159,14 @@ func scan_model():
 		await get_tree().create_timer(1.0).timeout
 	
 	# --- สแกนแกน Z (Front View) ---
-	print("_run_scan_loop: Z")
-	await _run_scan_loop(Vector3(0, 0, 1), combined_aabb.position.z, combined_aabb.end.z, viewport_y, grid_y)
+	print("capture_single_slice: Z")
+	#await _run_scan_loop(Vector3(0, 0, 1), combined_aabb.position.z, combined_aabb.end.z, viewport_y, grid_y)
+	await capture_single_slice(Vector3(0, 0, 1), 0.05 , viewport_y, grid_y)
 	
 	# ปิดโหมด Slicing
 	for mat in materials:
 		mat.set_shader_parameter("is_slicing", false)
-	skeletal.visible = true
+	#skeletal.visible = true
 	
 	is_scanning = false
 	print("การสแกนเสร็จสมบูรณ์")
@@ -219,4 +234,36 @@ func _capture_to_grid(vp, grid):
 		rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		rect.custom_minimum_size = Vector2(150, 150)
 		grid.add_child(rect)
+
+# ฟังก์ชันสำหรับสแกนเพียงแผ่นเดียว
+func capture_single_slice(axis: Vector3, dist_value: float, viewport: SubViewport, grid_target: Control):
+	# 1. ตั้งค่า Shader ให้ตัด ณ จุดที่กำหนด
+	for mat in materials:
+		mat.set_shader_parameter("is_slicing", true)
+		mat.set_shader_parameter("slice_normal", axis)
+		mat.set_shader_parameter("slice_dist", dist_value)
+	
+	# 2. เคลียร์ Grid เก่า (ถ้าต้องการให้เหลือภาพเดียวตลอด)
+	for n in grid_target.get_children():
+		n.queue_free()
+	
+	# 3. สั่งให้ Viewport อัปเดตภาพ (Render)
+	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	
+	# รอให้ GPU วาดภาพเสร็จ 1 เฟรม
+	await get_tree().process_frame
+	
+	# 4. ดึงภาพจาก Viewport มาแสดงใน UI
+	var tex = viewport.get_texture()
+	var img = tex.get_image()
+	var new_tex = ImageTexture.create_from_image(img)
+	
+	var rect = TextureRect.new()
+	rect.texture = new_tex
+	rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	rect.custom_minimum_size = Vector2(256, 256) # ปรับขนาดตามต้องการ
+	
+	grid_target.add_child(rect)
+	
+	print("สแกนภาพที่ตำแหน่ง ", dist_value, " เสร็จแล้ว")
 # --- Simulation ---

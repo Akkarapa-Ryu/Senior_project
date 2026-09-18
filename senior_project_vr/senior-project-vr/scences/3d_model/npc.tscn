@@ -1,9 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5qeg0e46jl6i"]
+[gd_scene load_steps=13 format=3 uid="uid://b5qeg0e46jl6i"]
 
 [ext_resource type="Script" uid="uid://b5s5kds54tvfg" path="res://scripts/NPC/npc.gd" id="1_hrr7t"]
 [ext_resource type="Script" uid="uid://cklll18j8eov1" path="res://scripts/NPC/npc_movement.gd" id="1_puqyl"]
+[ext_resource type="Script" uid="uid://dbs4435dsf3ry" path="res://addons/dialogue_manager/dialogue_resource.gd" id="2_cmrad"]
 [ext_resource type="FontFile" uid="uid://dkv204q8caigc" path="res://fonts/07-TH-Sarabun-PSK/THSarabun Bold.ttf" id="2_dyoqb"]
+[ext_resource type="Resource" uid="uid://dq2qjlt6oqmds" path="res://dialogue/before_CTroom.dialogue" id="3_ri8yh"]
 [ext_resource type="Script" uid="uid://d16jj88frv10k" path="res://scripts/NPC/npc_dialogue.gd" id="4_g1s3y"]
+[ext_resource type="Resource" uid="uid://cu624r1fawnu2" path="res://dialogue/in_CTroom.dialogue" id="4_nhl5v"]
+[ext_resource type="Resource" uid="uid://duyxipkoyyijq" path="res://dialogue/after_CTroom.dialogue" id="5_ylby8"]
 [ext_resource type="PackedScene" uid="uid://chwi7fy03vlhy" path="res://scences/Animation/human_skeletal_anim.tscn" id="6_qy2th"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g1s3y"]
@@ -21,10 +25,11 @@ content_margin_bottom = 5.0
 bg_color = Color(0.34915653, 0.21809998, 0.16317022, 1)
 corner_detail = 10
 
-[node name="NPC" type="CharacterBody3D"]
+[node name="NPC" type="CharacterBody3D" groups=["npc"]]
 collision_layer = 4
 collision_mask = 16899
 script = ExtResource("1_hrr7t")
+dialogue_resource = Array[ExtResource("2_cmrad")]([ExtResource("3_ri8yh"), ExtResource("4_nhl5v"), ExtResource("5_ylby8")])
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 0.5
@@ -32,7 +37,6 @@ target_desired_distance = 0.5
 path_postprocessing = 1
 avoidance_layers = 5
 avoidance_mask = 5
-debug_enabled = true
 
 [node name="DialogueComponent" type="Node3D" parent="."]
 script = ExtResource("4_g1s3y")
@@ -45,7 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9086181, 0.061897516)
 shape = SubResource("CapsuleShape3D_g1s3y")
 
 [node name="TextBox" type="Sprite3D" parent="."]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.7, 1.4, 0.6)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.5258015, 1.5822861, -0.02452673)
 visible = false
 billboard = 1
 shaded = true
@@ -71,10 +75,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qy2th")
 layout_mode = 2
 
 [node name="Label" type="Label" parent="TextBox/SubViewport/CenterContainer/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dyoqb")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 100
 text = "Hello Player"
 horizontal_alignment = 1
 vertical_alignment = 1

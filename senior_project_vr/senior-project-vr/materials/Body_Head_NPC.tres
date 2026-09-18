@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://mk7amff017l8"]
+
+[ext_resource type="Texture2D" uid="uid://sjy6yx7qo0dy" path="res://3d model/Human/Human/Head_diffuse.jpg" id="1_x4ayg"]
+[ext_resource type="Texture2D" uid="uid://binjms67j8gxe" path="res://3d model/Human/Human/Head_normal.jpg" id="2_07oh6"]
+
+[resource]
+albedo_texture = ExtResource("1_x4ayg")
+roughness_texture_channel = 3
+normal_enabled = true
+normal_texture = ExtResource("2_07oh6")
+ao_enabled = true
+backlight_enabled = true
+backlight = Color(0.6789437, 0.6789437, 0.6789437, 1)
+texture_filter = 2

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="senior_project_vr"
-run/main_scene="uid://bsv1ecrcfh1mp"
+run/main_scene="uid://bkqs85aehrfrt"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -31,6 +31,10 @@ window/stretch/mode="canvas_items"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

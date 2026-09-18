@@ -142,7 +142,7 @@ size = Vector3(1, 20.947021, 9.09967)
 [sub_resource type="BoxShape3D" id="BoxShape3D_y7rbp"]
 size = Vector3(1, 20.947021, 9.09967)
 
-[node name="Door" type="Node3D" node_paths=PackedStringArray("animation_player") groups=["doors", "interactable_buttons"]]
+[node name="Door" type="Node3D" node_paths=PackedStringArray("animation_player")]
 script = ExtResource("1_ba7xd")
 open_animation = "open_door"
 close_animation = "close_door"
@@ -162,7 +162,7 @@ libraries = {
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_R" groups=["doors", "interactable_buttons"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_R"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.98999, 0)
 shape = SubResource("CylinderShape3D_6mxr4")
 
@@ -171,7 +171,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_L" groups=["doors", "interactable_buttons"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea_L"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.98999, 0)
 shape = SubResource("CylinderShape3D_6mxr4")
 

@@ -4,6 +4,7 @@ extends Node3D
 @onready var nav_agent = $"../NavigationAgent3D"
 
 var player_node: Node3D
+const ROTATION_SPEED = 15.0 # กำหนดความเร็วในการหันหน้า (ปรับตามใจชอบ ยิ่งมากยิ่งหันไว)
 
 func _ready() -> void:
 	await get_tree().process_frame # รอให้ Group พร้อมใช้งาน
@@ -62,7 +63,12 @@ func movement_logic(delta: float):
 		# หันหน้าไปหาทิศที่จะเดิน
 		var look_target = Vector3(next_path_pos.x, npc_main.global_position.y, next_path_pos.z)
 		if npc_main.global_position.distance_to(look_target) > 0.1:
-			npc_main.look_at(look_target, Vector3.UP)
+			# 1. สร้าง "เป้าหมาย" ว่าถ้าหันไปสุดจะเป็น Transform แบบไหน
+			var target_transform = npc_main.global_transform.looking_at(look_target, Vector3.UP)
+			
+			# 2. ค่อยๆ ปรับ Transform ปัจจุบันไปหาเป้าหมายด้วย interpolate_with
+			# ใช้ delta เพื่อให้ความเร็วคงที่ตาม Frame rate
+			npc_main.global_transform = npc_main.global_transform.interpolate_with(target_transform, ROTATION_SPEED * delta)
 
 	npc_main.move_and_slide()
 	print("target:", player_node.global_position)
