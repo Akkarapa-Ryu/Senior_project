@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
 
 [xr]
 
@@ -26,3 +26,4 @@ openxr/enabled=true
 openxr/extensions/hand_tracking=true
 openxr/extensions/render_model=true
 shaders/enabled=true
+openxr/extensions/meta/color_space/starting_color_space=3
